@@ -20,6 +20,7 @@ function getRowClass(goal: Goal) {
 const headers = ["slug", "limsumdays", "title"];
 const params = new URLSearchParams(location.search);
 const accessToken = params.get("access_token") || "";
+const user = params.get("username") || "";
 
 export function Table({
   goals = [],
@@ -57,9 +58,21 @@ export function Table({
       <tbody>
         {goals.map((g: Goal) => (
           <tr class={getRowClass(g)}>
-            {headers.map((h: string) => (
-              <td>{formatValue(g[h])}</td>
-            ))}
+            {headers.map((h: string) => {
+              const v = formatValue(g[h]);
+              if (h === "slug")
+                return (
+                  <td>
+                    <a
+                      href={`https://beeminder.com/${user}/${v}`}
+                      target="_blank"
+                    >
+                      {v}
+                    </a>
+                  </td>
+                );
+              return <td>{v}</td>;
+            })}
             <td>
               {g.autodata ? (
                 <button
