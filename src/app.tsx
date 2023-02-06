@@ -8,7 +8,7 @@ import "./app.css";
 import { Table } from "./table";
 
 const clientId = import.meta.env.VITE_BM_CLIENT_ID;
-const redirectUri = "http://localhost:5174/";
+const redirectUri = import.meta.env.VITE_BM_REDIRECT_URI;
 const authUrl = `https://www.beeminder.com/apps/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`;
 const queryClient = new QueryClient();
 const params = new URLSearchParams(location.search);
