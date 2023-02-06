@@ -7,6 +7,7 @@ import { getGoals } from "./bm";
 import "./app.css";
 import { Table } from "./table";
 import { useIsFetching } from "@tanstack/react-query";
+import { useState, useCallback } from "preact/hooks";
 
 const clientId = import.meta.env.VITE_BM_CLIENT_ID;
 const redirectUri = import.meta.env.VITE_BM_REDIRECT_URI;
@@ -19,11 +20,20 @@ export type Goal = Record<string, unknown>;
 
 function _App() {
   const isFetching = useIsFetching();
-  const { data = [] } = useQuery(["goals"], () => getGoals(accessToken), {
-    enabled: !!accessToken,
-    refetchInterval: 1000 * 10,
-    refetchIntervalInBackground: false,
-  });
+  const [int, setInt] = useState(1);
+  const { data = [] } = useQuery(
+    ["goals"],
+    () => {
+      console.log("refetched after", int, "seconds");
+      setInt(Math.min(int * 2, 60));
+      return getGoals(accessToken);
+    },
+    {
+      enabled: !!accessToken,
+      refetchInterval: () => int * 1000,
+      refetchIntervalInBackground: false,
+    }
+  );
 
   if (!accessToken) return <a href={authUrl}>Login with Beeminder</a>;
 
@@ -36,13 +46,13 @@ function _App() {
       {isFetching ? <div class="loading">Loading...</div> : ""}
 
       <h1>Today</h1>
-      <Table goals={today} />
+      <Table goals={today} onMutate={() => setInt(1)} />
 
       <h1>Next</h1>
-      <Table goals={next} />
+      <Table goals={next} onMutate={() => setInt(1)} />
 
       <h1>Later</h1>
-      <Table goals={later} />
+      <Table goals={later} onMutate={() => setInt(1)} />
 
       <br />
       <small>

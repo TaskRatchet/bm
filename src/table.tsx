@@ -21,7 +21,13 @@ const headers = ["slug", "limsumdays", "title"];
 const params = new URLSearchParams(location.search);
 const accessToken = params.get("access_token") || "";
 
-export function Table({ goals = [] }: { goals: Goal[] }) {
+export function Table({
+  goals = [],
+  onMutate = () => undefined,
+}: {
+  goals: Goal[];
+  onMutate: () => void;
+}) {
   const queryClient = useQueryClient();
 
   goals.sort((a, b) => {
@@ -59,9 +65,7 @@ export function Table({ goals = [] }: { goals: Goal[] }) {
                 <button
                   class="icon-button"
                   onClick={() =>
-                    refreshGraph(accessToken, g.slug as string).then(() =>
-                      queryClient.invalidateQueries()
-                    )
+                    refreshGraph(accessToken, g.slug as string).then(onMutate)
                   }
                 >
                   🔄
@@ -73,7 +77,7 @@ export function Table({ goals = [] }: { goals: Goal[] }) {
                     e.preventDefault();
                     const value = e.currentTarget.value.value;
                     createDatapoint(accessToken, g.slug as string, value).then(
-                      () => queryClient.invalidateQueries()
+                      onMutate
                     );
                   }}
                   style={{
