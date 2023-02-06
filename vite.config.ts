@@ -9,6 +9,9 @@ export default defineConfig({
     "import.meta.vitest": "undefined",
   },
   plugins: [preact()],
+  server: {
+    port: 5174,
+  },
   test: {
     environment: "happy-dom",
     setupFiles: ["./vitest.setup.ts"],

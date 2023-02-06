@@ -1,5 +1,6 @@
 import { Goal } from "./app";
 import { createDatapoint, refreshGraph } from "./bm";
+import { useQueryClient } from "@tanstack/react-query";
 
 function formatValue(value: unknown): string {
   if (typeof value === "string") return value;
@@ -21,6 +22,8 @@ const params = new URLSearchParams(location.search);
 const accessToken = params.get("access_token") || "";
 
 export function Table({ goals = [] }: { goals: Goal[] }) {
+  const queryClient = useQueryClient();
+
   goals.sort((a, b) => {
     const aLose = a.losedate;
     const bLose = b.losedate;
@@ -54,30 +57,36 @@ export function Table({ goals = [] }: { goals: Goal[] }) {
             <td>
               {g.autodata ? (
                 <button
-                  onClick={() => refreshGraph(accessToken, g.slug as string)}
+                  class="icon-button"
+                  onClick={() =>
+                    refreshGraph(accessToken, g.slug as string).then(() =>
+                      queryClient.invalidateQueries()
+                    )
+                  }
                 >
                   🔄
                 </button>
               ) : (
                 <form
+                  class="pure-form"
                   onSubmit={(e) => {
                     e.preventDefault();
                     const value = e.currentTarget.value.value;
-                    createDatapoint(accessToken, g.slug as string, value);
+                    createDatapoint(accessToken, g.slug as string, value).then(
+                      () => queryClient.invalidateQueries()
+                    );
                   }}
                   style={{
                     "white-space": "nowrap",
                   }}
                 >
                   <input
+                    class="pure-input-1-4"
                     name="value"
                     id="value"
                     type="number"
-                    style={{
-                      width: "50px",
-                    }}
                   />
-                  <input type="submit" value="✅" />
+                  <input class="icon-button" type="submit" value="✅" />
                 </form>
               )}
             </td>

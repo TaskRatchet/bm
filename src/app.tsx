@@ -3,9 +3,10 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import { getGoals, refreshGraph, createDatapoint } from "./bm";
+import { getGoals } from "./bm";
 import "./app.css";
 import { Table } from "./table";
+import { useIsFetching } from "@tanstack/react-query";
 
 const clientId = import.meta.env.VITE_BM_CLIENT_ID;
 const redirectUri = import.meta.env.VITE_BM_REDIRECT_URI;
@@ -13,19 +14,16 @@ const authUrl = `https://www.beeminder.com/apps/authorize?client_id=${clientId}&
 const queryClient = new QueryClient();
 const params = new URLSearchParams(location.search);
 const accessToken = params.get("access_token") || "";
-const headers = ["slug", "limsumdays", "title"];
 
 export type Goal = Record<string, unknown>;
 
 function _App() {
-  const { data } = useQuery(["goals"], () => getGoals(accessToken), {
+  const isFetching = useIsFetching();
+  const { data = [] } = useQuery(["goals"], () => getGoals(accessToken), {
     enabled: !!accessToken,
   });
 
   if (!accessToken) return <a href={authUrl}>Login with Beeminder</a>;
-  if (!data?.length) return <div>Loading...</div>;
-
-  console.log({ data });
 
   const today = data.filter((g: Goal) => g.safebuf === 0);
   const next = data.filter((g: Goal) => g.safebuf !== 0 && !g.todayta);
@@ -33,6 +31,8 @@ function _App() {
 
   return (
     <>
+      {isFetching ? <div class="loading">Loading...</div> : ""}
+
       <h1>Today</h1>
       <Table goals={today} />
 

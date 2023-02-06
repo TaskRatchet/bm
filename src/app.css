@@ -21,3 +21,18 @@ table {
 body {
     padding: 0 2rem 2rem 2rem;
 }
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.loading {
+    background-color: white;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
