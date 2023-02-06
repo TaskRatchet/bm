@@ -21,6 +21,8 @@ function _App() {
   const isFetching = useIsFetching();
   const { data = [] } = useQuery(["goals"], () => getGoals(accessToken), {
     enabled: !!accessToken,
+    refetchInterval: 1000 * 10,
+    refetchIntervalInBackground: false,
   });
 
   if (!accessToken) return <a href={authUrl}>Login with Beeminder</a>;
