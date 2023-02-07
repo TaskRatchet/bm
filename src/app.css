@@ -27,6 +27,7 @@ table {
   border: none;
   cursor: pointer;
   line-height: 1.5;
+  font-size: 1.5rem;
 }
 
 .loading {

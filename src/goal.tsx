@@ -1,19 +1,10 @@
 import { Goal } from "./app";
 import "./goal.css";
+import { createDatapoint, refreshGraph } from "./bm";
 
-const headers = ["slug", "limsumdays", "title"];
 const params = new URLSearchParams(location.search);
 const accessToken = params.get("access_token") || "";
 const user = params.get("username") || "";
-import { createDatapoint, refreshGraph } from "./bm";
-
-function formatValue(value: unknown): string {
-  if (typeof value === "string") return value;
-  if (typeof value === "number") return value.toString();
-  if (typeof value === "boolean") return value ? "yes" : "no";
-  if (typeof value === "object") return JSON.stringify(value);
-  return "";
-}
 
 function getBufferClass(goal: Goal) {
   const buf = goal.safebuf as number;
@@ -32,7 +23,9 @@ export default function GoalComponent({
   return (
     <div class={`goal ${getBufferClass(g)}`}>
       <div className="header">
-        <h2>{g.slug}</h2>
+        <h2>
+          <a href={`https://beeminder.com/${user}/${g.slug}`}>{g.slug}</a>
+        </h2>
         {g.autodata ? (
           <button
             class="icon-button"
