@@ -1,12 +1,7 @@
 .colors {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
   display: flex;
   height: 0.5rem;
-  border-bottom: 1px solid white;
-  z-index: 100;
+  width: 100%;
 }
 
 .red {
