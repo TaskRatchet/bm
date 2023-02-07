@@ -2,13 +2,19 @@
 import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
     "import.meta.vitest": "undefined",
   },
-  plugins: [preact()],
+  plugins: [
+    preact(),
+    VitePWA({
+      registerType: "autoUpdate",
+    }),
+  ],
   server: {
     port: 5174,
   },
