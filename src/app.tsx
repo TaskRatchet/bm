@@ -8,13 +8,12 @@ import "./app.css";
 import { Table } from "./table";
 import { useIsFetching } from "@tanstack/react-query";
 import { useState, useCallback } from "preact/hooks";
+import { ACCESS_TOKEN, logOut } from "./auth";
 
 const clientId = import.meta.env.VITE_BM_CLIENT_ID;
 const redirectUri = import.meta.env.VITE_BM_REDIRECT_URI;
 const authUrl = `https://www.beeminder.com/apps/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`;
 const queryClient = new QueryClient();
-const params = new URLSearchParams(location.search);
-const accessToken = params.get("access_token") || "";
 
 export type Goal = {
   slug: string;
@@ -34,16 +33,21 @@ function _App() {
     () => {
       console.log("refetched after", int, "seconds");
       setInt(Math.min(int * 2, 60));
-      return getGoals(accessToken);
+      return getGoals(ACCESS_TOKEN);
     },
     {
-      enabled: !!accessToken,
+      enabled: !!ACCESS_TOKEN,
       refetchInterval: () => int * 1000,
       refetchIntervalInBackground: false,
     }
   );
 
-  if (!accessToken) return <a href={authUrl}>Login with Beeminder</a>;
+  if (!ACCESS_TOKEN)
+    return (
+      <a class="login" href={authUrl}>
+        Login with Beeminder
+      </a>
+    );
 
   const today = data.filter((g: Goal) => g.safebuf === 0);
   const next = data.filter((g: Goal) => g.safebuf !== 0 && !g.todayta);
@@ -63,18 +67,23 @@ function _App() {
       <Table goals={later} onMutate={() => setInt(1)} />
 
       <small class="footer">
-        Made by{" "}
-        <a href="https://nathanarthur.com/" target="_blank">
-          Narthur
-        </a>
-        .{" "}
-        <a href="https://github.com/TaskRatchet/bm" target="_blank">
-          View source
-        </a>
-        . See also:{" "}
-        <a href="https://taskratchet.com" target="_blank">
-          TaskRatchet
-        </a>
+        <span>
+          Made by{" "}
+          <a href="https://nathanarthur.com/" target="_blank">
+            Narthur
+          </a>
+          .{" "}
+          <a href="https://github.com/TaskRatchet/bm" target="_blank">
+            View source
+          </a>
+          . See also:{" "}
+          <a href="https://taskratchet.com" target="_blank">
+            TaskRatchet
+          </a>
+        </span>
+        <span>
+          <button onClick={logOut}>Logout</button>
+        </span>
       </small>
     </>
   );
