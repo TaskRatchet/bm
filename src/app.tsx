@@ -62,10 +62,19 @@ function _App() {
       <h1>Later</h1>
       <Table goals={later} onMutate={() => setInt(1)} />
 
-      <br />
-      <small>
-        Made by <a href="https://nathanarthur.com/">Narthur</a>. See also:{" "}
-        <a href="https://taskratchet.com">TaskRatchet</a>
+      <small class="footer">
+        Made by{" "}
+        <a href="https://nathanarthur.com/" target="_blank">
+          Narthur
+        </a>
+        .{" "}
+        <a href="https://github.com/TaskRatchet/bm" target="_blank">
+          View source
+        </a>
+        . See also:{" "}
+        <a href="https://taskratchet.com" target="_blank">
+          TaskRatchet
+        </a>
       </small>
     </>
   );
