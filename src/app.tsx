@@ -10,11 +10,27 @@ import { useIsFetching } from "@tanstack/react-query";
 import { useState } from "preact/hooks";
 import { ACCESS_TOKEN, logOut } from "./auth";
 import Colors from "./colors";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { persistQueryClient } from "@tanstack/react-query-persist-client";
 
 const clientId = import.meta.env.VITE_BM_CLIENT_ID;
 const redirectUri = import.meta.env.VITE_BM_REDIRECT_URI;
 const authUrl = `https://www.beeminder.com/apps/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`;
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 1000 * 60 * 60 * 24, // 24 hours
+    },
+  },
+});
+const localStoragePersister = createSyncStoragePersister({
+  storage: window.localStorage,
+});
+
+persistQueryClient({
+  queryClient,
+  persister: localStoragePersister,
+});
 
 export type Goal = {
   slug: string;
