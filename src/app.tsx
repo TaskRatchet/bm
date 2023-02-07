@@ -16,7 +16,15 @@ const queryClient = new QueryClient();
 const params = new URLSearchParams(location.search);
 const accessToken = params.get("access_token") || "";
 
-export type Goal = Record<string, unknown>;
+export type Goal = {
+  slug: string;
+  losedate: number;
+  autodata?: string;
+  safebuf: number;
+  todayta: boolean;
+  limsum: string;
+  title: string;
+};
 
 function _App() {
   const isFetching = useIsFetching();

@@ -1,4 +1,5 @@
 import { Goal } from "./app";
+import "./goal.css";
 
 const headers = ["slug", "limsumdays", "title"];
 const params = new URLSearchParams(location.search);
@@ -23,26 +24,15 @@ function getBufferClass(goal: Goal) {
 
 export default function GoalComponent({
   g,
-  onMutate = () => undefined,
+  onMutate,
 }: {
   g: Goal;
   onMutate: () => void;
 }) {
   return (
-    <tr class={getBufferClass(g)}>
-      {headers.map((h: string) => {
-        const v = formatValue(g[h]);
-        if (h === "slug")
-          return (
-            <td>
-              <a href={`https://beeminder.com/${user}/${v}`} target="_blank">
-                {v}
-              </a>
-            </td>
-          );
-        return <td>{v}</td>;
-      })}
-      <td>
+    <div class={`goal ${getBufferClass(g)}`}>
+      <div className="header">
+        <h2>{g.slug}</h2>
         {g.autodata ? (
           <button
             class="icon-button"
@@ -54,7 +44,7 @@ export default function GoalComponent({
           </button>
         ) : (
           <form
-            class="pure-form"
+            class="controls pure-form"
             onSubmit={(e) => {
               e.preventDefault();
               const value = e.currentTarget.value.value;
@@ -62,20 +52,14 @@ export default function GoalComponent({
                 onMutate
               );
             }}
-            style={{
-              "white-space": "nowrap",
-            }}
           >
-            <input
-              class="pure-input-1-4"
-              name="value"
-              id="value"
-              type="number"
-            />
+            <input class="value-input" name="value" id="value" type="number" />
             <input class="icon-button" type="submit" value="✅" />
           </form>
         )}
-      </td>
-    </tr>
+      </div>
+      <p>{g.title}</p>
+      <p>{g.limsum}</p>
+    </div>
   );
 }

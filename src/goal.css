@@ -1,0 +1,26 @@
+.goal {
+  padding: 1rem;
+  margin: 1px;
+}
+
+h2,
+p {
+  margin: 0.2rem;
+  opacity: 0.9;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.value-input {
+  width: 4rem;
+}
