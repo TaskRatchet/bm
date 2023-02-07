@@ -10,14 +10,18 @@ export default function Controls({
   g: Goal;
   onMutate: () => void;
 }) {
-  return g.autodata ? (
-    <button
-      class="icon-button"
-      onClick={() => refreshGraph(ACCESS_TOKEN, g.slug).then(onMutate)}
-    >
-      🔄
-    </button>
-  ) : (
+  if (g.autodata) {
+    return (
+      <button
+        class="icon-button"
+        onClick={() => refreshGraph(ACCESS_TOKEN, g.slug).then(onMutate)}
+      >
+        🔄
+      </button>
+    );
+  }
+
+  return (
     <form
       class="controls pure-form"
       onSubmit={(e) => {
