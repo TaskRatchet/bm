@@ -12,10 +12,8 @@ if (accessTokenParam && accessTokenParam !== accessTokenLocal) {
   localStorage.setItem("access_token", accessTokenParam);
 }
 
-export const USERNAME =
-  params.get("username") || localStorage.getItem("username") || "";
-export const ACCESS_TOKEN =
-  params.get("access_token") || localStorage.getItem("access_token") || "";
+export const USERNAME = usernameParam || usernameLocal || "";
+export const ACCESS_TOKEN = accessTokenParam || accessTokenLocal || "";
 
 export function logOut() {
   localStorage.removeItem("username");
