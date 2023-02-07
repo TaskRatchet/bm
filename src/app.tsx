@@ -9,6 +9,7 @@ import { Table } from "./table";
 import { useIsFetching } from "@tanstack/react-query";
 import { useState } from "preact/hooks";
 import { ACCESS_TOKEN, logOut } from "./auth";
+import Colors from "./colors";
 
 const clientId = import.meta.env.VITE_BM_CLIENT_ID;
 const redirectUri = import.meta.env.VITE_BM_REDIRECT_URI;
@@ -58,6 +59,8 @@ function _App() {
   return (
     <>
       {isFetching ? <div class="loading">Loading...</div> : ""}
+
+      <Colors goals={data} />
 
       <input
         class="filter"

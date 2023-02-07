@@ -1,0 +1,30 @@
+.colors {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  height: 0.5rem;
+  border-bottom: 1px solid white;
+  z-index: 100;
+}
+
+.red {
+  width: var(--redLen);
+  background-color: var(--red);
+}
+
+.yellow {
+  width: var(--yellowLen);
+  background-color: var(--yellow);
+}
+
+.blue {
+  width: var(--blueLen);
+  background-color: var(--blue);
+}
+
+.green {
+  width: var(--greenLen);
+  background-color: var(--green);
+}
