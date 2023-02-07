@@ -11,14 +11,14 @@ export default function Controls({
   g: Goal;
   onMutate: () => void;
 }) {
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (value: number) => createDatapoint(ACCESS_TOKEN, g.slug, value),
     {
       onSuccess: onMutate,
     }
   );
 
-  const { mutate: refresh } = useMutation(
+  const { mutate: refresh, isLoading: isRefreshing } = useMutation(
     () => refreshGraph(ACCESS_TOKEN, g.slug),
     {
       onSuccess: onMutate,
@@ -27,7 +27,10 @@ export default function Controls({
 
   if (g.autodata) {
     return (
-      <button class="icon-button" onClick={() => refresh()}>
+      <button
+        class={`icon-button ${isRefreshing && "spin"}`}
+        onClick={() => refresh()}
+      >
         🔄
       </button>
     );
@@ -43,7 +46,11 @@ export default function Controls({
       }}
     >
       <input class="value-input" name="value" id="value" type="number" />
-      <input class="icon-button" type="submit" value="✅" />
+      <input
+        class={`icon-button ${isLoading && "spin"}`}
+        type="submit"
+        value="✅"
+      />
     </form>
   );
 }
