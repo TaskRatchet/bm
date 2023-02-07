@@ -7,7 +7,7 @@ import { getGoals } from "./bm";
 import "./app.css";
 import { Table } from "./table";
 import { useIsFetching } from "@tanstack/react-query";
-import { useState, useCallback } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { ACCESS_TOKEN, logOut } from "./auth";
 
 const clientId = import.meta.env.VITE_BM_CLIENT_ID;
@@ -27,6 +27,7 @@ export type Goal = {
 
 function _App() {
   const isFetching = useIsFetching();
+  const [search, setSearch] = useState("");
   const [int, setInt] = useState(1);
   const { data = [] } = useQuery(
     ["goals"],
@@ -49,13 +50,22 @@ function _App() {
       </a>
     );
 
-  const today = data.filter((g: Goal) => g.safebuf === 0);
-  const next = data.filter((g: Goal) => g.safebuf !== 0 && !g.todayta);
-  const later = data.filter((g: Goal) => g.safebuf !== 0 && g.todayta);
+  const filtered = data.filter((g: Goal) => g.slug.includes(search));
+  const today = filtered.filter((g: Goal) => g.safebuf === 0);
+  const next = filtered.filter((g: Goal) => g.safebuf !== 0 && !g.todayta);
+  const later = filtered.filter((g: Goal) => g.safebuf !== 0 && g.todayta);
 
   return (
     <>
       {isFetching ? <div class="loading">Loading...</div> : ""}
+
+      <input
+        class="filter"
+        type="text"
+        placeholder="filter"
+        value={search}
+        onChange={(e: any) => setSearch(e.target.value)}
+      />
 
       <h1>Today</h1>
       <Table goals={today} onMutate={() => setInt(1)} />

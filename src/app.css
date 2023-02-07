@@ -73,3 +73,7 @@ button {
   display: block;
   padding: 2rem;
 }
+
+.filter {
+  margin: 1rem;
+}
