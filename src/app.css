@@ -38,6 +38,7 @@ table {
   cursor: pointer;
   line-height: 1.2;
   font-size: 1.1rem;
+  padding: 0;
 }
 
 .icon-button.spin {
