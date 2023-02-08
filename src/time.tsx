@@ -22,7 +22,7 @@ export default function Time({ goals }: { goals: Goal[] }) {
   const now = d.getTime() / 1000;
   const day = 60 * 60 * 24;
   const points = goals
-    .filter((g) => g.losedate < now + day)
+    .filter((g) => g.safebuf === 0)
     .reduce(
       (acc: Record<string, Point>, g: Goal): Record<string, Point> => ({
         ...acc,
