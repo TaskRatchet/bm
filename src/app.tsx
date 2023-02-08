@@ -12,6 +12,7 @@ import { ACCESS_TOKEN, logOut } from "./auth";
 import Colors from "./colors";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
+import { AxiosError } from "axios";
 
 const clientId = import.meta.env.VITE_BM_CLIENT_ID;
 const redirectUri = import.meta.env.VITE_BM_REDIRECT_URI;
@@ -50,7 +51,6 @@ function _App() {
   const { data = [] } = useQuery(
     ["goals"],
     () => {
-      console.log("refetched after", int, "seconds");
       setInt(Math.min(int * 2, 60));
       return getGoals(ACCESS_TOKEN);
     },
@@ -58,6 +58,11 @@ function _App() {
       enabled: !!ACCESS_TOKEN,
       refetchInterval: () => int * 1000,
       refetchIntervalInBackground: false,
+      onError: (err: AxiosError) => {
+        if (err.response?.status === 401) {
+          logOut();
+        }
+      },
     }
   );
 
