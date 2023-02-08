@@ -17,7 +17,7 @@ export default function Time({ goals }: { goals: Goal[] }) {
     }, 1000);
 
     return () => clearInterval(i);
-  });
+  }, []);
 
   const now = d.getTime() / 1000;
   const day = 60 * 60 * 24;
