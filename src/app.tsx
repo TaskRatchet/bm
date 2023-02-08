@@ -3,7 +3,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import { getGoals } from "./bm";
+import { getGoals, Goal } from "./bm";
 import "./app.css";
 import { Table } from "./table";
 import { useIsFetching } from "@tanstack/react-query";
@@ -33,17 +33,6 @@ persistQueryClient({
   queryClient,
   persister: localStoragePersister,
 });
-
-export type Goal = {
-  slug: string;
-  losedate: number;
-  autodata?: string;
-  safebuf: number;
-  todayta: boolean;
-  limsum: string;
-  limsumdate: string;
-  title: string;
-};
 
 function _App() {
   const isFetching = useIsFetching();

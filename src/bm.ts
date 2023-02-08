@@ -2,6 +2,17 @@ import axios from "axios";
 
 const API_ROOT = "https://www.beeminder.com/api/v1";
 
+export type Goal = {
+  slug: string;
+  losedate: number;
+  autodata?: string;
+  safebuf: number;
+  todayta: boolean;
+  limsum: string;
+  limsumdate: string;
+  title: string;
+};
+
 export async function getGoals(token: string) {
   const url = `${API_ROOT}/users/me/goals.json?access_token=${token}`;
   const response = await axios.get(url);

@@ -1,4 +1,4 @@
-import { Goal } from "./app";
+import { Goal } from "./bm";
 import "./time.css";
 import { useState } from "preact/hooks";
 

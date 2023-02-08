@@ -1,4 +1,4 @@
-import { Goal } from "./app";
+import { Goal } from "./bm";
 import "./goal.css";
 import { USERNAME } from "./auth";
 import Controls from "./controls";
