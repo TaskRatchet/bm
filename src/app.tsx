@@ -13,6 +13,7 @@ import Colors from "./colors";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
 import { AxiosError } from "axios";
+import Time from "./time";
 
 const clientId = import.meta.env.VITE_BM_CLIENT_ID;
 const redirectUri = import.meta.env.VITE_BM_REDIRECT_URI;
@@ -81,6 +82,8 @@ function _App() {
   return (
     <>
       <Colors goals={data} />
+
+      <Time goals={data} />
 
       <div class="global-controls">
         <input
