@@ -31,7 +31,7 @@ export default function Controls({
         class={`icon-button ${isRefreshing && "spin"}`}
         onClick={() => refresh()}
       >
-        🔄
+        🔃
       </button>
     );
   }
