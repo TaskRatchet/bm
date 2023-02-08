@@ -1,6 +1,6 @@
 import { Goal } from "./bm";
 import "./time.css";
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
 
 type Point = {
   count: number;
@@ -11,9 +11,13 @@ type Point = {
 export default function Time({ goals }: { goals: Goal[] }) {
   const [d, setDate] = useState(new Date());
 
-  setInterval(() => {
-    setDate(new Date());
-  }, 1000);
+  useEffect(() => {
+    const i = setInterval(() => {
+      setDate(new Date());
+    }, 1000);
+
+    return () => clearInterval(i);
+  });
 
   const now = d.getTime() / 1000;
   const day = 60 * 60 * 24;
