@@ -24,3 +24,9 @@ p {
   width: 4rem;
   margin-right: 0.25rem;
 }
+
+.description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -25,7 +25,7 @@ export default function GoalComponent({
         </h2>
         <Controls g={g} onMutate={onMutate} />
       </div>
-      <p>{g.title}</p>
+      <p class="description">{g.title}</p>
       <p>{g.limsumdate}</p>
     </div>
   );
