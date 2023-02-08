@@ -82,14 +82,7 @@ function _App() {
     <>
       <Colors goals={data} />
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "1rem",
-        }}
-      >
+      <div class="global-controls">
         <input
           type="text"
           placeholder="filter"

@@ -1,5 +1,5 @@
 .goal {
-  padding: 0.5rem;
+  padding: var(--padding);
 }
 
 h2,

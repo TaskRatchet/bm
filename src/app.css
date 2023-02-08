@@ -8,6 +8,8 @@ body {
   --yellow: rgb(255, 224, 161);
   --blue: rgb(199, 199, 255);
   --green: rgb(147, 255, 147);
+
+  --padding: 0.5rem;
 }
 
 .buffer-0 {
@@ -52,11 +54,11 @@ table {
 }
 
 h1 {
-  padding-left: 1rem;
+  padding-left: var(--padding);
 }
 
 .footer {
-  padding: 1rem;
+  padding: var(--padding);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,4 +71,11 @@ button {
 .login {
   display: block;
   padding: 2rem;
+}
+
+.global-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--padding);
 }
