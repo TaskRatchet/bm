@@ -51,14 +51,6 @@ table {
   }
 }
 
-.loading {
-  background-color: white;
-  padding: 1rem;
-  position: fixed;
-  top: 0;
-  right: 0;
-}
-
 h1 {
   padding-left: 1rem;
 }
@@ -77,8 +69,4 @@ button {
 .login {
   display: block;
   padding: 2rem;
-}
-
-.filter {
-  margin: 1rem;
 }

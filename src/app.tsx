@@ -48,7 +48,7 @@ function _App() {
   const isFetching = useIsFetching();
   const [search, setSearch] = useState("");
   const [int, setInt] = useState(1);
-  const { data = [] } = useQuery(
+  const { data = [], refetch } = useQuery(
     ["goals"],
     () => {
       setInt(Math.min(int * 2, 60));
@@ -80,17 +80,30 @@ function _App() {
 
   return (
     <>
-      {isFetching ? <div class="loading">Loading...</div> : ""}
-
       <Colors goals={data} />
 
-      <input
-        class="filter"
-        type="text"
-        placeholder="filter"
-        value={search}
-        onChange={(e: any) => setSearch(e.target.value)}
-      />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "1rem",
+        }}
+      >
+        <input
+          type="text"
+          placeholder="filter"
+          value={search}
+          onChange={(e: any) => setSearch(e.target.value)}
+        />
+
+        <button
+          class={`icon-button ${isFetching && "spin"}`}
+          onClick={() => refetch()}
+        >
+          🔃
+        </button>
+      </div>
 
       <h1>Today</h1>
       <Table goals={today} onMutate={() => setInt(1)} />
