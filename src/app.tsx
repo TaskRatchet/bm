@@ -39,6 +39,7 @@ export type Goal = {
   safebuf: number;
   todayta: boolean;
   limsum: string;
+  limsumdate: string;
   title: string;
 };
 

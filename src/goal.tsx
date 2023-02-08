@@ -26,7 +26,7 @@ export default function GoalComponent({
         <Controls g={g} onMutate={onMutate} />
       </div>
       <p>{g.title}</p>
-      <p>{g.limsum}</p>
+      <p>{g.limsumdate}</p>
     </div>
   );
 }
