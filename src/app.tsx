@@ -8,7 +8,7 @@ import "./app.css";
 import { Table } from "./table";
 import { useIsFetching } from "@tanstack/react-query";
 import { useState } from "preact/hooks";
-import { ACCESS_TOKEN, logOut } from "./auth";
+import { ACCESS_TOKEN, LAST_LOGIN, logOut } from "./auth";
 import Colors from "./colors";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
@@ -48,9 +48,13 @@ function _App() {
       enabled: !!ACCESS_TOKEN,
       refetchInterval: () => int * 1000,
       refetchIntervalInBackground: false,
+      retry: false,
       onError: (err: AxiosError) => {
         if (err.response?.status === 401) {
           logOut();
+          if (LAST_LOGIN && LAST_LOGIN < Date.now() - 1000 * 60 * 10) {
+            window.location.assign(authUrl);
+          }
         }
       },
     }
