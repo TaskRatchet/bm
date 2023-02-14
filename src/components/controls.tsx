@@ -1,7 +1,7 @@
-import { Goal } from "./app";
+import { Goal } from "../bm";
 import "./goal.css";
-import { createDatapoint, refreshGraph } from "./bm";
-import { ACCESS_TOKEN } from "./auth";
+import { createDatapoint, refreshGraph } from "../bm";
+import { ACCESS_TOKEN } from "../auth";
 import { useMutation } from "@tanstack/react-query";
 
 export default function Controls({

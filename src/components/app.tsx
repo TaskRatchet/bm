@@ -1,15 +1,15 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Goal } from "./bm";
+import { Goal } from "../bm";
 import "./app.css";
 import { Table } from "./table";
 import { useIsFetching } from "@tanstack/react-query";
 import { useState } from "preact/hooks";
-import { ACCESS_TOKEN, AUTH_URL, logOut } from "./auth";
+import { ACCESS_TOKEN, AUTH_URL, logOut } from "../auth";
 import Colors from "./colors";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
 import Time from "./time";
-import useGoals from "./useGoals";
+import useGoals from "../useGoals";
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,4 +1,4 @@
-import { Goal } from "./bm";
+import { Goal } from "../bm";
 import "./time.css";
 import { useState, useEffect } from "preact/hooks";
 

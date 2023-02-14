@@ -1,6 +1,6 @@
-import { Goal } from "./bm";
+import { Goal } from "../bm";
 import "./goal.css";
-import { USERNAME } from "./auth";
+import { USERNAME } from "../auth";
 import Controls from "./controls";
 
 function getBufferClass(goal: Goal) {

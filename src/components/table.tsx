@@ -1,4 +1,4 @@
-import { Goal } from "./app";
+import { Goal } from "../bm";
 import GoalComponent from "./goal";
 import "./table.css";
 
