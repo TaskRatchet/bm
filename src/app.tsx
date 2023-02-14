@@ -50,11 +50,10 @@ function _App() {
       refetchIntervalInBackground: false,
       retry: false,
       onError: (err: AxiosError) => {
-        if (err.response?.status === 401) {
-          logOut();
-          if (LAST_LOGIN && LAST_LOGIN < Date.now() - 1000 * 60 * 10) {
-            window.location.assign(authUrl);
-          }
+        if (err.response?.status !== 401) return;
+        logOut();
+        if (LAST_LOGIN && LAST_LOGIN < Date.now() - 1000 * 60 * 10) {
+          window.location.assign(authUrl);
         }
       },
     }
