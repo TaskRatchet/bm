@@ -4,6 +4,8 @@ const accessTokenParam = params.get("access_token");
 const usernameLocal = localStorage.getItem("username");
 const accessTokenLocal = localStorage.getItem("access_token");
 const lastLoginRaw = localStorage.getItem("last_login");
+const clientId = import.meta.env.VITE_BM_CLIENT_ID;
+const redirectUri = import.meta.env.VITE_BM_REDIRECT_URI;
 
 if (usernameParam && accessTokenParam) {
   localStorage.setItem("username", usernameParam);
@@ -14,6 +16,7 @@ if (usernameParam && accessTokenParam) {
 export const USERNAME = usernameParam || usernameLocal || "";
 export const ACCESS_TOKEN = accessTokenParam || accessTokenLocal || "";
 export const LAST_LOGIN = lastLoginRaw ? parseInt(lastLoginRaw) : undefined;
+export const AUTH_URL = `https://www.beeminder.com/apps/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`;
 
 export function logOut() {
   localStorage.removeItem("username");

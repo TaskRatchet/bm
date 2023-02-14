@@ -1,23 +1,16 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
-import { getGoals, Goal } from "./bm";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Goal } from "./bm";
 import "./app.css";
 import { Table } from "./table";
 import { useIsFetching } from "@tanstack/react-query";
 import { useState } from "preact/hooks";
-import { ACCESS_TOKEN, LAST_LOGIN, logOut } from "./auth";
+import { ACCESS_TOKEN, AUTH_URL, logOut } from "./auth";
 import Colors from "./colors";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
-import { AxiosError } from "axios";
 import Time from "./time";
+import useGoals from "./useGoals";
 
-const clientId = import.meta.env.VITE_BM_CLIENT_ID;
-const redirectUri = import.meta.env.VITE_BM_REDIRECT_URI;
-const authUrl = `https://www.beeminder.com/apps/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`;
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -37,31 +30,11 @@ persistQueryClient({
 function _App() {
   const isFetching = useIsFetching();
   const [search, setSearch] = useState("");
-  const [int, setInt] = useState(1);
-  const { data = [], refetch } = useQuery(
-    ["goals"],
-    () => {
-      setInt(Math.min(int * 2, 60));
-      return getGoals(ACCESS_TOKEN);
-    },
-    {
-      enabled: !!ACCESS_TOKEN,
-      refetchInterval: () => int * 1000,
-      refetchIntervalInBackground: false,
-      retry: false,
-      onError: (err: AxiosError) => {
-        if (err.response?.status !== 401) return;
-        logOut();
-        if (LAST_LOGIN && LAST_LOGIN < Date.now() - 1000 * 60 * 10) {
-          window.location.assign(authUrl);
-        }
-      },
-    }
-  );
+  const { data = [], refetch, reset } = useGoals();
 
   if (!ACCESS_TOKEN)
     return (
-      <a class="login" href={authUrl}>
+      <a class="login" href={AUTH_URL}>
         Login with Beeminder
       </a>
     );
@@ -94,13 +67,13 @@ function _App() {
       </div>
 
       <h1>Today</h1>
-      <Table goals={today} onMutate={() => setInt(1)} />
+      <Table goals={today} onMutate={() => reset()} />
 
       <h1>Next</h1>
-      <Table goals={next} onMutate={() => setInt(1)} />
+      <Table goals={next} onMutate={() => reset()} />
 
       <h1>Later</h1>
-      <Table goals={later} onMutate={() => setInt(1)} />
+      <Table goals={later} onMutate={() => reset()} />
 
       <small class="footer">
         <span>
