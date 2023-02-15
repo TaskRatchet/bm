@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "preact/hooks";
-import { ACCESS_TOKEN, AUTH_URL, LAST_LOGIN, logOut } from "./auth";
+import { ACCESS_TOKEN, logOut } from "./auth";
 import { getGoals } from "./bm";
 
 export default function useGoals() {
