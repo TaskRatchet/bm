@@ -21,10 +21,12 @@ export default function useGoals() {
         refetchIntervalInBackground: false,
         retry: false,
         onError: (err: AxiosError) => {
-          if (err.response?.status !== 401) return;
-          logOut();
-          if (LAST_LOGIN && LAST_LOGIN < Date.now() - 1000 * 60 * 10) {
-            window.location.assign(AUTH_URL);
+          switch (err.response?.status) {
+            case 401:
+              logOut();
+              break;
+            default:
+              console.error(err);
           }
         },
       }
