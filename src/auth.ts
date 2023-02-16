@@ -17,10 +17,12 @@ export const USERNAME = usernameParam || usernameLocal || "";
 export const ACCESS_TOKEN = accessTokenParam || accessTokenLocal || "";
 export const LAST_LOGIN = lastLoginRaw ? parseInt(lastLoginRaw) : undefined;
 export const AUTH_URL = `https://www.beeminder.com/apps/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`;
+export const API_KEY = localStorage.getItem("api_key") || "";
 
 export function logOut() {
   localStorage.removeItem("username");
   localStorage.removeItem("access_token");
   localStorage.removeItem("last_login");
+  localStorage.removeItem("api_key");
   window.location.href = "/";
 }

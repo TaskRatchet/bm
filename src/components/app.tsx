@@ -4,12 +4,13 @@ import "./app.css";
 import { Table } from "./table";
 import { useIsFetching } from "@tanstack/react-query";
 import { useState } from "preact/hooks";
-import { ACCESS_TOKEN, AUTH_URL, logOut } from "../auth";
+import { API_KEY, logOut } from "../auth";
 import Colors from "./colors";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
 import Time from "./time";
 import useGoals from "../useGoals";
+import Login from "./login";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,12 +33,7 @@ function _App() {
   const [search, setSearch] = useState("");
   const { data = [], refetch, reset } = useGoals();
 
-  if (!ACCESS_TOKEN)
-    return (
-      <a class="login" href={AUTH_URL}>
-        Login with Beeminder
-      </a>
-    );
+  if (!API_KEY) return <Login />;
 
   const filtered = data.filter((g: Goal) => g.slug.includes(search));
   const today = filtered.filter((g: Goal) => g.safebuf === 0);

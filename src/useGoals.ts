@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "preact/hooks";
-import { ACCESS_TOKEN, logOut } from "./auth";
+import { API_KEY, logOut } from "./auth";
 import { getGoals } from "./bm";
 
 export default function useGoals() {
@@ -13,10 +13,10 @@ export default function useGoals() {
       ["goals"],
       () => {
         setInt(Math.min(int * 2, 60));
-        return getGoals(ACCESS_TOKEN);
+        return getGoals(API_KEY);
       },
       {
-        enabled: !!ACCESS_TOKEN,
+        enabled: !!API_KEY,
         refetchInterval: () => int * 1000,
         refetchIntervalInBackground: false,
         retry: false,

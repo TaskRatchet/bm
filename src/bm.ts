@@ -14,14 +14,14 @@ export type Goal = {
 };
 
 export async function getGoals(token: string) {
-  const url = `${API_ROOT}/users/me/goals.json?access_token=${token}`;
+  const url = `${API_ROOT}/users/me/goals.json?auth_token=${token}`;
   const response = await axios.get(url);
 
   return response.data;
 }
 
 export async function refreshGraph(token: string, goal: string) {
-  const url = `${API_ROOT}/users/me/goals/${goal}/refresh_graph.json?access_token=${token}`;
+  const url = `${API_ROOT}/users/me/goals/${goal}/refresh_graph.json?auth_token=${token}`;
   const response = await axios.get(url);
 
   return response.data;
@@ -32,7 +32,7 @@ export async function createDatapoint(
   goal: string,
   value: number
 ) {
-  const url = `${API_ROOT}/users/me/goals/${goal}/datapoints.json?access_token=${token}`;
+  const url = `${API_ROOT}/users/me/goals/${goal}/datapoints.json?auth_token=${token}`;
   const response = await axios.post(url, {
     value,
   });
