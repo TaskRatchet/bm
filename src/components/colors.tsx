@@ -1,4 +1,4 @@
-import { Goal } from "./app";
+import { Goal } from "../bm";
 import "./colors.css";
 
 export default function Colors({ goals }: { goals: Goal[] }) {
