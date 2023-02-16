@@ -3,26 +3,25 @@ import "./goal.css";
 import { createDatapoint, refreshGraph } from "../bm";
 import { API_KEY } from "../auth";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "preact/hooks";
 
 export default function Controls({
   g,
-  onMutate,
+  onMutate: onSuccess,
 }: {
   g: Goal;
   onMutate: () => void;
 }) {
+  const [value, setValue] = useState("");
+
   const { mutate, isLoading } = useMutation(
     (value: number) => createDatapoint(API_KEY, g.slug, value),
-    {
-      onSuccess: onMutate,
-    }
+    { onSuccess }
   );
 
   const { mutate: refresh, isLoading: isRefreshing } = useMutation(
     () => refreshGraph(API_KEY, g.slug),
-    {
-      onSuccess: onMutate,
-    }
+    { onSuccess }
   );
 
   if (g.autodata) {
@@ -41,11 +40,17 @@ export default function Controls({
       class="controls pure-form"
       onSubmit={(e) => {
         e.preventDefault();
-        const value = Number(e.currentTarget.value.value);
-        mutate(value);
+        mutate(Number(value));
       }}
     >
-      <input class="value-input" name="value" id="value" type="number" />
+      <input
+        class="value-input"
+        name="value"
+        id="value"
+        type="number"
+        value={value}
+        onChange={(e: any) => setValue(e.target.value)}
+      />
       <input
         class={`icon-button ${isLoading && "spin"}`}
         type="submit"
