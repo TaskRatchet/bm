@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { Goal } from "../bm";
 import "./app.css";
 import { Table } from "./table";
@@ -6,27 +6,10 @@ import { useIsFetching } from "@tanstack/react-query";
 import { useState } from "preact/hooks";
 import { API_KEY, logout } from "../auth";
 import Colors from "./colors";
-import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-import { persistQueryClient } from "@tanstack/react-query-persist-client";
 import Time from "./time";
 import useGoals from "../useGoals";
 import Login from "./login";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      cacheTime: 1000 * 60 * 60 * 24, // 24 hours
-    },
-  },
-});
-const localStoragePersister = createSyncStoragePersister({
-  storage: window.localStorage,
-});
-
-persistQueryClient({
-  queryClient,
-  persister: localStoragePersister,
-});
+import queryClient from "../queryClient";
 
 function _App() {
   const isFetching = useIsFetching();
