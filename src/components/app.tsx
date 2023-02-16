@@ -4,7 +4,7 @@ import "./app.css";
 import { Table } from "./table";
 import { useIsFetching } from "@tanstack/react-query";
 import { useState } from "preact/hooks";
-import { API_KEY, logOut } from "../auth";
+import { API_KEY, logout } from "../auth";
 import Colors from "./colors";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
@@ -87,7 +87,7 @@ function _App() {
           </a>
         </span>
         <span>
-          <button onClick={logOut}>Logout</button>
+          <button onClick={logout}>Logout</button>
         </span>
       </small>
     </>

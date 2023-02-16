@@ -1,7 +1,7 @@
 import { Goal } from "../bm";
 import "./goal.css";
 import { createDatapoint, refreshGraph } from "../bm";
-import { ACCESS_TOKEN } from "../auth";
+import { API_KEY } from "../auth";
 import { useMutation } from "@tanstack/react-query";
 
 export default function Controls({
@@ -12,14 +12,14 @@ export default function Controls({
   onMutate: () => void;
 }) {
   const { mutate, isLoading } = useMutation(
-    (value: number) => createDatapoint(ACCESS_TOKEN, g.slug, value),
+    (value: number) => createDatapoint(API_KEY, g.slug, value),
     {
       onSuccess: onMutate,
     }
   );
 
   const { mutate: refresh, isLoading: isRefreshing } = useMutation(
-    () => refreshGraph(ACCESS_TOKEN, g.slug),
+    () => refreshGraph(API_KEY, g.slug),
     {
       onSuccess: onMutate,
     }

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "preact/hooks";
-import { API_KEY, logOut } from "./auth";
+import { API_KEY, logout } from "./auth";
 import { getGoals } from "./bm";
 
 export default function useGoals() {
@@ -23,7 +23,7 @@ export default function useGoals() {
         onError: (err: AxiosError) => {
           switch (err.response?.status) {
             case 401:
-              logOut();
+              logout();
               break;
             default:
               console.error(err);

@@ -1,11 +1,11 @@
+import { login } from "../auth";
+
 export default function Login() {
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        localStorage.setItem("username", e.currentTarget.username.value);
-        localStorage.setItem("api_key", e.currentTarget.key.value);
-        window.location.href = "/";
+        login(e.currentTarget.username.value, e.currentTarget.key.value);
       }}
     >
       <p>
