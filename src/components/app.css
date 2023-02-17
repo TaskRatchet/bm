@@ -77,3 +77,13 @@ button {
   align-items: center;
   padding: var(--padding);
 }
+
+.filter {
+  display: flex;
+  align-items: center;
+  font-size: 0.6rem;
+}
+
+.filter input {
+  margin-right: 0.4rem;
+}

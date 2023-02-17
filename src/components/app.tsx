@@ -31,12 +31,17 @@ function _App() {
       <Time goals={data} />
 
       <div class="global-controls">
-        <input
-          type="text"
-          placeholder="filter"
-          value={search}
-          onChange={(e: any) => setSearch(e.target.value)}
-        />
+        <span class="filter">
+          <input
+            type="text"
+            placeholder="filter"
+            value={search}
+            onChange={(e: any) => setSearch(e.target.value)}
+          />
+          <button class="icon-button" onClick={() => setSearch("")}>
+            ❌
+          </button>
+        </span>
 
         <button
           class={`icon-button ${isFetching && "spin"}`}
