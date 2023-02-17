@@ -33,3 +33,9 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.deadline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

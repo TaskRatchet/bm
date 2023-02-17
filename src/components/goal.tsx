@@ -2,6 +2,7 @@ import { Goal } from "../bm";
 import "./goal.css";
 import { USERNAME } from "../auth";
 import Controls from "./controls";
+import Countdown from "./countdown";
 
 function getBufferClass(goal: Goal) {
   const buf = goal.safebuf as number;
@@ -28,8 +29,9 @@ export default function GoalComponent({
         <h3>{g.slug}</h3>
         <Controls g={g} onMutate={onMutate} />
       </span>
-      <p class="description">{g.title}</p>
-      <p>{g.limsum}</p>
+      <p>
+        <Countdown g={g} />
+      </p>
     </div>
   );
 }

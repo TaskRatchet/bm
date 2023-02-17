@@ -11,6 +11,7 @@ export type Goal = {
   limsum: string;
   limsumdate: string;
   title: string;
+  safebump: number;
 };
 
 export async function getGoals(token: string) {
