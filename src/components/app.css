@@ -50,11 +50,6 @@ body {
   }
 }
 
-h1 {
-  padding: var(--padding);
-  margin: 0;
-}
-
 .footer {
   padding: var(--padding);
   display: flex;

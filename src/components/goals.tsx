@@ -10,20 +10,16 @@ export function Goals({ goals = [] }: { goals: Goal[] }) {
 
   return (
     <>
-      <h1>Today</h1>
       <div class="goals">
+        <h1>Today</h1>
         {today.map((g: Goal) => (
           <GoalComponent key={g.slug} g={g} />
         ))}
-      </div>
-      <h1>Next</h1>
-      <div class="goals">
+        <h1>Next</h1>
         {next.map((g: Goal) => (
           <GoalComponent key={g.slug} g={g} />
         ))}
-      </div>
-      <h1>Later</h1>
-      <div class="goals">
+        <h1>Later</h1>
         {later.map((g: Goal) => (
           <GoalComponent key={g.slug} g={g} />
         ))}

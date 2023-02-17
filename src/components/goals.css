@@ -3,3 +3,11 @@
   gap: 1px;
   grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
 }
+
+.goals h1 {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: var(--padding);
+  grid-column: 1 / -1;
+}
