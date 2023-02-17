@@ -14,7 +14,7 @@ import queryClient from "../queryClient";
 function _App() {
   const isFetching = useIsFetching();
   const [search, setSearch] = useState("");
-  const { data = [], refetch, reset } = useGoals();
+  const { data = [], refetch } = useGoals();
 
   if (!API_KEY) return <Login />;
 
@@ -47,13 +47,13 @@ function _App() {
       </div>
 
       <h1>Today</h1>
-      <Goals goals={today} onMutate={() => reset()} />
+      <Goals goals={today} />
 
       <h1>Next</h1>
-      <Goals goals={next} onMutate={() => reset()} />
+      <Goals goals={next} />
 
       <h1>Later</h1>
-      <Goals goals={later} onMutate={() => reset()} />
+      <Goals goals={later} />
 
       <small class="footer">
         <span>

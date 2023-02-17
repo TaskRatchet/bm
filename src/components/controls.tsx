@@ -1,28 +1,35 @@
-import { Goal } from "../bm";
+import { getGoal, Goal } from "../bm";
 import "./goal.css";
 import { createDatapoint, refreshGraph } from "../bm";
 import { API_KEY } from "../auth";
 import { useMutation } from "@tanstack/react-query";
 import { useState, useRef, useEffect } from "preact/hooks";
+import queryClient from "../queryClient";
 
-export default function Controls({
-  g,
-  onMutate: onSuccess,
-}: {
-  g: Goal;
-  onMutate: () => void;
-}) {
+function updateCache(slug: string) {
+  const cached = queryClient.getQueryData<Goal[]>(["goals"]);
+  if (!cached) return;
+  const index = cached.findIndex((x) => x.slug === slug);
+  if (index === -1) return;
+  cached[index] = {
+    ...cached[index],
+    queued: true,
+  };
+  queryClient.setQueryData(["goals"], cached);
+}
+
+export default function Controls({ g }: { g: Goal }) {
   const [value, setValue] = useState("");
 
-  const { mutate, isLoading } = useMutation(
-    (value: number) => createDatapoint(API_KEY, g.slug, value),
-    { onSuccess }
-  );
+  const { mutate, isLoading } = useMutation((value: number) => {
+    updateCache(g.slug);
+    return createDatapoint(API_KEY, g.slug, value);
+  });
 
-  const { mutate: refresh, isLoading: isRefreshing } = useMutation(
-    () => refreshGraph(API_KEY, g.slug),
-    { onSuccess }
-  );
+  const { mutate: refresh, isLoading: isRefreshing } = useMutation(() => {
+    updateCache(g.slug);
+    return refreshGraph(API_KEY, g.slug);
+  });
 
   const spinit = isLoading || isRefreshing || g.queued;
 
@@ -45,6 +52,7 @@ export default function Controls({
       class="controls pure-form"
       onSubmit={(e) => {
         e.preventDefault();
+        if (value === "") return;
         mutate(Number(value));
         setValue("");
       }}

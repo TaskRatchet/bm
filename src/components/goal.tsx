@@ -11,13 +11,7 @@ function getBufferClass(goal: Goal) {
   return `buffer-${num}`;
 }
 
-export default function GoalComponent({
-  g,
-  onMutate,
-}: {
-  g: Goal;
-  onMutate: () => void;
-}) {
+export default function GoalComponent({ g }: { g: Goal }) {
   return (
     <div
       class={`goal ${getBufferClass(g)}`}
@@ -28,7 +22,7 @@ export default function GoalComponent({
       <h3>{g.slug}</h3>
       <p class="data">
         <Countdown g={g} />
-        <Controls g={g} onMutate={onMutate} />
+        <Controls g={g} />
       </p>
     </div>
   );

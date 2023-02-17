@@ -22,10 +22,6 @@ function getPrefix(g: Goal): string {
     const minutes = Math.floor((abs - hours) * 60);
     return `${hours}:${minutes.toString().padStart(2, "0")} in`;
   }
-  console.log({
-    slug: g.slug,
-    integery,
-  });
   if (integery) {
     return `${Math.ceil(Math.abs(delta))} in`;
   }

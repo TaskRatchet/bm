@@ -25,6 +25,13 @@ export async function getGoals(token: string) {
   return response.data;
 }
 
+export async function getGoal(token: string, slug: string) {
+  const url = `${API_ROOT}/users/me/goals/${slug}.json?auth_token=${token}`;
+  const response = await axios.get(url);
+
+  return response.data;
+}
+
 export async function refreshGraph(token: string, goal: string) {
   const url = `${API_ROOT}/users/me/goals/${goal}/refresh_graph.json?auth_token=${token}`;
   const response = await axios.get(url);
