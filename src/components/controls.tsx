@@ -19,8 +19,6 @@ function updateCache(slug: string) {
 }
 
 export default function Controls({ g }: { g: Goal }) {
-  const [value, setValue] = useState("");
-
   const { mutate, isLoading } = useMutation((value: number) => {
     updateCache(g.slug);
     return createDatapoint(API_KEY, g.slug, value);
@@ -32,45 +30,20 @@ export default function Controls({ g }: { g: Goal }) {
   });
 
   const spinit = isLoading || isRefreshing || g.queued;
-
-  if (g.autodata) {
-    return (
-      <button
-        class={`icon-button ${spinit && "spin"}`}
-        onClick={(e: any) => {
-          e.stopPropagation();
-          refresh();
-        }}
-      >
-        🔃
-      </button>
-    );
-  }
+  const icon = g.autodata ? "🔃" : "➕";
 
   return (
-    <form
-      class="controls pure-form"
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (value === "") return;
-        mutate(Number(value));
-        setValue("");
+    <button
+      class={`icon-button ${spinit && "spin"}`}
+      onClick={(e: any) => {
+        e.stopPropagation();
+        if (g.autodata) return refresh();
+        const value = prompt(`Enter a number for goal "${g.slug}":`);
+        if (!value) return;
+        mutate(parseInt(value));
       }}
-      onClick={(e: any) => e.stopPropagation()}
     >
-      <input
-        class="value-input"
-        name="value"
-        id="value"
-        type="number"
-        value={value}
-        onChange={(e: any) => setValue(e.target.value)}
-      />
-      <input
-        class={`icon-button ${spinit && "spin"}`}
-        type="submit"
-        value="✅"
-      />
-    </form>
+      {icon}
+    </button>
   );
 }
