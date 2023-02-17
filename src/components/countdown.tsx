@@ -54,9 +54,7 @@ export default function Countdown({ g }: { g: Goal }) {
     return () => clearInterval(i);
   });
 
-  if (seconds < 0) {
-    return <span class="countdown">💀</span>;
-  }
+  if (seconds < 0) return <span class="countdown">💀</span>;
 
   const prefix = getPrefix(g);
   const divisor =
