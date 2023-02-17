@@ -1,6 +1,6 @@
 import { Goal } from "../bm";
 import GoalComponent from "./goal";
-import "./table.css";
+import "./goals.css";
 
 export function Goals({
   goals = [],
