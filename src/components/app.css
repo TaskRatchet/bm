@@ -9,7 +9,7 @@ body {
   --blue: rgb(199, 199, 255);
   --green: rgb(147, 255, 147);
 
-  --padding: 0.6rem;
+  --padding: 0.4rem;
 }
 
 .buffer-0 {
@@ -51,7 +51,8 @@ body {
 }
 
 h1 {
-  padding-left: var(--padding);
+  padding: var(--padding);
+  margin: 0;
 }
 
 .footer {

@@ -3,7 +3,7 @@ import "./goal.css";
 import { createDatapoint, refreshGraph } from "../bm";
 import { API_KEY } from "../auth";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "preact/hooks";
+import { useState, useRef, useEffect } from "preact/hooks";
 
 export default function Controls({
   g,
@@ -28,7 +28,10 @@ export default function Controls({
     return (
       <button
         class={`icon-button ${isRefreshing && "spin"}`}
-        onClick={() => refresh()}
+        onClick={(e: any) => {
+          e.stopPropagation();
+          refresh();
+        }}
       >
         🔃
       </button>
@@ -43,6 +46,7 @@ export default function Controls({
         mutate(Number(value));
         setValue("");
       }}
+      onClick={(e: any) => e.stopPropagation()}
     >
       <input
         class="value-input"

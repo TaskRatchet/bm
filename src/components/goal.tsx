@@ -18,15 +18,18 @@ export default function GoalComponent({
   onMutate: () => void;
 }) {
   return (
-    <div class={`goal ${getBufferClass(g)}`}>
-      <div className="header">
-        <h2>
-          <a href={`https://beeminder.com/${USERNAME}/${g.slug}`}>{g.slug}</a>
-        </h2>
+    <div
+      class={`goal ${getBufferClass(g)}`}
+      onClick={() => {
+        window.open(`https://beeminder.com/${USERNAME}/${g.slug}`);
+      }}
+    >
+      <span className="header">
+        <h3>{g.slug}</h3>
         <Controls g={g} onMutate={onMutate} />
-      </div>
+      </span>
       <p class="description">{g.title}</p>
-      <p>{g.limsumdate}</p>
+      <p>{g.limsum}</p>
     </div>
   );
 }
