@@ -20,9 +20,6 @@ function _App() {
 
   const r = new RegExp(search, "i");
   const filtered = data.filter((g: Goal) => g.slug.match(r));
-  const today = filtered.filter((g: Goal) => g.safebuf === 0);
-  const next = filtered.filter((g: Goal) => g.safebuf !== 0 && !g.todayta);
-  const later = filtered.filter((g: Goal) => g.safebuf !== 0 && g.todayta);
 
   return (
     <>
@@ -51,14 +48,7 @@ function _App() {
         </button>
       </div>
 
-      <h1>Today</h1>
-      <Goals goals={today} />
-
-      <h1>Next</h1>
-      <Goals goals={next} />
-
-      <h1>Later</h1>
-      <Goals goals={later} />
+      <Goals goals={filtered} />
 
       <small class="footer">
         <span>
