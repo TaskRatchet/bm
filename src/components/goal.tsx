@@ -25,12 +25,10 @@ export default function GoalComponent({
         window.open(`https://beeminder.com/${USERNAME}/${g.slug}`);
       }}
     >
-      <span className="header">
-        <h3>{g.slug}</h3>
-        <Controls g={g} onMutate={onMutate} />
-      </span>
-      <p>
+      <h3>{g.slug}</h3>
+      <p class="data">
         <Countdown g={g} />
+        <Controls g={g} onMutate={onMutate} />
       </p>
     </div>
   );
