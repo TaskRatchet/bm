@@ -15,23 +15,35 @@ function getSeconds(g: Goal): number {
   return Math.floor(diff / 1000);
 }
 
+function formatTime(n: number): string {
+  const abs = Math.abs(n);
+  const hours = Math.floor(abs);
+  const minutes = Math.floor((abs - hours) * 60);
+  return `${hours}:${minutes.toString().padStart(2, "0")}`;
+}
+
+function extractNumber(s: string): string {
+  return s.match(/^[+-]?(\d+\.?\d?\d?)/)?.[1] || "";
+}
+
+function roundNumber(n: number) {
+  return Math.ceil(Math.abs(n));
+}
+
 function getPrefix(g: Goal): string {
   const v = g.limsum.match(/^[+-]?[\d\.]+/)?.[0];
+
   if (!v) return "";
+
   const n = Number(v);
-  const { hhmmformat, integery } = g;
   const s = n < 0 ? "-" : "";
-  if (hhmmformat) {
-    const abs = Math.abs(n);
-    const hours = Math.floor(abs);
-    const minutes = Math.floor((abs - hours) * 60);
-    return `${s}${hours}:${minutes.toString().padStart(2, "0")} in`;
-  }
-  if (integery) {
-    return `${s}${Math.ceil(Math.abs(n))} in`;
-  }
-  const truncated = v.match(/^[+-]?(\d+\.?\d?\d?)/)?.[1];
-  return `${s}${truncated} in`;
+  const r = g.hhmmformat
+    ? formatTime(n)
+    : g.integery
+    ? roundNumber(n)
+    : extractNumber(v);
+
+  return `${s}${r} in`;
 }
 
 export default function Countdown({ g }: { g: Goal }) {
