@@ -25,7 +25,7 @@ function getPrefix(g: Goal): string {
   if (integery) {
     return `${Math.ceil(Math.abs(delta))} in`;
   }
-  return `${Math.abs(delta).toFixed(1)} in`;
+  return `${Math.ceil(Math.abs(delta) + Number.EPSILON * 100) / 100} in`;
 }
 
 export default function Countdown({ g }: { g: Goal }) {
