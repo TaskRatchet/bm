@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useState } from "preact/hooks";
 import { API_KEY, logout } from "./auth";
 import { getGoals, Goal } from "./bm";
 import queryClient from "./queryClient";

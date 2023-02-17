@@ -10,4 +10,5 @@
   margin: 0;
   padding: var(--padding);
   grid-column: 1 / -1;
+  pointer-events: none;
 }

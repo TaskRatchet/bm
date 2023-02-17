@@ -15,17 +15,21 @@ function getSeconds(g: Goal): number {
 }
 
 function getPrefix(g: Goal): string {
-  const { delta, hhmmformat, integery } = g;
+  const v = g.limsum.match(/^[+-]?[\d\.]+/)?.[0];
+  if (!v) return "";
+  const n = Number(v);
+  const { hhmmformat, integery } = g;
+  const s = n < 0 ? "-" : "";
   if (hhmmformat) {
-    const abs = Math.abs(delta);
+    const abs = Math.abs(n);
     const hours = Math.floor(abs);
     const minutes = Math.floor((abs - hours) * 60);
-    return `${hours}:${minutes.toString().padStart(2, "0")} in`;
+    return `${s}${hours}:${minutes.toString().padStart(2, "0")} in`;
   }
   if (integery) {
-    return `${Math.ceil(Math.abs(delta))} in`;
+    return `${s}${Math.ceil(Math.abs(n))} in`;
   }
-  return `${Math.ceil(Math.abs(delta) + Number.EPSILON * 100) / 100} in`;
+  return `${s}${Math.ceil((Math.abs(n) + Number.EPSILON) * 100) / 100} in`;
 }
 
 export default function Countdown({ g }: { g: Goal }) {
