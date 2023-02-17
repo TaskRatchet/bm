@@ -1,12 +1,11 @@
-import { getGoal, Goal } from "../bm";
+import { Goal } from "../bm";
 import "./goal.css";
 import { createDatapoint, refreshGraph } from "../bm";
 import { API_KEY } from "../auth";
 import { useMutation } from "@tanstack/react-query";
-import { useState, useRef, useEffect } from "preact/hooks";
 import queryClient from "../queryClient";
 
-async function updateCache(slug: string, mutate: () => Promise<unknown>) {
+async function queued(slug: string, mutate: () => Promise<unknown>) {
   const cached = queryClient.getQueryData<Goal[]>(["goals"]);
   if (!cached) return;
   const index = cached.findIndex((x) => x.slug === slug);
@@ -23,11 +22,11 @@ async function updateCache(slug: string, mutate: () => Promise<unknown>) {
 
 export default function Controls({ g }: { g: Goal }) {
   const { mutate, isLoading } = useMutation((value: number) =>
-    updateCache(g.slug, () => createDatapoint(API_KEY, g.slug, value))
+    queued(g.slug, () => createDatapoint(API_KEY, g.slug, value))
   );
 
   const { mutate: refresh, isLoading: isRefreshing } = useMutation(() =>
-    updateCache(g.slug, () => refreshGraph(API_KEY, g.slug))
+    queued(g.slug, () => refreshGraph(API_KEY, g.slug))
   );
 
   const spinit = isLoading || isRefreshing || g.queued;
