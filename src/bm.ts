@@ -12,6 +12,10 @@ export type Goal = {
   limsumdate: string;
   title: string;
   safebump: number;
+  hhmmformat: boolean;
+  delta: number;
+  queued: boolean;
+  integery: boolean;
 };
 
 export async function getGoals(token: string) {

@@ -24,10 +24,12 @@ export default function Controls({
     { onSuccess }
   );
 
+  const spinit = isLoading || isRefreshing || g.queued;
+
   if (g.autodata) {
     return (
       <button
-        class={`icon-button ${isRefreshing && "spin"}`}
+        class={`icon-button ${spinit && "spin"}`}
         onClick={(e: any) => {
           e.stopPropagation();
           refresh();
@@ -57,7 +59,7 @@ export default function Controls({
         onChange={(e: any) => setValue(e.target.value)}
       />
       <input
-        class={`icon-button ${isLoading && "spin"}`}
+        class={`icon-button ${spinit && "spin"}`}
         type="submit"
         value="✅"
       />

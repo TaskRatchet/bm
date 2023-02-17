@@ -7,72 +7,75 @@ const week = day * 7;
 const month = day * 30;
 const year = day * 365;
 
+function getSeconds(g: Goal): number {
+  const now = new Date();
+  const then = new Date(g.losedate * 1000);
+  const diff = then.getTime() - now.getTime();
+  return Math.floor(diff / 1000);
+}
+
+function getPrefix(g: Goal): string {
+  const { delta, hhmmformat, integery } = g;
+  if (hhmmformat) {
+    const abs = Math.abs(delta);
+    const hours = Math.floor(abs);
+    const minutes = Math.floor((abs - hours) * 60);
+    return `${hours}:${minutes.toString().padStart(2, "0")} in`;
+  }
+  console.log({
+    slug: g.slug,
+    integery,
+  });
+  if (integery) {
+    return `${Math.ceil(Math.abs(delta))} in`;
+  }
+  return `${Math.abs(delta).toFixed(1)} in`;
+}
+
 export default function Countdown({ g }: { g: Goal }) {
-  const { safebump, losedate } = g;
-  const [seconds, setSeconds] = useState<Number>();
+  const [seconds, setSeconds] = useState<Number>(getSeconds(g));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = new Date();
-      const then = new Date(losedate * 1000);
-      const diff = then.getTime() - now.getTime();
-      const seconds = Math.floor(diff / 1000);
-      setSeconds(seconds);
+      setSeconds(getSeconds(g));
     }, 1000);
     return () => clearInterval(interval);
   });
-
-  if (!(typeof seconds === "number")) return <span class="countdown">...</span>;
 
   if (seconds < 0) {
     return <span class="countdown">💀</span>;
   }
 
-  const prefix = `+${safebump.toFixed(1)} in`;
-
-  if (seconds < hour) {
-    return (
-      <span class="countdown">
-        {prefix} {seconds}s
-      </span>
-    );
-  }
-
-  if (seconds < day) {
-    return (
-      <span class="countdown">
-        {prefix} {Math.floor(seconds / hour)}h
-      </span>
-    );
-  }
-
-  if (seconds < week) {
-    return (
-      <span class="countdown">
-        {prefix} {Math.floor(seconds / day)}d
-      </span>
-    );
-  }
-
-  if (seconds < month) {
-    return (
-      <span class="countdown">
-        {prefix} {Math.floor(seconds / week)}w
-      </span>
-    );
-  }
-
-  if (seconds < year) {
-    return (
-      <span class="countdown">
-        {prefix} {Math.floor(seconds / month)}m
-      </span>
-    );
-  }
+  const prefix = getPrefix(g);
+  const divisor =
+    seconds < hour
+      ? 1
+      : seconds < day
+      ? hour
+      : seconds < week
+      ? day
+      : seconds < month
+      ? week
+      : seconds < year
+      ? month
+      : year;
+  const unit =
+    seconds < hour
+      ? "s"
+      : seconds < day
+      ? "h"
+      : seconds < week
+      ? "d"
+      : seconds < month
+      ? "w"
+      : seconds < year
+      ? "m"
+      : "y";
 
   return (
     <span class="countdown">
-      {prefix} {Math.floor(seconds / year)}y
+      {prefix} {Math.floor(Number(seconds) / divisor)}
+      {unit}
     </span>
   );
 }
