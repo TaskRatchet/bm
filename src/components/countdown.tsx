@@ -29,7 +29,8 @@ function getPrefix(g: Goal): string {
   if (integery) {
     return `${s}${Math.ceil(Math.abs(n))} in`;
   }
-  return `${s}${Math.ceil((Math.abs(n) + Number.EPSILON) * 100) / 100} in`;
+  const truncated = v.match(/^[+-]?\d+\.?\d?\d?/)?.[0];
+  return `${truncated} in`;
 }
 
 export default function Countdown({ g }: { g: Goal }) {
