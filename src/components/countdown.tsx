@@ -12,7 +12,7 @@ function getSeconds(g: Goal): number {
   const now = new Date();
   const then = new Date(g.losedate * 1000);
   const diff = then.getTime() - now.getTime();
-  return Math.floor(diff / 1000);
+  return diff / 1000;
 }
 
 function formatTime(n: number): string {
