@@ -30,8 +30,8 @@ function getPrefix(g: Goal): string {
   if (integery) {
     return `${s}${Math.ceil(Math.abs(n))} in`;
   }
-  const truncated = v.match(/^[+-]?\d+\.?\d?\d?/)?.[0];
-  return `${truncated} in`;
+  const truncated = v.match(/^[+-]?(\d+\.?\d?\d?)/)?.[1];
+  return `${s}${truncated} in`;
 }
 
 export default function Countdown({ g }: { g: Goal }) {
