@@ -2,7 +2,7 @@ import { Goal } from "../bm";
 import GoalComponent from "./goal";
 import "./table.css";
 
-export function Table({
+export function Goals({
   goals = [],
   onMutate,
 }: {

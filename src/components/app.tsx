@@ -1,7 +1,7 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Goal } from "../bm";
 import "./app.css";
-import { Table } from "./table";
+import { Goals } from "./goals";
 import { useIsFetching } from "@tanstack/react-query";
 import { useState } from "preact/hooks";
 import { API_KEY, logout } from "../auth";
@@ -46,13 +46,13 @@ function _App() {
       </div>
 
       <h1>Today</h1>
-      <Table goals={today} onMutate={() => reset()} />
+      <Goals goals={today} onMutate={() => reset()} />
 
       <h1>Next</h1>
-      <Table goals={next} onMutate={() => reset()} />
+      <Goals goals={next} onMutate={() => reset()} />
 
       <h1>Later</h1>
-      <Table goals={later} onMutate={() => reset()} />
+      <Goals goals={later} onMutate={() => reset()} />
 
       <small class="footer">
         <span>

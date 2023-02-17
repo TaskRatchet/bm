@@ -28,10 +28,6 @@ body {
   background: var(--green);
 }
 
-table {
-  width: 100%;
-}
-
 .icon-button {
   background: none;
   border: none;
