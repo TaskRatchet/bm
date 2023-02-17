@@ -18,9 +18,8 @@ function _App() {
 
   if (!API_KEY) return <Login />;
 
-  const filtered = data.filter((g: Goal) =>
-    g.slug.match(new RegExp(search, "i"))
-  );
+  const r = new RegExp(search, "i");
+  const filtered = data.filter((g: Goal) => g.slug.match(r));
   const today = filtered.filter((g: Goal) => g.safebuf === 0);
   const next = filtered.filter((g: Goal) => g.safebuf !== 0 && !g.todayta);
   const later = filtered.filter((g: Goal) => g.safebuf !== 0 && g.todayta);
