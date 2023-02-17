@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState, useRef, useEffect } from "preact/hooks";
 import queryClient from "../queryClient";
 
-function updateCache(slug: string) {
+async function updateCache(slug: string, mutate: () => Promise<unknown>) {
   const cached = queryClient.getQueryData<Goal[]>(["goals"]);
   if (!cached) return;
   const index = cached.findIndex((x) => x.slug === slug);
@@ -16,18 +16,19 @@ function updateCache(slug: string) {
     queued: true,
   };
   queryClient.setQueryData(["goals"], cached);
+  const result = await mutate();
+  queryClient.invalidateQueries(["goals"]);
+  return result;
 }
 
 export default function Controls({ g }: { g: Goal }) {
-  const { mutate, isLoading } = useMutation((value: number) => {
-    updateCache(g.slug);
-    return createDatapoint(API_KEY, g.slug, value);
-  });
+  const { mutate, isLoading } = useMutation((value: number) =>
+    updateCache(g.slug, () => createDatapoint(API_KEY, g.slug, value))
+  );
 
-  const { mutate: refresh, isLoading: isRefreshing } = useMutation(() => {
-    updateCache(g.slug);
-    return refreshGraph(API_KEY, g.slug);
-  });
+  const { mutate: refresh, isLoading: isRefreshing } = useMutation(() =>
+    updateCache(g.slug, () => refreshGraph(API_KEY, g.slug))
+  );
 
   const spinit = isLoading || isRefreshing || g.queued;
   const icon = g.autodata ? "🔃" : "➕";
