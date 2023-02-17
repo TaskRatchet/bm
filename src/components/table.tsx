@@ -14,7 +14,7 @@ export function Table({
   return (
     <div class="goals">
       {goals.map((g: Goal) => (
-        <GoalComponent g={g} onMutate={onMutate} />
+        <GoalComponent key={g.slug} g={g} onMutate={onMutate} />
       ))}
     </div>
   );

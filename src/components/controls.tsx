@@ -41,6 +41,7 @@ export default function Controls({
       onSubmit={(e) => {
         e.preventDefault();
         mutate(Number(value));
+        setValue("");
       }}
     >
       <input
