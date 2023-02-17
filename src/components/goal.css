@@ -23,6 +23,12 @@ h3 {
   align-items: center;
 }
 
+.data .countdown {
+  flex: 1 0 0;
+  padding-right: 0.25rem;
+  display: inline-block;
+}
+
 .controls {
   display: flex;
   justify-content: flex-end;

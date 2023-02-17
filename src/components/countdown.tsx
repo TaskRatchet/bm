@@ -1,5 +1,6 @@
 import { Goal } from "../bm";
 import { useState, useEffect } from "preact/hooks";
+import "./countdown.css";
 
 const hour = 60 * 60;
 const day = hour * 24;
