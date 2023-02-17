@@ -75,7 +75,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--padding);
+  padding: 0 var(--padding);
 }
 
 .filter {
