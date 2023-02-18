@@ -41,7 +41,11 @@ function _App() {
         </span>
 
         <span class="buttons">
-          <a class="icon-button" href="https://beeminder.com/new">
+          <a
+            class="icon-button"
+            href="https://beeminder.com/new"
+            title="Add goal"
+          >
             ➕
           </a>
           <button
@@ -52,21 +56,38 @@ function _App() {
               const url = `https://beeminder.com/breaks?start=${start}&finish=${finish}`;
               window.open(url);
             }}
+            title="Add breaks"
           >
             🏖️
           </button>
-          <a class="icon-button" href="https://beeminder.com/settings/account">
+          <a
+            class="icon-button"
+            href="https://beeminder.com/settings/account"
+            title="Account settings"
+          >
             ⚙️
           </a>
-          <a class="icon-button" href="https://help.beeminder.com/">
+          <a
+            class="icon-button"
+            href="https://help.beeminder.com/"
+            title="Docs"
+          >
             ❓
           </a>
-          <a class="icon-button" href="https://www.beeminder.com/premium">
+          <a
+            class="icon-button"
+            href="https://www.beeminder.com/premium"
+            title="Premium"
+          >
             💎
           </a>
+          <button class="icon-button" onClick={logout} title="Logout">
+            🚪
+          </button>
           <button
             class={`icon-button ${isFetching && "spin"}`}
             onClick={() => refetch()}
+            title="Refresh"
           >
             🔃
           </button>
@@ -89,9 +110,6 @@ function _App() {
           <a href="https://taskratchet.com" target="_blank">
             TaskRatchet
           </a>
-        </span>
-        <span>
-          <button onClick={logout}>Logout</button>
         </span>
       </small>
     </>
