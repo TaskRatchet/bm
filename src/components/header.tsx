@@ -3,6 +3,70 @@ import { logout } from "../auth";
 import useGoals from "../useGoals";
 import Colors from "./colors";
 import Time from "./time";
+import queryClient from "../queryClient";
+
+type Item = {
+  name: string;
+  icon: string;
+  getClasses?: (isFetching: number) => string;
+};
+
+type ItemLink = Item & {
+  url: string;
+};
+
+type ItemButton = Item & {
+  onClick: () => void;
+};
+
+const items: (ItemLink | ItemButton)[] = [
+  {
+    name: "Add goal",
+    icon: "➕",
+    url: "https://beeminder.com/new",
+  },
+  {
+    name: "Add breaks",
+    icon: "🏖️",
+    onClick: () => {
+      const start = window.prompt("Start date (YYYY-MM-DD)");
+      const finish = window.prompt("Finish date (YYYY-MM-DD)");
+      const url = `https://beeminder.com/breaks?start=${start}&finish=${finish}`;
+      window.open(url);
+    },
+  },
+  {
+    name: "Account settings",
+    icon: "⚙️",
+    url: "https://beeminder.com/settings/account",
+  },
+  {
+    name: "Blog",
+    icon: "🗞️",
+    url: "https://blog.beeminder.com/",
+  },
+  {
+    name: "Docs",
+    icon: "❓",
+    url: "https://help.beeminder.com/",
+  },
+  {
+    name: "Premium",
+    icon: "💎",
+    url: "https://www.beeminder.com/premium",
+  },
+  {
+    name: "Logout",
+    icon: "🚪",
+    onClick: logout,
+  },
+  {
+    name: "Refresh",
+    icon: "🔃",
+    onClick: () => queryClient.refetchQueries(),
+    getClasses: (isFetching) => (isFetching ? "spin" : ""),
+  },
+];
 
 export default function Header({
   search,
@@ -34,56 +98,27 @@ export default function Header({
         </span>
 
         <span class="buttons">
-          <a
-            class="icon-button"
-            href="https://beeminder.com/new"
-            title="Add goal"
-          >
-            ➕
-          </a>
-          <button
-            class="icon-button"
-            onClick={() => {
-              const start = window.prompt("Start date (YYYY-MM-DD)");
-              const finish = window.prompt("Finish date (YYYY-MM-DD)");
-              const url = `https://beeminder.com/breaks?start=${start}&finish=${finish}`;
-              window.open(url);
-            }}
-            title="Add breaks"
-          >
-            🏖️
-          </button>
-          <a
-            class="icon-button"
-            href="https://beeminder.com/settings/account"
-            title="Account settings"
-          >
-            ⚙️
-          </a>
-          <a
-            class="icon-button"
-            href="https://help.beeminder.com/"
-            title="Docs"
-          >
-            ❓
-          </a>
-          <a
-            class="icon-button"
-            href="https://www.beeminder.com/premium"
-            title="Premium"
-          >
-            💎
-          </a>
-          <button class="icon-button" onClick={logout} title="Logout">
-            🚪
-          </button>
-          <button
-            class={`icon-button ${isFetching && "spin"}`}
-            onClick={() => refetch()}
-            title="Refresh"
-          >
-            🔃
-          </button>
+          {items.map((item) =>
+            "url" in item ? (
+              <a
+                key={item.name}
+                class={`icon-button ${item.getClasses?.(isFetching)}`}
+                href={item.url}
+                title={item.name}
+              >
+                {item.icon}
+              </a>
+            ) : (
+              <button
+                key={item.name}
+                class={`icon-button ${item.getClasses?.(isFetching)}`}
+                onClick={item.onClick}
+                title={item.name}
+              >
+                {item.icon}
+              </button>
+            )
+          )}
         </span>
       </div>
     </>
