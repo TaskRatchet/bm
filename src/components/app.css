@@ -73,6 +73,15 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--padding);
+  flex-wrap: wrap;
+}
+
+.global-controls>* {
+  margin-top: var(--padding);
+}
+
+.global-controls .buttons {
+  flex: 0 0 auto;
 }
 
 .global-controls .buttons .icon-button {
@@ -87,4 +96,6 @@ button {
 
 .filter input {
   margin-right: 0.4rem;
+  flex: 1 0 0;
+  min-width: 0;
 }

@@ -44,6 +44,18 @@ function _App() {
           <a class="icon-button" href="https://beeminder.com/new">
             ➕
           </a>
+          <a class="icon-button" href="https://beeminder.com/breaks">
+            🏖️
+          </a>
+          <a class="icon-button" href="https://beeminder.com/settings/account">
+            ⚙️
+          </a>
+          <a class="icon-button" href="https://help.beeminder.com/">
+            ❓
+          </a>
+          <a class="icon-button" href="https://www.beeminder.com/premium">
+            💎
+          </a>
           <button
             class={`icon-button ${isFetching && "spin"}`}
             onClick={() => refetch()}
