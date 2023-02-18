@@ -44,9 +44,17 @@ function _App() {
           <a class="icon-button" href="https://beeminder.com/new">
             ➕
           </a>
-          <a class="icon-button" href="https://beeminder.com/breaks">
+          <button
+            class="icon-button"
+            onClick={() => {
+              const start = window.prompt("Start date (YYYY-MM-DD)");
+              const finish = window.prompt("Finish date (YYYY-MM-DD)");
+              const url = `https://beeminder.com/breaks?start=${start}&finish=${finish}`;
+              window.open(url);
+            }}
+          >
             🏖️
-          </a>
+          </button>
           <a class="icon-button" href="https://beeminder.com/settings/account">
             ⚙️
           </a>
