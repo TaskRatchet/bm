@@ -75,7 +75,7 @@ export default function Header({
   search: string;
   setSearch: (s: string) => void;
 }) {
-  const { data = [], refetch } = useGoals();
+  const { data = [] } = useGoals();
   const isFetching = useIsFetching();
 
   return (
