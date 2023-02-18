@@ -2,7 +2,8 @@ import { Goal } from "../bm";
 import { useState, useEffect } from "preact/hooks";
 import "./countdown.css";
 
-const hour = 60 * 60;
+const minute = 60;
+const hour = minute * 60;
 const day = hour * 24;
 const week = day * 7;
 const month = day * 30;
@@ -58,8 +59,10 @@ export default function Countdown({ g }: { g: Goal }) {
 
   const prefix = getPrefix(g);
   const divisor =
-    seconds < hour
+    seconds < minute
       ? 1
+      : seconds < hour
+      ? minute
       : seconds < day
       ? hour
       : seconds < week
@@ -70,8 +73,10 @@ export default function Countdown({ g }: { g: Goal }) {
       ? month
       : year;
   const unit =
-    seconds < hour
+    seconds < minute
       ? "s"
+      : seconds < hour
+      ? "m"
       : seconds < day
       ? "h"
       : seconds < week
