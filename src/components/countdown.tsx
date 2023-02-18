@@ -2,12 +2,36 @@ import { Goal } from "../bm";
 import { useState, useEffect } from "preact/hooks";
 import "./countdown.css";
 
-const minute = 60;
-const hour = minute * 60;
-const day = hour * 24;
-const week = day * 7;
-const month = day * 30;
-const year = day * 365;
+const Units = {
+  Second: {
+    seconds: 1,
+    symbol: "s",
+  },
+  Minute: {
+    seconds: 60,
+    symbol: "m",
+  },
+  Hour: {
+    seconds: 60 * 60,
+    symbol: "h",
+  },
+  Day: {
+    seconds: 60 * 60 * 24,
+    symbol: "d",
+  },
+  Week: {
+    seconds: 60 * 60 * 24 * 7,
+    symbol: "w",
+  },
+  Month: {
+    seconds: 60 * 60 * 24 * 30,
+    symbol: "m",
+  },
+  Year: {
+    seconds: 60 * 60 * 24 * 365,
+    symbol: "y",
+  },
+};
 
 function getSeconds(g: Goal): number {
   const now = new Date();
@@ -58,39 +82,14 @@ export default function Countdown({ g }: { g: Goal }) {
   if (seconds < 0) return <span class="countdown">💀</span>;
 
   const prefix = getPrefix(g);
-  const divisor =
-    seconds < minute
-      ? 1
-      : seconds < hour
-      ? minute
-      : seconds < day
-      ? hour
-      : seconds < week
-      ? day
-      : seconds < month
-      ? week
-      : seconds < year
-      ? month
-      : year;
-  const unit =
-    seconds < minute
-      ? "s"
-      : seconds < hour
-      ? "m"
-      : seconds < day
-      ? "h"
-      : seconds < week
-      ? "d"
-      : seconds < month
-      ? "w"
-      : seconds < year
-      ? "m"
-      : "y";
+  const unit = Object.values(Units).findLast((u) => seconds > u.seconds);
+
+  if (!unit) return <span class="countdown">🤷‍♂️</span>;
 
   return (
     <span class="countdown">
-      {prefix} {Math.floor(Number(seconds) / divisor)}
-      {unit}
+      {prefix} {Math.floor(Number(seconds) / unit.seconds)}
+      {unit.symbol}
     </span>
   );
 }
