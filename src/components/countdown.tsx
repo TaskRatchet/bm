@@ -71,6 +71,10 @@ function getPrefix(g: Goal): string {
   return `${s}${r} in`;
 }
 
+function W({ children }: { children: any }) {
+  return <span class="countdown">{children}</span>;
+}
+
 export default function Countdown({ g }: { g: Goal }) {
   const [seconds, setSeconds] = useState<Number>(getSeconds(g));
 
@@ -79,17 +83,17 @@ export default function Countdown({ g }: { g: Goal }) {
     return () => clearInterval(i);
   });
 
-  if (seconds < 0) return <span class="countdown">💀</span>;
+  if (seconds < 0) return <W>💀</W>;
 
   const prefix = getPrefix(g);
   const unit = Object.values(Units).findLast((u) => seconds > u.seconds);
 
-  if (!unit) return <span class="countdown">🤷‍♂️</span>;
+  if (!unit) return <W>🤷‍♂️</W>;
 
   return (
-    <span class="countdown">
+    <W>
       {prefix} {Math.floor(Number(seconds) / unit.seconds)}
       {unit.symbol}
-    </span>
+    </W>
   );
 }
