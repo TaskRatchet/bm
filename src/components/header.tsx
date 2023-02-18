@@ -81,7 +81,6 @@ export default function Header({
   return (
     <>
       <Colors goals={data} />
-
       <Time goals={data} />
 
       <div class="global-controls">
