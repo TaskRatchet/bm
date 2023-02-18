@@ -98,27 +98,22 @@ export default function Header({
         </span>
 
         <span class="buttons">
-          {items.map((item) =>
-            "url" in item ? (
-              <a
-                key={item.name}
-                class={`icon-button ${item.getClasses?.(isFetching)}`}
-                href={item.url}
-                title={item.name}
-              >
+          {items.map((item) => {
+            const props = {
+              key: item.name,
+              class: `icon-button ${item.getClasses?.(isFetching)}`,
+              title: item.name,
+            };
+            return "url" in item ? (
+              <a href={item.url} {...props}>
                 {item.icon}
               </a>
             ) : (
-              <button
-                key={item.name}
-                class={`icon-button ${item.getClasses?.(isFetching)}`}
-                onClick={item.onClick}
-                title={item.name}
-              >
+              <button onClick={item.onClick} {...props}>
                 {item.icon}
               </button>
-            )
-          )}
+            );
+          })}
         </span>
       </div>
     </>
