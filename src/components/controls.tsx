@@ -31,6 +31,7 @@ export default function Controls({ g }: { g: Goal }) {
 
   const spinit = isLoading || isRefreshing || g.queued;
   const icon = g.autodata ? "🔃" : "➕";
+  const tooltip = g.autodata ? "Refresh" : "Add datapoint";
 
   return (
     <button
@@ -42,6 +43,7 @@ export default function Controls({ g }: { g: Goal }) {
         if (!value) return;
         mutate(parseInt(value));
       }}
+      title={tooltip}
     >
       {icon}
     </button>
