@@ -40,12 +40,17 @@ function _App() {
           </button>
         </span>
 
-        <button
-          class={`icon-button ${isFetching && "spin"}`}
-          onClick={() => refetch()}
-        >
-          🔃
-        </button>
+        <span class="buttons">
+          <a class="icon-button" href="https://beeminder.com/new">
+            ➕
+          </a>
+          <button
+            class={`icon-button ${isFetching && "spin"}`}
+            onClick={() => refetch()}
+          >
+            🔃
+          </button>
+        </span>
       </div>
 
       <Goals goals={filtered} />
