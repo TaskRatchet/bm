@@ -38,6 +38,9 @@ function Values({ g, keys }: { g: Goal; keys: (keyof Goal)[] }) {
 export default function Detail() {
   const [params, setParams] = useSearchParams();
   const { data = [] } = useGoals();
+  const slug = params.get("goal");
+
+  if (!slug) return null;
 
   data.sort((a, b) => (a.losedate < b.losedate ? -1 : 1));
   const t = data.filter((g) => g.safebuf === 0);
@@ -46,7 +49,7 @@ export default function Detail() {
 
   const goals = [...t, ...n, ...l];
 
-  const i = goals.findIndex((g: Goal) => g.slug === params.get("goal"));
+  const i = goals.findIndex((g: Goal) => g.slug === slug);
   const g = goals[i];
   const prev = goals[i - 1];
   const next = goals[i + 1];
