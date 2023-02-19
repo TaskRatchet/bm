@@ -5,10 +5,10 @@ import Controls from "./controls";
 import Countdown from "./countdown";
 
 function getBufferClass(goal: Goal) {
-  const buf = goal.safebuf as number;
-  const num = buf > 3 ? 3 : buf < 0 ? 0 : buf;
+  const b = goal.safebuf;
+  const n = b > 3 ? 3 : b < 0 ? 0 : b;
 
-  return `buffer-${num}`;
+  return `buffer-${n}`;
 }
 
 export default function GoalComponent({ g }: { g: Goal }) {
