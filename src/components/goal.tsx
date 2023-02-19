@@ -4,11 +4,8 @@ import { USERNAME } from "../auth";
 import Controls from "./controls";
 import Countdown from "./countdown";
 
-function makeClass(g: Goal) {
-  const b = g.safebuf;
-  const n = b > 3 ? 3 : b < 0 ? 0 : b;
-
-  return `buffer-${n}`;
+function makeClass({ safebuf: b }: Goal) {
+  return `buffer-${b > 3 ? 3 : b < 0 ? 0 : b}`;
 }
 
 export default function GoalComponent({ g }: { g: Goal }) {
