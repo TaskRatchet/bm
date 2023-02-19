@@ -37,6 +37,8 @@ function Values({ g, keys }: { g: Goal; keys: (keyof Goal)[] }) {
 export default function Detail({ g }: { g: Goal }) {
   const [, setParams] = useSearchParams();
 
+  console.log({ g });
+
   return (
     <div class="detail">
       <div class="detail__header">
@@ -59,7 +61,12 @@ export default function Detail({ g }: { g: Goal }) {
       </div>
 
       <img src={g.svg_url} />
-      <pre>{JSON.stringify(g, null, 2)}</pre>
+      {g.fineprint && (
+        <div>
+          <h2>Fineprint</h2>
+          <p>{g.fineprint}</p>
+        </div>
+      )}
     </div>
   );
 }
