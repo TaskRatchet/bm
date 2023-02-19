@@ -6,7 +6,7 @@ body {
   min-height: 100vh;
 
   --red: rgb(255, 181, 181);
-  --yellow: rgb(255, 224, 161);
+  --orange: rgb(255, 224, 161);
   --blue: rgb(199, 199, 255);
   --green: rgb(147, 255, 147);
 
@@ -29,13 +29,8 @@ body,
   background: var(--red);
 }
 
-.yellow {
-  background: var(--yellow);
-}
-
-/* Beeminder uses orange instead of yellow in the API */
 .orange {
-  background: var(--yellow);
+  background: var(--orange);
 }
 
 .blue {
@@ -43,22 +38,6 @@ body,
 }
 
 .green {
-  background: var(--green);
-}
-
-.buffer-0 {
-  background: var(--red);
-}
-
-.buffer-1 {
-  background: var(--yellow);
-}
-
-.buffer-2 {
-  background: var(--blue);
-}
-
-.buffer-3 {
   background: var(--green);
 }
 

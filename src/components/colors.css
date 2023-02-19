@@ -6,20 +6,16 @@
 
 .red {
   width: var(--redLen);
-  background-color: var(--red);
 }
 
-.yellow {
-  width: var(--yellowLen);
-  background-color: var(--yellow);
+.orange {
+  width: var(--orangeLen);
 }
 
 .blue {
   width: var(--blueLen);
-  background-color: var(--blue);
 }
 
 .green {
   width: var(--greenLen);
-  background-color: var(--green);
 }
