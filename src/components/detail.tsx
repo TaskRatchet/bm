@@ -92,6 +92,26 @@ export default function Detail() {
 
       <img src={g.svg_url} />
 
+      <h2>Recent Data</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Comment</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {g.recent_data.map((d) => (
+            <tr>
+              <td>{d.daystamp}</td>
+              <td>{d.comment}</td>
+              <td>{d.value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
       {g.fineprint && (
         <div>
           <h2>Fineprint</h2>

@@ -86,7 +86,20 @@ export type Goal = {
   last_datapoint: object;
   callback_url: object;
   tags: string[];
-  recent_data: object;
+  recent_data: {
+    canonical: string;
+    comment: string;
+    created_at: string;
+    daystamp: string;
+    fulltext: string;
+    id: {
+      $oid: string;
+    };
+    measured_at: string;
+    origin: string;
+    urtext?: string;
+    value: number;
+  }[];
   dueby: object;
 };
 
