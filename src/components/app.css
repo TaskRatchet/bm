@@ -33,6 +33,11 @@ body,
   background: var(--yellow);
 }
 
+/* Beeminder uses orange instead of yellow in the API */
+.orange {
+  background: var(--yellow);
+}
+
 .blue {
   background: var(--blue);
 }
