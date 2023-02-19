@@ -4,8 +4,8 @@ import { USERNAME } from "../auth";
 import Controls from "./controls";
 import Countdown from "./countdown";
 
-function getBufferClass(goal: Goal) {
-  const b = goal.safebuf;
+function getBufferClass(g: Goal) {
+  const b = g.safebuf;
   const n = b > 3 ? 3 : b < 0 ? 0 : b;
 
   return `buffer-${n}`;
