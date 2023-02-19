@@ -112,12 +112,8 @@ export default function Detail() {
         </tbody>
       </table>
 
-      {g.fineprint && (
-        <div>
-          <h2>Fineprint</h2>
-          <p>{g.fineprint}</p>
-        </div>
-      )}
+      <h2>Fineprint</h2>
+      <p>{g.fineprint || "[empty]"}</p>
     </div>
   );
 }
