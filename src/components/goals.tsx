@@ -9,21 +9,19 @@ export function Goals({ goals = [] }: { goals: Goal[] }) {
   const later = goals.filter((g: Goal) => g.safebuf !== 0 && g.todayta);
 
   return (
-    <>
-      <div class="goals">
-        <h1>Today</h1>
-        {today.map((g: Goal) => (
-          <GoalComponent key={g.slug} g={g} />
-        ))}
-        <h1>Next</h1>
-        {next.map((g: Goal) => (
-          <GoalComponent key={g.slug} g={g} />
-        ))}
-        <h1>Later</h1>
-        {later.map((g: Goal) => (
-          <GoalComponent key={g.slug} g={g} />
-        ))}
-      </div>
-    </>
+    <div class="goals">
+      <h1>Today</h1>
+      {today.map((g: Goal) => (
+        <GoalComponent key={g.slug} g={g} />
+      ))}
+      <h1>Next</h1>
+      {next.map((g: Goal) => (
+        <GoalComponent key={g.slug} g={g} />
+      ))}
+      <h1>Later</h1>
+      {later.map((g: Goal) => (
+        <GoalComponent key={g.slug} g={g} />
+      ))}
+    </div>
   );
 }
