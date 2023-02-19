@@ -5,11 +5,21 @@
 .detail__header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: var(--padding);
     flex-wrap: wrap;
 }
 
 .detail__header h1 {
     margin: 0;
+}
+
+.detail__limsumdate {
+    display: inline-block;
+    padding: var(--padding)
+}
+
+.detail__title {
+    display: block;
+    text-align: center;
 }

@@ -57,7 +57,10 @@ export default function Detail() {
       <div class="detail__header">
         <div>
           <h1>{g.slug}</h1>
-          <small>{g.title}</small>
+        </div>
+
+        <div class={`detail__limsumdate ${g.roadstatuscolor}`}>
+          {g.limsumdate}
         </div>
 
         <div>
@@ -85,7 +88,10 @@ export default function Detail() {
         </div>
       </div>
 
+      <small class="detail__title">{g.title}</small>
+
       <img src={g.svg_url} />
+
       {g.fineprint && (
         <div>
           <h2>Fineprint</h2>

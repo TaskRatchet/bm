@@ -25,6 +25,22 @@ body,
   justify-content: space-between
 }
 
+.red {
+  background: var(--red);
+}
+
+.yellow {
+  background: var(--yellow);
+}
+
+.blue {
+  background: var(--blue);
+}
+
+.green {
+  background: var(--green);
+}
+
 .buffer-0 {
   background: var(--red);
 }
