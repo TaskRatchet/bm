@@ -4,9 +4,9 @@ import "./goals.css";
 
 export function Goals({ goals = [] }: { goals: Goal[] }) {
   goals.sort((a, b) => (a.losedate < b.losedate ? -1 : 1));
-  const t = goals.filter((g: Goal) => g.safebuf === 0);
-  const n = goals.filter((g: Goal) => g.safebuf !== 0 && !g.todayta);
-  const l = goals.filter((g: Goal) => g.safebuf !== 0 && g.todayta);
+  const t = goals.filter((g) => g.safebuf === 0);
+  const n = goals.filter((g) => g.safebuf !== 0 && !g.todayta);
+  const l = goals.filter((g) => g.safebuf !== 0 && g.todayta);
 
   return (
     <div class="goals">
