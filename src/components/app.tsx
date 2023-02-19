@@ -10,11 +10,7 @@ import queryClient from "../queryClient";
 import Footer from "./footer";
 import Header from "./header";
 import Center from "./center";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  useSearchParams,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Detail from "./detail";
 
 function getTags(data: Goal[]) {
@@ -28,7 +24,6 @@ function getTags(data: Goal[]) {
 function _App() {
   const [filter, setFilter] = useState("");
   const { data } = useGoals();
-  const [params] = useSearchParams();
 
   if (!API_KEY) return <Login />;
 
@@ -36,7 +31,6 @@ function _App() {
 
   const r = new RegExp(filter, "i");
   const filtered = data.filter((g: Goal) => g.slug.match(r));
-  const selected = data.find((g: Goal) => g.slug === params.get("goal"));
   const tags = getTags(data);
 
   return (
@@ -50,7 +44,7 @@ function _App() {
         </ul>
         <div class="content">
           <Goals goals={filtered} />
-          {selected && <Detail g={selected} />}
+          <Detail />
         </div>
       </div>
       <Footer />

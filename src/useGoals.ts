@@ -5,7 +5,7 @@ import { getGoals, Goal } from "./bm";
 import queryClient from "./queryClient";
 
 export default function useGoals() {
-  return useQuery(["goals"], () => getGoals(API_KEY), {
+  return useQuery<Goal[], AxiosError>(["goals"], () => getGoals(API_KEY), {
     enabled: !!API_KEY,
     refetchInterval: () => {
       const goals = queryClient.getQueryData<Goal[]>(["goals"]);

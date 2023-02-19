@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { USERNAME } from "../auth";
 import { Goal } from "../bm";
+import useGoals from "../useGoals";
 import "./detail.css";
 
 function formatValue(v: unknown): string | number {
@@ -34,8 +35,21 @@ function Values({ g, keys }: { g: Goal; keys: (keyof Goal)[] }) {
   );
 }
 
-export default function Detail({ g }: { g: Goal }) {
-  const [, setParams] = useSearchParams();
+export default function Detail() {
+  const [params, setParams] = useSearchParams();
+  const { data = [] } = useGoals();
+
+  data.sort((a, b) => (a.losedate < b.losedate ? -1 : 1));
+  const t = data.filter((g) => g.safebuf === 0);
+  const n = data.filter((g) => g.safebuf !== 0 && !g.todayta);
+  const l = data.filter((g) => g.safebuf !== 0 && g.todayta);
+
+  const goals = [...t, ...n, ...l];
+
+  const i = goals.findIndex((g: Goal) => g.slug === params.get("goal"));
+  const g = goals[i];
+  const prev = goals[i - 1];
+  const next = goals[i + 1];
 
   console.log({ g });
 
@@ -56,6 +70,18 @@ export default function Detail({ g }: { g: Goal }) {
           </a>
           <button onClick={() => setParams("")} className="icon-button">
             ❌
+          </button>
+          <button
+            onClick={() => setParams("goal=" + prev.slug)}
+            className="icon-button"
+          >
+            ◀
+          </button>
+          <button
+            onClick={() => setParams("goal=" + next.slug)}
+            className="icon-button"
+          >
+            ▶
           </button>
         </div>
       </div>

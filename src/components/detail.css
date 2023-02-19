@@ -1,7 +1,7 @@
 .detail__header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: var(--padding);
     flex-wrap: wrap;
 }
