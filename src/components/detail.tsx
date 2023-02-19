@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { USERNAME } from "../auth";
 import { Goal } from "../bm";
+import groupGoals from "../groupGoals";
 import useGoals from "../useGoals";
 import "./detail.css";
 
@@ -42,12 +43,7 @@ export default function Detail() {
 
   if (!slug) return null;
 
-  data.sort((a, b) => (a.losedate < b.losedate ? -1 : 1));
-  const t = data.filter((g) => g.safebuf === 0);
-  const n = data.filter((g) => g.safebuf !== 0 && !g.todayta);
-  const l = data.filter((g) => g.safebuf !== 0 && g.todayta);
-
-  const goals = [...t, ...n, ...l];
+  const goals = Object.values(groupGoals(data)).flat();
 
   const i = goals.findIndex((g: Goal) => g.slug === slug);
   const g = goals[i];
