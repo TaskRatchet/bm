@@ -11,17 +11,17 @@ export function Goals({ goals = [] }: { goals: Goal[] }) {
   return (
     <div class="goals">
       <h1>Today</h1>
-      {t.map((g: Goal) => (
+      {t.map((g) => (
         <G key={g.slug} g={g} />
       ))}
 
       <h1>Next</h1>
-      {n.map((g: Goal) => (
+      {n.map((g) => (
         <G key={g.slug} g={g} />
       ))}
 
       <h1>Later</h1>
-      {l.map((g: Goal) => (
+      {l.map((g) => (
         <G key={g.slug} g={g} />
       ))}
     </div>
