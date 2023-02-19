@@ -1,0 +1,11 @@
+.detail__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--padding);
+    flex-wrap: wrap;
+}
+
+.detail__header h1 {
+    margin: 0;
+}

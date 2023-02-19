@@ -1,81 +1,7 @@
+import { useSearchParams } from "react-router-dom";
 import { USERNAME } from "../auth";
 import { Goal } from "../bm";
-
-const general: (keyof Goal)[] = [
-  "title",
-  "rate",
-  "limsum",
-  "safesum",
-  "weekends_off",
-  "autodata",
-  "autodata_config",
-  "losedate",
-  "deadline",
-  "leadtime",
-  "alertstart",
-  "updated_at",
-  "graphsum",
-  "frozen",
-  "last_datapoint",
-  "dueby",
-  "lost",
-  "won",
-  "hhmmformat",
-  "todayta",
-  "tmin",
-  "tmax",
-  "recent_data",
-  "contract",
-  "tags",
-  "callback_url",
-  "pledge",
-  "mathishard",
-  "fineprint",
-  "curday",
-  "curval",
-  "lastday",
-  "gunits",
-  "yaxis",
-  "initday",
-  "initval",
-  "kyoom",
-  "odom",
-  "integery",
-  "noisy",
-  "plotall",
-  "coasting",
-  "yaw",
-  "baremin",
-  "baremintotal",
-  "delta",
-  "runits",
-  "limsumdate",
-  "limsumdays",
-];
-const endState: (keyof Goal)[] = ["goalval", "goaldate"];
-const ommitted: (keyof Goal)[] = [
-  ...general,
-  ...endState,
-  "slug",
-  "description",
-  "svg_url",
-  "graph_url",
-  "thumb_url",
-  "goal_type",
-  "healthkitmetric",
-  "use_defaults",
-  "id",
-  "ephem",
-  "queued",
-  "panic",
-  "burner",
-  "road",
-  "roadall",
-  "fullroad",
-  "headsum",
-  "lane",
-  "dir",
-];
+import "./detail.css";
 
 function formatValue(v: unknown): string | number {
   if (typeof v === "number") return v.toFixed(2);
@@ -109,33 +35,30 @@ function Values({ g, keys }: { g: Goal; keys: (keyof Goal)[] }) {
 }
 
 export default function Detail({ g }: { g: Goal }) {
+  const [, setParams] = useSearchParams();
+
   return (
     <div class="detail">
-      <h1>{g.slug}</h1>
+      <div class="detail__header">
+        <div>
+          <h1>{g.slug}</h1>
+          <small>{g.title}</small>
+        </div>
 
-      <div>
-        <a
-          href={`https://beeminder.com/${USERNAME}/${g.slug}`}
-          className="icon-button"
-        >
-          🔗
-        </a>
+        <div>
+          <a
+            href={`https://beeminder.com/${USERNAME}/${g.slug}`}
+            className="icon-button"
+          >
+            🔗
+          </a>
+          <button onClick={() => setParams("")} className="icon-button">
+            ❌
+          </button>
+        </div>
       </div>
 
       <img src={g.svg_url} />
-      <Values g={g} keys={general} />
-      <h2>End State</h2>
-      <Values g={g} keys={endState} />
-      <h2>Fields</h2>
-      <ul>
-        {Object.entries(g).map(([k, v]) =>
-          ommitted.includes(k as keyof Goal) ? null : (
-            <li>
-              <strong>{k}</strong>: {JSON.stringify(v)}
-            </li>
-          )
-        )}
-      </ul>
       <pre>{JSON.stringify(g, null, 2)}</pre>
     </div>
   );

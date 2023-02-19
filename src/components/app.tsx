@@ -50,7 +50,7 @@ function _App() {
         </ul>
         <div class="content">
           <Goals goals={filtered} />
-          <Detail g={selected} />
+          {selected && <Detail g={selected} />}
         </div>
       </div>
       <Footer />
