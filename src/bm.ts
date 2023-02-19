@@ -132,6 +132,7 @@ export async function createDatapoint(
   const url = `${API_ROOT}/users/me/goals/${goal}/datapoints.json?auth_token=${token}`;
   const response = await axios.post(url, {
     value,
+    comment: "via bm.taskratchet.com",
   });
 
   return response.data;
