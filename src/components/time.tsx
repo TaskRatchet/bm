@@ -40,8 +40,12 @@ function makePoint(time: number, goals: Goal[]): Point {
   };
 }
 
-function makePoints(goals: Goal[]): Record<string, Point> {
-  return goals
+function sortPoints(points: Record<string, Point>): Point[] {
+  return Object.values(points).sort((a, b) => a.time - b.time);
+}
+
+function makePoints(goals: Goal[]): Point[] {
+  const points = goals
     .filter((g) => g.safebuf === 0)
     .reduce(
       (acc: Record<string, Point>, g: Goal): Record<string, Point> => ({
@@ -50,6 +54,8 @@ function makePoints(goals: Goal[]): Record<string, Point> {
       }),
       {}
     );
+
+  return sortPoints(points);
 }
 
 export default function Time({ goals }: { goals: Goal[] }) {
@@ -64,14 +70,12 @@ export default function Time({ goals }: { goals: Goal[] }) {
     return () => clearInterval(i);
   }, []);
 
-  const times = Object.keys(points).sort((a, b) => +a - +b);
-
   return (
     <div class="time">
       <span class="bubble">{hhmm}</span>
       <span class="line">
-        {times.map((t) => (
-          <Bubble p={points[t]} />
+        {points.map((p) => (
+          <Bubble p={p} />
         ))}
       </span>
     </div>
