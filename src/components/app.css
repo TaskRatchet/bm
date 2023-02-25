@@ -13,18 +13,6 @@ body {
   --padding: 0.4rem;
 }
 
-html,
-body,
-#app {
-  min-height: 100vh;
-}
-
-#app {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between
-}
-
 .red {
   background: var(--red);
 }
