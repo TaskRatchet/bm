@@ -109,7 +109,6 @@ export default function Detail({ g }: { g: Goal }) {
       </div>
 
       <div className="detail_info">
-        <h2>Recent Data</h2>
         <table>
           <thead>
             <tr>
@@ -129,8 +128,9 @@ export default function Detail({ g }: { g: Goal }) {
           </tbody>
         </table>
 
-        <h2>Fineprint</h2>
-        <p>{g.fineprint || "[empty]"}</p>
+        <p>
+          <strong>Fineprint:</strong> {g.fineprint || "[empty]"}
+        </p>
       </div>
     </div>
   );

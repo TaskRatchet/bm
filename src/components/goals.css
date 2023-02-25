@@ -13,7 +13,7 @@
 }
 
 .detail {
-  --height: 10;
+  --height: 7;
   grid-area: 1 / 1 / var(--height) / 5;
   overflow-y: auto;
 }

@@ -59,3 +59,7 @@
 .detail_info {
     padding: var(--padding);
 }
+
+.detail_info p {
+    margin: var(--padding) 0;
+}
