@@ -1,4 +1,3 @@
-import axios from "axios";
 import { API_KEY } from "./auth";
 
 const API_ROOT = "https://www.beeminder.com/api/v1";

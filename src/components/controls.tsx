@@ -22,11 +22,11 @@ async function queued(slug: string, mutate: () => Promise<unknown>) {
 
 export default function Controls({ g }: { g: Goal }) {
   const { mutate, isLoading } = useMutation((value: number) =>
-    queued(g.slug, () => createDatapoint(API_KEY, g.slug, value))
+    queued(g.slug, () => createDatapoint(g.slug, value))
   );
 
   const { mutate: refresh, isLoading: isRefreshing } = useMutation(() =>
-    queued(g.slug, () => refreshGraph(API_KEY, g.slug))
+    queued(g.slug, () => refreshGraph(g.slug))
   );
 
   const spinit = isLoading || isRefreshing || g.queued;

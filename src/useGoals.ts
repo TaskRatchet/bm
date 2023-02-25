@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { API_KEY, logout } from "./auth";
 import { getGoals, Goal } from "./bm";
 import queryClient from "./queryClient";
 
 export default function useGoals() {
-  return useQuery<Goal[], AxiosError>(["goals"], () => getGoals(), {
+  return useQuery<Goal[], Response>(["goals"], () => getGoals(), {
     enabled: !!API_KEY,
     refetchInterval: () => {
       try {
@@ -19,8 +18,8 @@ export default function useGoals() {
     },
     refetchIntervalInBackground: false,
     retry: false,
-    onError: (err: AxiosError) => {
-      switch (err.response?.status) {
+    onError: (err: Response) => {
+      switch (err.status) {
         case 401:
           logout();
           break;
