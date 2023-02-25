@@ -48,7 +48,7 @@ export type Goal = {
   limsumdays: string;
   baremin: string;
   baremintotal: string;
-  roadstatuscolor: string;
+  roadstatuscolor: "red" | "orange" | "blue" | "green";
   lasttouch: string;
   coasting: boolean;
   fineprint: object;

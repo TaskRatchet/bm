@@ -36,34 +36,32 @@ function Values({ g, keys }: { g: Goal; keys: (keyof Goal)[] }) {
   );
 }
 
-export default function Detail() {
-  const [params, setParams] = useSearchParams();
+export default function Detail({ g }: { g: Goal }) {
+  const [, setParams] = useSearchParams();
   const { data = [] } = useGoals();
-  const slug = params.get("goal");
-
-  if (!slug) return null;
-
   const goals = Object.values(groupGoals(data)).flat();
-
-  const i = goals.findIndex((g: Goal) => g.slug === slug);
-  const g = goals[i];
+  const i = goals.findIndex((_g: Goal) => _g.slug === g.slug);
   const prev = goals[i - 1];
   const next = goals[i + 1];
 
-  console.log({ g });
+  console.log("i", i);
 
   return (
-    <div class="detail">
+    <div
+      class="detail"
+      style={{
+        "--border-color": `var(--${g.roadstatuscolor})`,
+      }}
+    >
+      <div class={`detail__limsumdate ${g.roadstatuscolor}`}>
+        {g.limsumdate}
+      </div>
       <div class="detail__header">
         <div>
           <h1>{g.slug}</h1>
         </div>
 
-        <div class={`detail__limsumdate ${g.roadstatuscolor}`}>
-          {g.limsumdate}
-        </div>
-
-        <div>
+        <div class="detail__buttons">
           <a
             href={`https://beeminder.com/${USERNAME}/${g.slug}`}
             className="icon-button"

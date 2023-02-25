@@ -1,3 +1,7 @@
+.detail {
+    border: 6px solid var(--border-color);
+}
+
 .detail img {
     max-width: 100%;
 }
@@ -15,11 +19,16 @@
 }
 
 .detail__limsumdate {
-    display: inline-block;
-    padding: var(--padding)
+    padding: var(--padding);
+    border-bottom: 4px solid var(--border-color);
+    text-align: center;
 }
 
 .detail__title {
     display: block;
     text-align: center;
+}
+
+.detail__buttons .icon-button {
+    margin-left: var(--padding);
 }

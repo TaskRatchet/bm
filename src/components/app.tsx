@@ -44,7 +44,6 @@ function _App() {
         </ul>
         <div class="content">
           <Goals goals={filtered} />
-          <Detail />
         </div>
       </div>
       <Footer />

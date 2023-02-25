@@ -113,23 +113,6 @@ button {
   min-width: 0;
 }
 
-.content {
-  display: flex;
-  flex-wrap: wrap-reverse;
-  align-items: flex-end;
-}
-
-.content .goals {
-  flex: 1 0 0;
-}
-
-.content .detail {
-  max-width: 100vh;
-  flex: 0 0 30rem;
-  padding: 0 var(--padding);
-  overflow: hidden;
-}
-
 .tags {
   padding-left: var(--padding);
 }
