@@ -40,19 +40,8 @@ function makePoint(time: number, goals: Goal[]): Point {
   };
 }
 
-export default function Time({ goals }: { goals: Goal[] }) {
-  const [d, setDate] = useState(new Date());
-  const [hhmm, setHhmm] = useState(formatNow());
-
-  useEffect(() => {
-    const i = setInterval(() => {
-      setDate(new Date());
-      setHhmm(formatNow());
-    }, 60000);
-    return () => clearInterval(i);
-  }, []);
-
-  const points = goals
+function makePoints(goals: Goal[]): Record<string, Point> {
+  return goals
     .filter((g) => g.safebuf === 0)
     .reduce(
       (acc: Record<string, Point>, g: Goal): Record<string, Point> => ({
@@ -61,6 +50,20 @@ export default function Time({ goals }: { goals: Goal[] }) {
       }),
       {}
     );
+}
+
+export default function Time({ goals }: { goals: Goal[] }) {
+  const [hhmm, setHhmm] = useState(formatNow());
+  const [points, setPoints] = useState(makePoints(goals));
+
+  useEffect(() => {
+    const i = setInterval(() => {
+      setHhmm(formatNow());
+      setPoints(makePoints(goals));
+    }, 60000);
+    return () => clearInterval(i);
+  }, []);
+
   const times = Object.keys(points).sort((a, b) => +a - +b);
 
   return (
