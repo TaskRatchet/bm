@@ -1,3 +1,4 @@
+import { useEffect } from "preact/hooks";
 import { useSearchParams } from "react-router-dom";
 import { USERNAME } from "../auth";
 import { Goal } from "../bm";
@@ -42,10 +43,23 @@ export default function Detail({ g }: { g: Goal }) {
   const { data = [] } = useGoals();
   const goals = Object.values(groupGoals(data)).flat();
   const i = goals.findIndex((_g: Goal) => _g.slug === g.slug);
-  const prev = goals[i - 1];
-  const next = goals[i + 1];
+  const goPrev = () => setParams("goal=" + goals[i - 1].slug);
+  const goNext = () => setParams("goal=" + goals[i + 1].slug);
 
-  console.log("i", i);
+  useEffect(() => {
+    const handler = (e: { key: string }) => {
+      switch (e.key) {
+        case "ArrowLeft":
+          goPrev();
+          break;
+        case "ArrowRight":
+          goNext();
+          break;
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
 
   return (
     <div
@@ -55,17 +69,11 @@ export default function Detail({ g }: { g: Goal }) {
       }}
     >
       <div class={`detail__limsumdate ${g.roadstatuscolor}`}>
-        <button
-          onClick={() => setParams("goal=" + prev.slug)}
-          className="icon-button"
-        >
+        <button onClick={() => goPrev()} className="icon-button">
           ◀
         </button>
         <span>{g.limsumdate}</span>
-        <button
-          onClick={() => setParams("goal=" + next.slug)}
-          className="icon-button"
-        >
+        <button onClick={() => goNext()} className="icon-button">
           ▶
         </button>
       </div>
