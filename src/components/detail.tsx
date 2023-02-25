@@ -3,6 +3,7 @@ import { USERNAME } from "../auth";
 import { Goal } from "../bm";
 import groupGoals from "../groupGoals";
 import useGoals from "../useGoals";
+import Controls from "./controls";
 import "./detail.css";
 
 function formatValue(v: unknown): string | number {
@@ -54,7 +55,19 @@ export default function Detail({ g }: { g: Goal }) {
       }}
     >
       <div class={`detail__limsumdate ${g.roadstatuscolor}`}>
-        {g.limsumdate}
+        <button
+          onClick={() => setParams("goal=" + prev.slug)}
+          className="icon-button"
+        >
+          ◀
+        </button>
+        <span>{g.limsumdate}</span>
+        <button
+          onClick={() => setParams("goal=" + next.slug)}
+          className="icon-button"
+        >
+          ▶
+        </button>
       </div>
       <div class="detail__header">
         <div>
@@ -68,20 +81,9 @@ export default function Detail({ g }: { g: Goal }) {
           >
             🔗
           </a>
+          <Controls g={g} />
           <button onClick={() => setParams("")} className="icon-button">
             ❌
-          </button>
-          <button
-            onClick={() => setParams("goal=" + prev.slug)}
-            className="icon-button"
-          >
-            ◀
-          </button>
-          <button
-            onClick={() => setParams("goal=" + next.slug)}
-            className="icon-button"
-          >
-            ▶
           </button>
         </div>
       </div>
@@ -90,28 +92,30 @@ export default function Detail({ g }: { g: Goal }) {
 
       <img src={g.svg_url} />
 
-      <h2>Recent Data</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Comment</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {g.recent_data.map((d) => (
+      <div className="detail_info">
+        <h2>Recent Data</h2>
+        <table>
+          <thead>
             <tr>
-              <td>{d.daystamp}</td>
-              <td>{d.comment}</td>
-              <td>{d.value}</td>
+              <th>Date</th>
+              <th>Comment</th>
+              <th>Value</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {g.recent_data.map((d) => (
+              <tr>
+                <td>{d.daystamp}</td>
+                <td>{d.comment}</td>
+                <td>{d.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      <h2>Fineprint</h2>
-      <p>{g.fineprint || "[empty]"}</p>
+        <h2>Fineprint</h2>
+        <p>{g.fineprint || "[empty]"}</p>
+      </div>
     </div>
   );
 }
