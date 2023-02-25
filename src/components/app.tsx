@@ -21,7 +21,7 @@ function getTags(data: Goal[]) {
 
 function _App() {
   const [filter, setFilter] = useState("");
-  const { data = [] } = useGoals();
+  const { data } = useGoals();
 
   if (!API_KEY) return <Login />;
 
