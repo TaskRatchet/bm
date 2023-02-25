@@ -8,11 +8,22 @@ type Point = {
   slugs: string[];
 };
 
+function formatNow(): string {
+  const d = new Date();
+  const hh = d.getHours().toString().padStart(2, "0");
+  const mm = d.getMinutes().toString().padStart(2, "0");
+  return `${hh}:${mm}`;
+}
+
 export default function Time({ goals }: { goals: Goal[] }) {
   const [d, setDate] = useState(new Date());
+  const [hhmm, setHhmm] = useState(formatNow());
 
   useEffect(() => {
-    const i = setInterval(() => setDate(new Date()), 60000);
+    const i = setInterval(() => {
+      setDate(new Date());
+      setHhmm(formatNow());
+    }, 60000);
     return () => clearInterval(i);
   }, []);
 
@@ -32,12 +43,10 @@ export default function Time({ goals }: { goals: Goal[] }) {
       {}
     );
   const times = Object.keys(points).sort((a, b) => +a - +b);
-  const hh = d.getHours().toString().padStart(2, "0");
-  const mm = d.getMinutes().toString().padStart(2, "0");
 
   return (
     <div class="time">
-      <span class="bubble">{`${hh}:${mm}`}</span>
+      <span class="bubble">{hhmm}</span>
       <span class="line">
         {times.map((t) => {
           const left = `${points[t].position * 100}%`;
