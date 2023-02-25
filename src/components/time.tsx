@@ -4,9 +4,8 @@ import { useState, useEffect } from "preact/hooks";
 
 type Point = {
   time: number;
-  count: number;
   position: number;
-  slugs: string[];
+  goals: Goal[];
 };
 
 function formatNow(): string {
@@ -19,24 +18,22 @@ function formatNow(): string {
 function Bubble({ p }: { p: Point }) {
   const left = `${p.position * 100}%`;
   const due = new Date(p.time * 1000).toLocaleTimeString();
-  const tooltip = `${due}\n${p.slugs.join("\n")}`;
+  const slugs = p.goals.map((g) => g.slug);
+  const tooltip = `${due}\n${slugs.join("\n")}`;
   return (
     <span style={{ left }} title={tooltip}>
-      {p.count}
+      {p.goals.length}
     </span>
   );
 }
 
+const DAY_MS = 1000 * 60 * 60 * 24;
+
 function makePoint(time: number, goals: Goal[]): Point {
-  const now = new Date().getTime() / 1000;
-  const day = 60 * 60 * 24;
-  const position = (time - now) / day;
-  const slugs = goals.filter((g) => g.losedate === time).map((g) => g.slug);
   return {
     time,
-    count: slugs.length,
-    position,
-    slugs,
+    position: (time * 1000 - new Date().getTime()) / DAY_MS,
+    goals: goals.filter((g) => g.losedate === time),
   };
 }
 
