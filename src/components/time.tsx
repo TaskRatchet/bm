@@ -27,6 +27,19 @@ function Bubble({ p }: { p: Point }) {
   );
 }
 
+function makePoint(time: number, goals: Goal[]): Point {
+  const now = new Date().getTime() / 1000;
+  const day = 60 * 60 * 24;
+  const position = (time - now) / day;
+  const slugs = goals.filter((g) => g.losedate === time).map((g) => g.slug);
+  return {
+    time,
+    count: slugs.length,
+    position,
+    slugs,
+  };
+}
+
 export default function Time({ goals }: { goals: Goal[] }) {
   const [d, setDate] = useState(new Date());
   const [hhmm, setHhmm] = useState(formatNow());
@@ -39,19 +52,12 @@ export default function Time({ goals }: { goals: Goal[] }) {
     return () => clearInterval(i);
   }, []);
 
-  const now = d.getTime() / 1000;
-  const day = 60 * 60 * 24;
   const points = goals
     .filter((g) => g.safebuf === 0)
     .reduce(
       (acc: Record<string, Point>, g: Goal): Record<string, Point> => ({
         ...acc,
-        [g.losedate]: {
-          time: g.losedate,
-          count: (acc[g.losedate]?.count || 0) + 1,
-          slugs: [...(acc[g.losedate]?.slugs || []), g.slug],
-          position: acc[g.losedate]?.position ?? (g.losedate - now) / day,
-        },
+        [g.losedate]: makePoint(g.losedate, goals),
       }),
       {}
     );
