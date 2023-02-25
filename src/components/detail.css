@@ -9,18 +9,30 @@
 
 .detail img {
     max-width: 100%;
+    height: 60px;
+    width: auto;
+    margin-right: var(--padding);
 }
 
 .detail__header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: var(--padding);
     flex-wrap: wrap;
 }
 
-.detail__header h1 {
-    margin: 0;
+.detail__headerText {
+    flex: 1 0 0;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+}
+
+.detail .detail__header h1 {
+    margin: 0 0 0.25rem 0;
+    padding: 0;
 }
 
 .detail__limsumdate {
@@ -33,7 +45,11 @@
 
 .detail__title {
     display: block;
-    text-align: center;
+    font-size: 0.8rem;
+}
+
+.detail__buttons {
+    flex: 0 0 auto;
 }
 
 .detail__buttons .icon-button {

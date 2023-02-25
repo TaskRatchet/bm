@@ -89,27 +89,24 @@ export default function Detail({ g }: { g: Goal }) {
         </button>
       </div>
       <div class="detail__header">
-        <div>
-          <h1>{g.slug}</h1>
-        </div>
+        <a
+          href={`https://beeminder.com/${USERNAME}/${g.slug}`}
+          class="detail__headerText"
+        >
+          <img src={g.thumb_url} width={200} height={132} />
+          <div>
+            <h1>{g.slug}</h1>
+            <div class="detail__title">{g.title}</div>
+          </div>
+        </a>
 
         <div class="detail__buttons">
-          <a
-            href={`https://beeminder.com/${USERNAME}/${g.slug}`}
-            className="icon-button"
-          >
-            🔗
-          </a>
           <Controls g={g} />
           <button onClick={() => setParams("")} className="icon-button">
             ❌
           </button>
         </div>
       </div>
-
-      <small class="detail__title">{g.title}</small>
-
-      <img src={g.svg_url} />
 
       <div className="detail_info">
         <h2>Recent Data</h2>

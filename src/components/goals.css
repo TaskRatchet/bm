@@ -13,12 +13,13 @@
 }
 
 .detail {
-  grid-area: 1 / 1 / 13 / 5;
+  --height: 10;
+  grid-area: 1 / 1 / var(--height) / 5;
   overflow-y: auto;
 }
 
 @media (max-width: calc(7rem * 4)) {
   .detail {
-    grid-area: 1 / 1 / 13 / -1;
+    grid-area: 1 / 1 / var(--height) / -1;
   }
 }
