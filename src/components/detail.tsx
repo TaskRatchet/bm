@@ -1,46 +1,19 @@
-import { useEffect, useCallback } from "preact/hooks";
-import { useSearchParams } from "react-router-dom";
 import { USERNAME } from "../auth";
 import { Goal } from "../bm";
-import groupGoals from "../groupGoals";
-import useGoals from "../useGoals";
 import Controls from "./controls";
 import "./detail.css";
 
-export default function Detail({ g }: { g: Goal }) {
-  const [, setParams] = useSearchParams();
-  const { data = [] } = useGoals();
-  const goals = Object.values(groupGoals(data)).flat();
-  const i = goals.findIndex((_g: Goal) => _g.slug === g.slug);
-  const hasPrev = i > 0;
-  const hasNext = i < goals.length - 1;
-  const goPrev = useCallback(
-    () => setParams(`goal=${goals[i - 1].slug}`),
-    [setParams, goals, i]
-  );
-  const goNext = useCallback(
-    () => setParams(`goal=${goals[i + 1].slug}`),
-    [setParams, goals, i]
-  );
-
-  useEffect(() => {
-    const handler = (e: { key: string }) => {
-      switch (e.key) {
-        case "ArrowLeft":
-          goPrev();
-          break;
-        case "ArrowRight":
-          goNext();
-          break;
-        case "Escape":
-          setParams("");
-          break;
-      }
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [goNext, goPrev, setParams]);
-
+export default function Detail({
+  g,
+  goPrev,
+  goNext,
+  close,
+}: {
+  g: Goal;
+  goNext?: () => void;
+  goPrev?: () => void;
+  close: () => void;
+}) {
   return (
     <div
       class="detail"
@@ -50,15 +23,15 @@ export default function Detail({ g }: { g: Goal }) {
     >
       <div class={`detail__limsumdate ${g.roadstatuscolor}`}>
         <button
-          onClick={() => goPrev()}
-          className={`icon-button ${(!hasPrev && "detail__disabled") || ""}`}
+          onClick={() => goPrev?.()}
+          className={`icon-button ${(!goPrev && "detail__disabled") || ""}`}
         >
           ◀
         </button>
         <span>{g.limsumdate}</span>
         <button
-          onClick={() => goNext()}
-          className={`icon-button ${(!hasNext && "detail__disabled") || ""}`}
+          onClick={() => goNext?.()}
+          className={`icon-button ${(!goNext && "detail__disabled") || ""}`}
         >
           ▶
         </button>
@@ -77,7 +50,7 @@ export default function Detail({ g }: { g: Goal }) {
 
         <div class="detail__buttons">
           <Controls g={g} />
-          <button onClick={() => setParams("")} className="icon-button">
+          <button onClick={() => close()} className="icon-button">
             ❌
           </button>
         </div>

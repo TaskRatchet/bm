@@ -14,7 +14,6 @@ specifiers:
   happy-dom: ^8.2.6
   preact: ^10.11.3
   prettier: ^2.8.3
-  react-router-dom: ^6.8.1
   typescript: ^4.9.3
   vite: ^4.1.0
   vite-plugin-pwa: ^0.14.2
@@ -23,10 +22,9 @@ specifiers:
 
 dependencies:
   '@tanstack/query-sync-storage-persister': 4.24.4
-  '@tanstack/react-query': 4.24.4_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query': 4.24.4_react@18.2.0
   '@tanstack/react-query-persist-client': 4.24.4_pbzrecrhgj7fe7hddoo6lp43hu
   preact: 10.11.3
-  react-router-dom: 6.8.1_biqbaboplfbrettd7655fr4n2y
 
 devDependencies:
   '@preact/preset-vite': 2.5.0_ca7dnzmxju67l4ifhjwxfwgdsa
@@ -1634,11 +1632,6 @@ packages:
       - supports-color
     dev: true
 
-  /@remix-run/router/1.3.2:
-    resolution: {integrity: sha512-t54ONhl/h75X94SWsHGQ4G/ZrCEguKSRQr7DrjTciJXW0YU1QhlwYeycvK5JgkzlxmvrK7wq1NB/PLtHxoiDcA==}
-    engines: {node: '>=14'}
-    dev: false
-
   /@rollup/plugin-babel/5.3.1_3dsfpkpoyvuuxyfgdbpn4j4uzm:
     resolution: {integrity: sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q==}
     engines: {node: '>= 10.0.0'}
@@ -1761,10 +1754,10 @@ packages:
       '@tanstack/react-query': 4.24.4
     dependencies:
       '@tanstack/query-persist-client-core': 4.24.4
-      '@tanstack/react-query': 4.24.4_biqbaboplfbrettd7655fr4n2y
+      '@tanstack/react-query': 4.24.4_react@18.2.0
     dev: false
 
-  /@tanstack/react-query/4.24.4_biqbaboplfbrettd7655fr4n2y:
+  /@tanstack/react-query/4.24.4_react@18.2.0:
     resolution: {integrity: sha512-RpaS/3T/a3pHuZJbIAzAYRu+1nkp+/enr9hfRXDS/mojwx567UiMksoqW4wUFWlwIvWTXyhot2nbIipTKEg55Q==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -1778,7 +1771,6 @@ packages:
     dependencies:
       '@tanstack/query-core': 4.24.4
       react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
@@ -3887,16 +3879,6 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /react-dom/18.2.0_react@18.2.0:
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
-    peerDependencies:
-      react: ^18.2.0
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.2.0
-      scheduler: 0.23.0
-    dev: false
-
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
@@ -3904,29 +3886,6 @@ packages:
   /react-is/17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
     dev: true
-
-  /react-router-dom/6.8.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-67EXNfkQgf34P7+PSb6VlBuaacGhkKn3kpE51+P6zYSG2kiRoumXEL6e27zTa9+PGF2MNXbgIUHTVlleLbIcHQ==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      react: '>=16.8'
-      react-dom: '>=16.8'
-    dependencies:
-      '@remix-run/router': 1.3.2
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      react-router: 6.8.1_react@18.2.0
-    dev: false
-
-  /react-router/6.8.1_react@18.2.0:
-    resolution: {integrity: sha512-Jgi8BzAJQ8MkPt8ipXnR73rnD7EmZ0HFFb7jdQU24TynGW1Ooqin2KVDN9voSC+7xhqbbCd2cjGUepb6RObnyg==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      react: '>=16.8'
-    dependencies:
-      '@remix-run/router': 1.3.2
-      react: 18.2.0
-    dev: false
 
   /react/18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
@@ -4091,12 +4050,6 @@ packages:
   /safer-buffer/2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
-
-  /scheduler/0.23.0:
-    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
-    dependencies:
-      loose-envify: 1.4.0
-    dev: false
 
   /semver/6.3.0:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}

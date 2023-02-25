@@ -10,7 +10,6 @@ import queryClient from "../queryClient";
 import Footer from "./footer";
 import Header from "./header";
 import Center from "./center";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function getTags(data: Goal[]) {
   const all = data.reduce((acc: string[], g: Goal) => {
@@ -50,17 +49,10 @@ function _App() {
   );
 }
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <_App />,
-  },
-]);
-
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <_App />
     </QueryClientProvider>
   );
 }
