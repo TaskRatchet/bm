@@ -2,6 +2,11 @@
     border: 6px solid var(--border-color);
 }
 
+.detail__disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .detail img {
     max-width: 100%;
 }

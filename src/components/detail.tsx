@@ -43,6 +43,8 @@ export default function Detail({ g }: { g: Goal }) {
   const { data = [] } = useGoals();
   const goals = Object.values(groupGoals(data)).flat();
   const i = goals.findIndex((_g: Goal) => _g.slug === g.slug);
+  const hasPrev = i > 0;
+  const hasNext = i < goals.length - 1;
   const goPrev = () => setParams("goal=" + goals[i - 1].slug);
   const goNext = () => setParams("goal=" + goals[i + 1].slug);
 
@@ -72,11 +74,17 @@ export default function Detail({ g }: { g: Goal }) {
       }}
     >
       <div class={`detail__limsumdate ${g.roadstatuscolor}`}>
-        <button onClick={() => goPrev()} className="icon-button">
+        <button
+          onClick={() => goPrev()}
+          className={`icon-button ${!hasPrev && "detail__disabled"}`}
+        >
           ◀
         </button>
         <span>{g.limsumdate}</span>
-        <button onClick={() => goNext()} className="icon-button">
+        <button
+          onClick={() => goNext()}
+          className={`icon-button ${!hasNext && "detail__disabled"}`}
+        >
           ▶
         </button>
       </div>
