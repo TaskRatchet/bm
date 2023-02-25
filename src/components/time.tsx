@@ -12,10 +12,7 @@ export default function Time({ goals }: { goals: Goal[] }) {
   const [d, setDate] = useState(new Date());
 
   useEffect(() => {
-    const i = setInterval(() => {
-      setDate(new Date());
-    }, 1000);
-
+    const i = setInterval(() => setDate(new Date()), 60000);
     return () => clearInterval(i);
   }, []);
 
@@ -35,23 +32,23 @@ export default function Time({ goals }: { goals: Goal[] }) {
       {}
     );
   const times = Object.keys(points).sort((a, b) => +a - +b);
+  const hh = d.getHours().toString().padStart(2, "0");
+  const mm = d.getMinutes().toString().padStart(2, "0");
 
   return (
     <div class="time">
-      <span class="bubble">{d.toLocaleTimeString()}</span>
+      <span class="bubble">{`${hh}:${mm}`}</span>
       <span class="line">
-        {times.map((t) => (
-          <span
-            style={{
-              left: `${points[t].position * 100}%`,
-            }}
-            title={`${new Date(+t * 1000).toLocaleTimeString()}\n${points[
-              t
-            ].slugs.join("\n")}`}
-          >
-            {points[t].count}
-          </span>
-        ))}
+        {times.map((t) => {
+          const left = `${points[t].position * 100}%`;
+          const due = new Date(+t * 1000).toLocaleTimeString();
+          const tooltip = `${due}\n${points[t].slugs.join("\n")}`;
+          return (
+            <span style={{ left }} title={tooltip}>
+              {points[t].count}
+            </span>
+          );
+        })}
       </span>
     </div>
   );
