@@ -15,7 +15,7 @@
 
 .detail {
   grid-area: span 12 / span 4;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 @media (max-width: calc(7rem * 4)) {

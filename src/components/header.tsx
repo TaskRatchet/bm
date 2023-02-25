@@ -4,6 +4,7 @@ import useGoals from "../useGoals";
 import Colors from "./colors";
 import Time from "./time";
 import queryClient from "../queryClient";
+import "./header.css";
 
 type Item = {
   name: string;
@@ -79,7 +80,7 @@ export default function Header({
   const isFetching = useIsFetching();
 
   return (
-    <>
+    <div class="header">
       <Colors goals={data} />
       <Time goals={data} />
 
@@ -115,6 +116,6 @@ export default function Header({
           })}
         </span>
       </div>
-    </>
+    </div>
   );
 }
