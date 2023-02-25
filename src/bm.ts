@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_KEY } from "./auth";
 
 const API_ROOT = "https://www.beeminder.com/api/v1";
 
@@ -103,35 +104,27 @@ export type Goal = {
   dueby: object;
 };
 
-export async function getGoals(token: string) {
+export async function getGoals() {
   return api({
     route: "/users/me/goals.json",
-    token,
   });
 }
 
-export async function getGoal(token: string, slug: string) {
+export async function getGoal(slug: string) {
   return api({
     route: `/users/me/goals/${slug}.json`,
-    token,
   });
 }
 
-export async function refreshGraph(token: string, goal: string) {
+export async function refreshGraph(goal: string) {
   return api({
     route: `/users/me/goals/${goal}/refresh_graph.json`,
-    token,
   });
 }
 
-export async function createDatapoint(
-  token: string,
-  goal: string,
-  value: number
-) {
+export async function createDatapoint(goal: string, value: number) {
   return api({
     route: `/users/me/goals/${goal}/datapoints.json`,
-    token,
     method: "post",
     data: {
       value,
@@ -142,21 +135,17 @@ export async function createDatapoint(
 
 async function api({
   route,
-  token,
   method = "get",
   data,
 }: {
   route: string;
-  token: string;
   method?: "get" | "post" | "put" | "delete";
   data?: Record<string, unknown>;
 }) {
-  console.log("calling");
+  const result = await fetch(`${API_ROOT}${route}?auth_token=${API_KEY}`, {
+    method,
+    body: JSON.stringify(data),
+  });
 
-  const url = `${API_ROOT}${route}?auth_token=${token}`;
-  const result = await axios({ url, method, data });
-
-  console.log({ result });
-
-  return result.data;
+  return result.json();
 }

@@ -5,13 +5,11 @@ import { getGoals, Goal } from "./bm";
 import queryClient from "./queryClient";
 
 export default function useGoals() {
-  return useQuery<Goal[], AxiosError>(["goals"], () => getGoals(API_KEY), {
+  return useQuery<Goal[], AxiosError>(["goals"], () => getGoals(), {
     enabled: !!API_KEY,
     refetchInterval: () => {
-      const goals = queryClient.getQueryData<Goal[]>(["goals"]);
-      console.log({ goals });
-
       try {
+        const goals = queryClient.getQueryData<Goal[]>(["goals"]);
         const queued = goals?.find((goal) => goal.queued);
         return queued ? 3000 : 60000;
       } catch (e) {
