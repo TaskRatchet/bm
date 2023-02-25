@@ -11,7 +11,6 @@ import Footer from "./footer";
 import Header from "./header";
 import Center from "./center";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Detail from "./detail";
 
 function getTags(data: Goal[]) {
   const all = data.reduce((acc: string[], g: Goal) => {
@@ -39,7 +38,7 @@ function _App() {
         <Header search={filter} setSearch={setFilter} />
         <ul class="tags">
           {tags.map((t) => (
-            <li>#{t}</li>
+            <li key={t}>#{t}</li>
           ))}
         </ul>
         <div class="content">

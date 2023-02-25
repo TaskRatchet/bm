@@ -11,16 +11,16 @@ export default function Colors({ goals }: { goals: Goal[] }) {
     <div
       class="colors"
       style={{
-        "--redLen": (red.length / goals.length) * 100 + "%",
-        "--orangeLen": (orange.length / goals.length) * 100 + "%",
-        "--blueLen": (blue.length / goals.length) * 100 + "%",
-        "--greenLen": (green.length / goals.length) * 100 + "%",
+        "--redLen": `${(red.length / goals.length) * 100  }%`,
+        "--orangeLen": `${(orange.length / goals.length) * 100  }%`,
+        "--blueLen": `${(blue.length / goals.length) * 100  }%`,
+        "--greenLen": `${(green.length / goals.length) * 100  }%`,
       }}
     >
-      <span class="red"></span>
-      <span class="orange"></span>
-      <span class="blue"></span>
-      <span class="green"></span>
+      <span class="red" />
+      <span class="orange" />
+      <span class="blue" />
+      <span class="green" />
     </div>
   );
 }

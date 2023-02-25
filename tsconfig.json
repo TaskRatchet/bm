@@ -17,6 +17,5 @@
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "vite.config.ts", "vitest.setup.ts"]
 }

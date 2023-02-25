@@ -1,6 +1,7 @@
 import { Goal } from "../bm";
 import { useState, useEffect } from "preact/hooks";
 import "./countdown.css";
+import { ComponentChildren } from "preact";
 
 const Unit: Record<string, number> = {
   s: 1,
@@ -25,12 +26,12 @@ function getPrefix(g: Goal): string {
   return `${s}${t || n} in`;
 }
 
-function W({ children }: { children: any }) {
+function W({ children }: { children: ComponentChildren }) {
   return <span class="countdown">{children}</span>;
 }
 
 export default function Countdown({ g }: { g: Goal }) {
-  const [seconds, setSeconds] = useState<Number>(getSeconds(g));
+  const [seconds, setSeconds] = useState<number>(getSeconds(g));
 
   useEffect(() => {
     const i = setInterval(() => setSeconds(getSeconds(g)), 1000);

@@ -30,8 +30,8 @@ const items: (ItemLink | ItemButton)[] = [
     name: "Add breaks",
     icon: "🏖️",
     onClick: () => {
-      const start = window.prompt("Start date (YYYY-MM-DD)");
-      const finish = window.prompt("Finish date (YYYY-MM-DD)");
+      const start = window.prompt("Start date (YYYY-MM-DD)") || "";
+      const finish = window.prompt("Finish date (YYYY-MM-DD)") || "";
       const url = `https://beeminder.com/breaks?start=${start}&finish=${finish}`;
       window.open(url);
     },
@@ -64,7 +64,7 @@ const items: (ItemLink | ItemButton)[] = [
   {
     name: "Refresh",
     icon: "🔃",
-    onClick: () => queryClient.refetchQueries(),
+    onClick: () => void queryClient.refetchQueries(),
     getClasses: (isFetching) => (isFetching ? "spin" : ""),
   },
 ];
@@ -90,7 +90,7 @@ export default function Header({
             type="text"
             placeholder="filter"
             value={search}
-            onChange={(e: any) => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.currentTarget.value)}
           />
           <button class="icon-button" onClick={() => setSearch("")}>
             ❌
@@ -101,7 +101,7 @@ export default function Header({
           {items.map((item) => {
             const props = {
               key: item.name,
-              class: `icon-button ${item.getClasses?.(isFetching)}`,
+              class: `icon-button ${item.getClasses?.(isFetching) || ""}`,
               title: item.name,
             };
             return "url" in item ? (

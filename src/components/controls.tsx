@@ -1,7 +1,5 @@
-import { Goal } from "../bm";
 import "./goal.css";
-import { createDatapoint, refreshGraph } from "../bm";
-import { API_KEY } from "../auth";
+import { createDatapoint, refreshGraph, Goal } from "../bm";
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "../queryClient";
 
@@ -16,7 +14,7 @@ async function queued(slug: string, mutate: () => Promise<unknown>) {
   };
   queryClient.setQueryData(["goals"], cached);
   const result = await mutate();
-  queryClient.invalidateQueries(["goals"]);
+  await queryClient.invalidateQueries(["goals"]);
   return result;
 }
 
@@ -35,13 +33,13 @@ export default function Controls({ g }: { g: Goal }) {
 
   return (
     <button
-      class={`icon-button ${spinit && "spin"}`}
-      onClick={(e: any) => {
+      class={`icon-button ${(spinit && "spin") || ""}`}
+      onClick={(e) => {
         e.stopPropagation();
         if (g.autodata) return refresh();
         const value = prompt(`Enter a number for goal "${g.slug}":`);
         if (!value) return;
-        mutate(parseInt(value));
+        mutate(Number(value));
       }}
       title={tooltip}
     >

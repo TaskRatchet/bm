@@ -65,14 +65,14 @@ export default function Time({ goals }: { goals: Goal[] }) {
       setPoints(makePoints(goals));
     }, 60000);
     return () => clearInterval(i);
-  }, []);
+  }, [goals]);
 
   return (
     <div class="time">
       <span class="bubble">{hhmm}</span>
       <span class="line">
         {points.map((p) => (
-          <Bubble p={p} />
+          <Bubble key={p.time} p={p} />
         ))}
       </span>
     </div>
