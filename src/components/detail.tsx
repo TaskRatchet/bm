@@ -55,6 +55,9 @@ export default function Detail({ g }: { g: Goal }) {
         case "ArrowRight":
           goNext();
           break;
+        case "Escape":
+          setParams("");
+          break;
       }
     };
     document.addEventListener("keydown", handler);
