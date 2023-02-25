@@ -7,30 +7,29 @@ import Detail from "./detail";
 
 export default function GoalComponent({ g }: { g: Goal }) {
   const [params, setParams] = useSearchParams();
-
-  if (params.get("goal") === g.slug) {
-    return <Detail g={g} />;
-  }
-
+  const showDetail = params.get("goal") === g.slug;
   const section = g.safebuf === 0 ? "today" : !g.todayta ? "next" : "later";
 
   return (
-    <div
-      class={`goal ${section}`}
-      onClick={() => {
-        const s = new URLSearchParams(window.location.search);
-        s.set("goal", g.slug);
-        setParams(s);
-      }}
-      style={{
-        "--goal-color": `var(--${g.roadstatuscolor})`,
-      }}
-    >
-      <h3>{g.slug}</h3>
-      <p class="data">
-        <Countdown g={g} />
-        <Controls g={g} />
-      </p>
-    </div>
+    <>
+      {showDetail && <Detail g={g} />}
+      <div
+        class={`goal ${section}`}
+        onClick={() => {
+          const s = new URLSearchParams(window.location.search);
+          s.set("goal", g.slug);
+          setParams(s);
+        }}
+        style={{
+          "--goal-color": `var(--${g.roadstatuscolor})`,
+        }}
+      >
+        <h3>{g.slug}</h3>
+        <p class="data">
+          <Countdown g={g} />
+          <Controls g={g} />
+        </p>
+      </div>
+    </>
   );
 }
