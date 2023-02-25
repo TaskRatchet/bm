@@ -9,8 +9,15 @@ export default function useGoals() {
     enabled: !!API_KEY,
     refetchInterval: () => {
       const goals = queryClient.getQueryData<Goal[]>(["goals"]);
-      const queued = goals?.find((goal) => goal.queued);
-      return queued ? 3000 : 60000;
+      console.log({ goals });
+
+      try {
+        const queued = goals?.find((goal) => goal.queued);
+        return queued ? 3000 : 60000;
+      } catch (e) {
+        console.error(e);
+        return 60000;
+      }
     },
     refetchIntervalInBackground: false,
     retry: false,

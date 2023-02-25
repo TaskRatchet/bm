@@ -104,24 +104,24 @@ export type Goal = {
 };
 
 export async function getGoals(token: string) {
-  const url = `${API_ROOT}/users/me/goals.json?auth_token=${token}`;
-  const response = await axios.get(url);
-
-  return response.data;
+  return api({
+    route: "/users/me/goals.json",
+    token,
+  });
 }
 
 export async function getGoal(token: string, slug: string) {
-  const url = `${API_ROOT}/users/me/goals/${slug}.json?auth_token=${token}`;
-  const response = await axios.get(url);
-
-  return response.data;
+  return api({
+    route: `/users/me/goals/${slug}.json`,
+    token,
+  });
 }
 
 export async function refreshGraph(token: string, goal: string) {
-  const url = `${API_ROOT}/users/me/goals/${goal}/refresh_graph.json?auth_token=${token}`;
-  const response = await axios.get(url);
-
-  return response.data;
+  return api({
+    route: `/users/me/goals/${goal}/refresh_graph.json`,
+    token,
+  });
 }
 
 export async function createDatapoint(
@@ -129,11 +129,34 @@ export async function createDatapoint(
   goal: string,
   value: number
 ) {
-  const url = `${API_ROOT}/users/me/goals/${goal}/datapoints.json?auth_token=${token}`;
-  const response = await axios.post(url, {
-    value,
-    comment: "via bm.taskratchet.com",
+  return api({
+    route: `/users/me/goals/${goal}/datapoints.json`,
+    token,
+    method: "post",
+    data: {
+      value,
+      comment: "via bm.taskratchet.com",
+    },
   });
+}
 
-  return response.data;
+async function api({
+  route,
+  token,
+  method = "get",
+  data,
+}: {
+  route: string;
+  token: string;
+  method?: "get" | "post" | "put" | "delete";
+  data?: Record<string, unknown>;
+}) {
+  console.log("calling");
+
+  const url = `${API_ROOT}${route}?auth_token=${token}`;
+  const result = await axios({ url, method, data });
+
+  console.log({ result });
+
+  return result.data;
 }
