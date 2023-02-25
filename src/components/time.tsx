@@ -3,6 +3,7 @@ import "./time.css";
 import { useState, useEffect } from "preact/hooks";
 
 type Point = {
+  time: number;
   count: number;
   position: number;
   slugs: string[];
@@ -13,6 +14,17 @@ function formatNow(): string {
   const hh = d.getHours().toString().padStart(2, "0");
   const mm = d.getMinutes().toString().padStart(2, "0");
   return `${hh}:${mm}`;
+}
+
+function Bubble({ p }: { p: Point }) {
+  const left = `${p.position * 100}%`;
+  const due = new Date(p.time * 1000).toLocaleTimeString();
+  const tooltip = `${due}\n${p.slugs.join("\n")}`;
+  return (
+    <span style={{ left }} title={tooltip}>
+      {p.count}
+    </span>
+  );
 }
 
 export default function Time({ goals }: { goals: Goal[] }) {
@@ -35,6 +47,7 @@ export default function Time({ goals }: { goals: Goal[] }) {
       (acc: Record<string, Point>, g: Goal): Record<string, Point> => ({
         ...acc,
         [g.losedate]: {
+          time: g.losedate,
           count: (acc[g.losedate]?.count || 0) + 1,
           slugs: [...(acc[g.losedate]?.slugs || []), g.slug],
           position: acc[g.losedate]?.position ?? (g.losedate - now) / day,
@@ -48,16 +61,9 @@ export default function Time({ goals }: { goals: Goal[] }) {
     <div class="time">
       <span class="bubble">{hhmm}</span>
       <span class="line">
-        {times.map((t) => {
-          const left = `${points[t].position * 100}%`;
-          const due = new Date(+t * 1000).toLocaleTimeString();
-          const tooltip = `${due}\n${points[t].slugs.join("\n")}`;
-          return (
-            <span style={{ left }} title={tooltip}>
-              {points[t].count}
-            </span>
-          );
-        })}
+        {times.map((t) => (
+          <Bubble p={points[t]} />
+        ))}
       </span>
     </div>
   );
