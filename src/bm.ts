@@ -141,9 +141,16 @@ async function api({
   method?: "get" | "post" | "put" | "delete";
   data?: Record<string, unknown>;
 }) {
+  const form = new URLSearchParams();
+  if (data) {
+    Object.entries(data).forEach(([key, value]) => {
+      form.append(key, value as string);
+    });
+  }
+
   const result = await fetch(`${API_ROOT}${route}?auth_token=${API_KEY}`, {
     method,
-    body: JSON.stringify(data),
+    body: data && form,
   });
 
   if (!result.ok) {
