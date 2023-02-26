@@ -146,5 +146,9 @@ async function api({
     body: JSON.stringify(data),
   });
 
+  if (!result.ok) {
+    throw new Error(`${result.status} ${result.statusText}`);
+  }
+
   return result.json();
 }

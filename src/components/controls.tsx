@@ -19,12 +19,25 @@ async function queued(slug: string, mutate: () => Promise<unknown>) {
   return result;
 }
 
+function getErrorMessage(error: unknown) {
+  if (typeof error === "string") return error;
+  if (error instanceof Error) return error.message;
+  return JSON.stringify(error);
+}
+
 export default function Controls({ g }: { g: Goal }) {
   const create = useMutation((value: number) =>
     queued(g.slug, () => createDatapoint(g.slug, value))
   );
   const refresh = useMutation(() => queued(g.slug, () => refreshGraph(g.slug)));
   const isLoading = create.isLoading || refresh.isLoading || g.queued;
+  const isError = create.isError || refresh.isError;
+  const icon = isError ? "⚠️" : g.autodata ? "🔃" : "➕";
+  const tooltip = isError
+    ? getErrorMessage(create.error || refresh.error)
+    : g.autodata
+    ? "Refresh"
+    : "Add datapoint";
 
   const onClick = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
@@ -38,9 +51,9 @@ export default function Controls({ g }: { g: Goal }) {
     <button
       class={cnx("icon-button", isLoading && "spin")}
       onClick={onClick}
-      title={g.autodata ? "Refresh" : "Add datapoint"}
+      title={tooltip}
     >
-      {g.autodata ? "🔃" : "➕"}
+      {icon}
     </button>
   );
 }
