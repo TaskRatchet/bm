@@ -23,23 +23,23 @@ export default function Controls({ g }: { g: Goal }) {
     queued(g.slug, () => createDatapoint(g.slug, value))
   );
   const refresh = useMutation(() => queued(g.slug, () => refreshGraph(g.slug)));
-  const spinit = create.isLoading || refresh.isLoading || g.queued;
-  const icon = g.autodata ? "🔃" : "➕";
-  const tooltip = g.autodata ? "Refresh" : "Add datapoint";
+  const isLoading = create.isLoading || refresh.isLoading || g.queued;
+
+  const onClick = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    if (g.autodata) return refresh.mutate();
+    const value = prompt(`Enter a number for goal "${g.slug}":`);
+    if (!value) return;
+    create.mutate(Number(value));
+  };
 
   return (
     <button
-      class={`icon-button ${(spinit && "spin") || ""}`}
-      onClick={(e) => {
-        e.stopPropagation();
-        if (g.autodata) return refresh.mutate();
-        const value = prompt(`Enter a number for goal "${g.slug}":`);
-        if (!value) return;
-        create.mutate(Number(value));
-      }}
-      title={tooltip}
+      class={`icon-button ${(isLoading && "spin") || ""}`}
+      onClick={onClick}
+      title={g.autodata ? "Refresh" : "Add datapoint"}
     >
-      {icon}
+      {g.autodata ? "🔃" : "➕"}
     </button>
   );
 }
