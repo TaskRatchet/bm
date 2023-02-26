@@ -19,15 +19,11 @@ async function queued(slug: string, mutate: () => Promise<unknown>) {
 }
 
 export default function Controls({ g }: { g: Goal }) {
-  const { mutate, isLoading } = useMutation((value: number) =>
+  const create = useMutation((value: number) =>
     queued(g.slug, () => createDatapoint(g.slug, value))
   );
-
-  const { mutate: refresh, isLoading: isRefreshing } = useMutation(() =>
-    queued(g.slug, () => refreshGraph(g.slug))
-  );
-
-  const spinit = isLoading || isRefreshing || g.queued;
+  const refresh = useMutation(() => queued(g.slug, () => refreshGraph(g.slug)));
+  const spinit = create.isLoading || refresh.isLoading || g.queued;
   const icon = g.autodata ? "🔃" : "➕";
   const tooltip = g.autodata ? "Refresh" : "Add datapoint";
 
@@ -36,10 +32,10 @@ export default function Controls({ g }: { g: Goal }) {
       class={`icon-button ${(spinit && "spin") || ""}`}
       onClick={(e) => {
         e.stopPropagation();
-        if (g.autodata) return refresh();
+        if (g.autodata) return refresh.mutate();
         const value = prompt(`Enter a number for goal "${g.slug}":`);
         if (!value) return;
-        mutate(Number(value));
+        create.mutate(Number(value));
       }}
       title={tooltip}
     >
