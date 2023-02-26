@@ -21,17 +21,9 @@ export function Goals({ goals = [] }: { goals: Goal[] }) {
 
   useEffect(() => {
     const handler = (e: { key: string }) => {
-      switch (e.key) {
-        case "ArrowLeft":
-          goPrev?.();
-          break;
-        case "ArrowRight":
-          goNext?.();
-          break;
-        case "Escape":
-          close();
-          break;
-      }
+      if (e.key === "ArrowLeft") return goPrev?.();
+      if (e.key === "ArrowRight") return goNext?.();
+      if (e.key === "Escape") return close();
     };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
