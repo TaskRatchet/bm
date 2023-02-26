@@ -18,13 +18,13 @@ export function Goals({ goals }: { goals: Goal[] }) {
   const close = () => setSlug(undefined);
 
   useEffect(() => {
-    const handler = (e: { key: string }) => {
+    const fn = (e: { key: string }) => {
       if (e.key === "ArrowLeft") return goPrev?.();
       if (e.key === "ArrowRight") return goNext?.();
       if (e.key === "Escape") return close();
     };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
+    document.addEventListener("keydown", fn);
+    return () => document.removeEventListener("keydown", fn);
   }, [goNext, goPrev]);
 
   return (
