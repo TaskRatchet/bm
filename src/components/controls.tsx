@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import queryClient from "../queryClient";
 import cnx from "../cnx";
 
-async function queued(slug: string, mutate: () => Promise<unknown>) {
+async function q(slug: string, mutate: () => Promise<unknown>) {
   const cached = queryClient.getQueryData<Goal[]>(["goals"]);
   if (!cached) return;
   const index = cached.findIndex((x) => x.slug === slug);
@@ -26,25 +26,25 @@ function getErrorMessage(error: unknown) {
 }
 
 export default function Controls({ g }: { g: Goal }) {
-  const create = useMutation((value: number) =>
-    queued(g.slug, () => createDatapoint(g.slug, value))
+  const c = useMutation((v: number) =>
+    q(g.slug, () => createDatapoint(g.slug, v))
   );
-  const refresh = useMutation(() => queued(g.slug, () => refreshGraph(g.slug)));
-  const isLoading = create.isLoading || refresh.isLoading || g.queued;
-  const isError = create.isError || refresh.isError;
+  const r = useMutation(() => q(g.slug, () => refreshGraph(g.slug)));
+  const isLoading = c.isLoading || r.isLoading || g.queued;
+  const isError = c.isError || r.isError;
   const icon = isError ? "⚠️" : g.autodata ? "🔃" : "➕";
   const tooltip = isError
-    ? getErrorMessage(create.error || refresh.error)
+    ? getErrorMessage(c.error || r.error)
     : g.autodata
     ? "Refresh"
     : "Add datapoint";
 
   const onClick = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    if (g.autodata) return refresh.mutate();
+    if (g.autodata) return r.mutate();
     const value = prompt(`Enter a number for goal "${g.slug}":`);
     if (!value) return;
-    create.mutate(Number(value));
+    c.mutate(Number(value));
   };
 
   return (
