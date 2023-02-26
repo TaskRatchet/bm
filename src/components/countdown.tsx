@@ -12,6 +12,10 @@ const Unit: Record<string, number> = {
   y: 60 * 60 * 24 * 365,
 };
 
+function findUnit(n: number): keyof typeof Unit | undefined {
+  return Object.keys(Unit).findLast((u) => n > Unit[u]);
+}
+
 function getSeconds(g: Goal): number {
   const now = new Date();
   const then = new Date(g.losedate * 1000);
@@ -33,16 +37,16 @@ function W({ children }: { children: ComponentChildren }) {
 export default function Countdown({ g }: { g: Goal }) {
   const [seconds, setSeconds] = useState<number>(getSeconds(g));
 
-  console.log("countown render", g.slug, seconds);
-
   useEffect(() => {
-    const i = setInterval(() => setSeconds(getSeconds(g)), 1000);
-    return () => clearInterval(i);
-  });
+    const u = findUnit(seconds);
+    const n = u ? seconds % Unit[u] : 1;
+    const t = setTimeout(() => setSeconds(getSeconds(g)), n * 1000);
+    return () => clearTimeout(t);
+  }, [g, seconds]);
 
   if (seconds < 0) return <W>💀</W>;
 
-  const u = Object.keys(Unit).findLast((u) => seconds > Unit[u]);
+  const u = findUnit(seconds);
 
   if (!u) return <W>🤷‍♂️</W>;
 
