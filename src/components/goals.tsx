@@ -11,12 +11,14 @@ export function Goals({ goals = [] }: { goals: Goal[] }) {
   const all = Object.values(grouped).flat();
   const i = all.findIndex((g) => g.slug === slug);
   const g = all[i];
-  const goPrev = useMemo(() => {
-    return i > 0 ? () => setSlug(all[i - 1].slug) : undefined;
-  }, [all, i]);
-  const goNext = useMemo(() => {
-    return i < all.length - 1 ? () => setSlug(all[i + 1].slug) : undefined;
-  }, [all, i]);
+  const goPrev = useMemo(
+    () => (i > 0 ? () => setSlug(all[i - 1].slug) : undefined),
+    [all, i]
+  );
+  const goNext = useMemo(
+    () => (i < all.length - 1 ? () => setSlug(all[i + 1].slug) : undefined),
+    [all, i]
+  );
   const close = () => setSlug(undefined);
 
   useEffect(() => {
