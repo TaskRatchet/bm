@@ -33,6 +33,8 @@ function W({ children }: { children: ComponentChildren }) {
 export default function Countdown({ g }: { g: Goal }) {
   const [seconds, setSeconds] = useState<number>(getSeconds(g));
 
+  console.log("countown render", g.slug, seconds);
+
   useEffect(() => {
     const i = setInterval(() => setSeconds(getSeconds(g)), 1000);
     return () => clearInterval(i);
