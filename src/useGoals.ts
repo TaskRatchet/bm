@@ -5,7 +5,7 @@ import { getGoals, Goal } from "./bm";
 export default function useGoals() {
   return useQuery<Goal[], Response>(["goals"], () => getGoals(), {
     enabled: !!API_KEY,
-    refetchInterval: (goals) => (goals?.find((g) => g.queued) ? 3000 : 60000),
+    refetchInterval: (d) => (d?.find((g) => g.queued) ? 3000 : 60000),
     refetchIntervalInBackground: false,
     retry: false,
     onError: (err: Response) => {
