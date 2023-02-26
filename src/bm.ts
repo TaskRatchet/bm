@@ -109,9 +109,9 @@ export async function getGoals() {
   });
 }
 
-export async function getGoal(slug: string) {
+export async function getGoal(goal: string) {
   return api({
-    route: `/users/me/goals/${slug}.json`,
+    route: `/users/me/goals/${goal}.json`,
   });
 }
 
