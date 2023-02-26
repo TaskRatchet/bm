@@ -2,19 +2,19 @@ import { Goal } from "../bm";
 import "./colors.css";
 
 export default function Colors({ goals }: { goals: Goal[] }) {
-  const red = goals.filter((g) => g.safebuf === 0);
-  const orange = goals.filter((g) => g.safebuf === 1);
-  const blue = goals.filter((g) => g.safebuf === 2);
-  const green = goals.filter((g) => g.safebuf > 2);
+  const r = goals.filter((g) => g.roadstatuscolor === "red");
+  const o = goals.filter((g) => g.roadstatuscolor === "orange");
+  const b = goals.filter((g) => g.roadstatuscolor === "blue");
+  const g = goals.filter((g) => g.roadstatuscolor === "green");
 
   return (
     <div
       class="colors"
       style={{
-        "--redLen": `${(red.length / goals.length) * 100  }%`,
-        "--orangeLen": `${(orange.length / goals.length) * 100  }%`,
-        "--blueLen": `${(blue.length / goals.length) * 100  }%`,
-        "--greenLen": `${(green.length / goals.length) * 100  }%`,
+        "--redLen": `${(r.length / goals.length) * 100}%`,
+        "--orangeLen": `${(o.length / goals.length) * 100}%`,
+        "--blueLen": `${(b.length / goals.length) * 100}%`,
+        "--greenLen": `${(g.length / goals.length) * 100}%`,
       }}
     >
       <span class="red" />
