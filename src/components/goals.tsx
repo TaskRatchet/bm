@@ -7,12 +7,12 @@ import "./goals.css";
 
 export function Goals({ goals = [] }: { goals: Goal[] }) {
   const [slug, setSlug] = useState<string>();
-  const grouped = useMemo(() => groupGoals(goals), [goals]);
-  const all = Object.values(grouped).flat();
-  const i = all.findIndex((g) => g.slug === slug);
-  const g = all[i];
-  const n = all[i + 1];
-  const p = all[i - 1];
+  const g = useMemo(() => groupGoals(goals), [goals]);
+  const a = Object.values(g).flat();
+  const i = a.findIndex((g) => g.slug === slug);
+  const c = a[i];
+  const n = a[i + 1];
+  const p = a[i - 1];
   const goPrev = useMemo(() => (p ? () => setSlug(p.slug) : undefined), [p]);
   const goNext = useMemo(() => (n ? () => setSlug(n.slug) : undefined), [n]);
   const close = () => setSlug(undefined);
@@ -28,11 +28,18 @@ export function Goals({ goals = [] }: { goals: Goal[] }) {
   }, [goNext, goPrev]);
 
   return (
-    <div class="goals">
-      {g && <Detail g={g} goPrev={goPrev} goNext={goNext} close={close} />}
-      {all.map((g) => (
-        <G key={g.slug} g={g} onClick={() => setSlug(g.slug)} />
-      ))}
-    </div>
+    <>
+      <div class="goals">
+        {c && <Detail g={c} goPrev={goPrev} goNext={goNext} close={close} />}
+        {[...g.today, ...g.next].map((g) => (
+          <G key={g.slug} g={g} onClick={() => setSlug(g.slug)} />
+        ))}
+      </div>
+      <div class="goals">
+        {g.later.map((g) => (
+          <G key={g.slug} g={g} onClick={() => setSlug(g.slug)} />
+        ))}
+      </div>
+    </>
   );
 }
