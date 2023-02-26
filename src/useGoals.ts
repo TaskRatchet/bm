@@ -19,13 +19,8 @@ export default function useGoals() {
     refetchIntervalInBackground: false,
     retry: false,
     onError: (err: Response) => {
-      switch (err.status) {
-        case 401:
-          logout();
-          break;
-        default:
-          console.error(err);
-      }
+      if (err.status === 401) return logout();
+      console.error(err);
     },
   });
 }
