@@ -28,7 +28,12 @@ export function Goals({ goals = [] }: { goals: Goal[] }) {
   }, [goNext, goPrev]);
 
   return (
-    <>
+    <div class="goals">
+      <div class="goals__grid goals__limits">
+        {g.limits.map((g) => (
+          <G key={g.slug} g={g} onClick={() => setSlug(g.slug)} />
+        ))}
+      </div>
       <div class="goals__grid">
         {c && <Detail g={c} goPrev={goPrev} goNext={goNext} close={close} />}
         {[...g.today, ...g.next].map((g) => (
@@ -40,6 +45,6 @@ export function Goals({ goals = [] }: { goals: Goal[] }) {
           <G key={g.slug} g={g} onClick={() => setSlug(g.slug)} />
         ))}
       </div>
-    </>
+    </div>
   );
 }

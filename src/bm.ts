@@ -22,7 +22,14 @@ export type Goal = {
   goaldate: string;
   svg_url: string;
   safesum: string;
-  goal_type: string;
+  goal_type:
+    | "hustler"
+    | "biker"
+    | "fatloser"
+    | "gainer"
+    | "inboxer"
+    | "drinker"
+    | "custom";
   description: string;
   graph_url: string;
   thumb_url: string;
