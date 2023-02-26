@@ -1,4 +1,4 @@
-.goals {
+.goals__grid {
   display: grid;
   gap: 2px;
   grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));

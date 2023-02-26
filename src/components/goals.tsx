@@ -29,13 +29,13 @@ export function Goals({ goals = [] }: { goals: Goal[] }) {
 
   return (
     <>
-      <div class="goals">
+      <div class="goals__grid">
         {c && <Detail g={c} goPrev={goPrev} goNext={goNext} close={close} />}
         {[...g.today, ...g.next].map((g) => (
           <G key={g.slug} g={g} onClick={() => setSlug(g.slug)} />
         ))}
       </div>
-      <div class="goals">
+      <div class="goals__grid">
         {g.later.map((g) => (
           <G key={g.slug} g={g} onClick={() => setSlug(g.slug)} />
         ))}
