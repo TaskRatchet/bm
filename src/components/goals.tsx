@@ -7,7 +7,8 @@ import "./goals.css";
 
 export function Goals({ goals = [] }: { goals: Goal[] }) {
   const [slug, setSlug] = useState<string>();
-  const all = Object.values(groupGoals(goals)).flat();
+  const grouped = useMemo(() => groupGoals(goals), [goals]);
+  const all = Object.values(grouped).flat();
   const i = all.findIndex((g) => g.slug === slug);
   const g = all[i];
   const goPrev = useMemo(() => {
