@@ -5,7 +5,7 @@ import Detail from "./detail";
 import G from "./goal";
 import "./goals.css";
 
-export function Goals({ goals = [] }: { goals: Goal[] }) {
+export function Goals({ goals }: { goals: Goal[] }) {
   const [slug, setSlug] = useState<string>();
   const g = useMemo(() => groupGoals(goals), [goals]);
   const a = Object.values(g).flat();

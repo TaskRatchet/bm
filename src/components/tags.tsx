@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
 import { Goal } from "../bm";
 import cnx from "../cnx";
 import useGoals from "../useGoals";
@@ -9,10 +9,16 @@ function getTags(data: Goal[]) {
   return [...new Set(all)];
 }
 
-export default function Tags() {
+export default function Tags({
+  onChange,
+}: {
+  onChange: (tag: string) => void;
+}) {
   const { data = [] } = useGoals();
   const [tag, setTag] = useState("");
   const tags = getTags(data);
+
+  useEffect(() => onChange(tag), [onChange, tag]);
 
   return (
     <ul class="tags">
