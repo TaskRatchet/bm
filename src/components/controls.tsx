@@ -2,6 +2,7 @@ import "./goal.css";
 import { createDatapoint, refreshGraph, Goal } from "../bm";
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "../queryClient";
+import cnx from "../cnx";
 
 async function queued(slug: string, mutate: () => Promise<unknown>) {
   const cached = queryClient.getQueryData<Goal[]>(["goals"]);
@@ -35,7 +36,7 @@ export default function Controls({ g }: { g: Goal }) {
 
   return (
     <button
-      class={`icon-button ${(isLoading && "spin") || ""}`}
+      class={cnx("icon-button", isLoading && "spin")}
       onClick={onClick}
       title={g.autodata ? "Refresh" : "Add datapoint"}
     >
