@@ -5,17 +5,17 @@
 }
 
 .red {
-  width: var(--redLen);
+  width: var(--r);
 }
 
 .orange {
-  width: var(--orangeLen);
+  width: var(--o);
 }
 
 .blue {
-  width: var(--blueLen);
+  width: var(--b);
 }
 
 .green {
-  width: var(--greenLen);
+  width: var(--g);
 }
