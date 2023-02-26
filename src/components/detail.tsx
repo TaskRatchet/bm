@@ -10,9 +10,9 @@ export default function Detail({
   close,
 }: {
   g: Goal;
-  goNext?: () => void;
-  goPrev?: () => void;
-  close: () => void;
+  goNext?: VoidFunction;
+  goPrev?: VoidFunction;
+  close: VoidFunction;
 }) {
   return (
     <div
