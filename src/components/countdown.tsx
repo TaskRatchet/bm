@@ -40,8 +40,14 @@ export default function Countdown({ g }: { g: Goal }) {
   useEffect(() => {
     const u = findUnit(seconds);
     const n = u ? seconds % Unit[u] : 1;
-    const t = setTimeout(() => setSeconds(getSeconds(g)), n * 1000);
-    return () => clearTimeout(t);
+    const fn = () => setSeconds(getSeconds(g));
+    const t = setTimeout(fn, n * 1000);
+    const h = () => !document.hidden && fn();
+    document.addEventListener("visibilitychange", h);
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener("visibilitychange", h);
+    };
   }, [g, seconds]);
 
   if (seconds < 0) return <W>💀</W>;
