@@ -22,7 +22,7 @@ export default function GoalComponent({
       <h3>{g.slug}</h3>
       <p class="data">
         <Countdown g={g} />
-        <Controls g={g} />
+        <Controls g={g} refreshOnly />
       </p>
     </div>
   );

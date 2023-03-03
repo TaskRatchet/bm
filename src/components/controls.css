@@ -1,0 +1,8 @@
+.controls {
+    display: inline-flex;
+    align-items: center;
+}
+
+.controls input {
+    width: 4rem;
+}

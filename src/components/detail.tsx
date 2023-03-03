@@ -69,9 +69,6 @@ export default function Detail({
 
         <div class="detail__buttons">
           <Controls g={g} />
-          <button onClick={() => close()} className="icon-button">
-            ❌
-          </button>
         </div>
       </div>
 
