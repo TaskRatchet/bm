@@ -85,7 +85,7 @@ export type Goal = {
   fullroad: object;
   secret: boolean;
   pledge: number;
-  mathishard: object;
+  mathishard: [number, number, number];
   headsum: string;
   datapublic: boolean;
   graphsum: string;

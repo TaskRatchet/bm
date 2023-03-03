@@ -7,8 +7,10 @@ import "./detail.css";
 
 function sigfigs(n: number) {
   const digits = 2;
-  const mult = Math.pow(10, digits - Math.floor(Math.log(n) / Math.LN10) - 1);
-  return Math.round(n * mult) / mult;
+  const isNegative = n < 0;
+  const abs = Math.abs(n);
+  const rounded = Math.round(abs * 10 ** digits) / 10 ** digits;
+  return isNegative ? -rounded : rounded;
 }
 
 export default function Detail({
@@ -27,6 +29,7 @@ export default function Detail({
   const goals = Object.values(grouped).flat();
   const i = goals.findIndex((g2) => g2.slug === g.slug);
   const p = i === undefined ? "?" : i + 1;
+  const r = sigfigs(g.mathishard[2]);
 
   return (
     <div
@@ -77,7 +80,7 @@ export default function Detail({
 
         <ul class="pills">
           <li>
-            rate = {sigfigs(g.rate)} / {g.runits}
+            rate = {r} / {g.runits}
           </li>
         </ul>
 
