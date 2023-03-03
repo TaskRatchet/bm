@@ -34,9 +34,12 @@ export default function Controls({
   g: Goal;
   refreshOnly?: boolean;
 }) {
-  const [value, setValue] = useState(0);
-  const c = useMutation((v: number) =>
-    q(g.slug, () => createDatapoint(g.slug, v))
+  const [value, setValue] = useState<string>("");
+  const c = useMutation(
+    (v: number) => q(g.slug, () => createDatapoint(g.slug, v)),
+    {
+      onSuccess: () => setValue(""),
+    }
   );
   const r = useMutation(() => q(g.slug, () => refreshGraph(g.slug)));
   const isLoading = c.isLoading || r.isLoading || g.queued;
@@ -49,14 +52,10 @@ export default function Controls({
     : "Add datapoint";
 
   const onClick = (e: { stopPropagation: () => void }) => {
-    // e.stopPropagation();
-    // if (g.autodata) return r.mutate();
-    // const value = prompt(`Enter a number for goal "${g.slug}":`);
-    // if (!value) return;
-    // c.mutate(Number(value));
-
     e.stopPropagation();
-    g.autodata ? r.mutate() : c.mutate(value);
+    if (g.autodata) return r.mutate();
+    const v = Number(value);
+    if (Number.isFinite(v)) c.mutate(v);
   };
 
   if (refreshOnly && !g.autodata) return null;
@@ -66,7 +65,7 @@ export default function Controls({
       {!g.autodata && (
         <input
           value={value}
-          onChange={(e) => setValue(Number(e.currentTarget.value))}
+          onChange={(e) => setValue(e.currentTarget.value)}
         />
       )}
       <button

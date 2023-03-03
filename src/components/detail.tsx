@@ -17,12 +17,10 @@ export default function Detail({
   g,
   goPrev,
   goNext,
-  close,
 }: {
   g: Goal;
   goNext?: VoidFunction;
   goPrev?: VoidFunction;
-  close: VoidFunction;
 }) {
   const { data = [] } = useGoals();
   const grouped = groupGoals(data);
