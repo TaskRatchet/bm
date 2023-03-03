@@ -69,6 +69,12 @@ export default function Detail({
       <div className="detail_info">
         <img src={g.svg_url} />
 
+        <ul class="pills">
+          <li>
+            rate={g.rate}/{g.runits}
+          </li>
+        </ul>
+
         <h2>Recent Data</h2>
 
         <table>
