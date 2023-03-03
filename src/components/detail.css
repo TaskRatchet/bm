@@ -2,6 +2,11 @@
     border: 6px solid var(--border-color);
 }
 
+.detail img {
+    width: 100%;
+    height: auto;
+}
+
 .detail__disabled {
     opacity: 0.5;
     cursor: not-allowed;

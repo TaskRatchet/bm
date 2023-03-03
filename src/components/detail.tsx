@@ -70,7 +70,7 @@ export default function Detail({
       </div>
 
       <div className="detail_info">
-        <img src={g.svg_url} />
+        <img src={g.svg_url} width={230} height={150} />
 
         <ul class="pills">
           <li>
