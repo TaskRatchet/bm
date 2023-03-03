@@ -56,20 +56,19 @@ export default function Detail({
           ▶
         </button>
       </div>
-      <div class="detail__header">
-        <a
-          href={`https://beeminder.com/${USERNAME}/${g.slug}`}
-          class="detail__headerText"
-        >
-          <div>
-            <h1>{g.slug}</h1>
-            <div class="detail__title">{g.title}</div>
-          </div>
-        </a>
 
-        <div class="detail__buttons">
+      <div class="detail__header">
+        <div>
+          <a
+            href={`https://beeminder.com/${USERNAME}/${g.slug}`}
+            class="detail__headerText"
+          >
+            <h1>{g.slug}</h1>
+          </a>
           <Controls g={g} />
         </div>
+
+        <div class="detail__title">{g.title}</div>
       </div>
 
       <div className="detail_info">
