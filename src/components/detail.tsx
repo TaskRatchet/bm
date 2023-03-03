@@ -5,6 +5,12 @@ import useGoals from "../useGoals";
 import Controls from "./controls";
 import "./detail.css";
 
+function sigfigs(n: number) {
+  const digits = 2;
+  const mult = Math.pow(10, digits - Math.floor(Math.log(n) / Math.LN10) - 1);
+  return Math.round(n * mult) / mult;
+}
+
 export default function Detail({
   g,
   goPrev,
@@ -71,7 +77,7 @@ export default function Detail({
 
         <ul class="pills">
           <li>
-            rate = {g.rate} / {g.runits}
+            rate = {sigfigs(g.rate)} / {g.runits}
           </li>
         </ul>
 
