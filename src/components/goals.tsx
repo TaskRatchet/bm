@@ -4,6 +4,7 @@ import groupGoals from "../groupGoals";
 import Detail from "./detail";
 import G from "./goal";
 import "./goals.css";
+import Modal from "./modal";
 
 export function Goals({ goals }: { goals: Goal[] }) {
   const [slug, setSlug] = useState<string>();
@@ -35,7 +36,6 @@ export function Goals({ goals }: { goals: Goal[] }) {
         ))}
       </div>
       <div class="goals__grid">
-        {c && <Detail g={c} goPrev={goPrev} goNext={goNext} close={close} />}
         {[...g.today, ...g.next].map((g) => (
           <G key={g.slug} g={g} onClick={() => setSlug(g.slug)} />
         ))}
@@ -45,6 +45,11 @@ export function Goals({ goals }: { goals: Goal[] }) {
           <G key={g.slug} g={g} onClick={() => setSlug(g.slug)} />
         ))}
       </div>
+      {
+        <Modal open={!!slug} onClose={close}>
+          <Detail g={c} goPrev={goPrev} goNext={goNext} close={close} />
+        </Modal>
+      }
     </div>
   );
 }

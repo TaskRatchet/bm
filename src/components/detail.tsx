@@ -1,5 +1,7 @@
 import { USERNAME } from "../auth";
 import { Goal } from "../bm";
+import groupGoals from "../groupGoals";
+import useGoals from "../useGoals";
 import Controls from "./controls";
 import "./detail.css";
 
@@ -14,6 +16,12 @@ export default function Detail({
   goPrev?: VoidFunction;
   close: VoidFunction;
 }) {
+  const { data = [] } = useGoals();
+  const grouped = groupGoals(data);
+  const goals = Object.values(grouped).flat();
+  const i = goals.findIndex((g2) => g2.slug === g.slug);
+  const p = i === undefined ? "?" : i + 1;
+
   return (
     <div
       class="detail"
@@ -29,6 +37,9 @@ export default function Detail({
           ◀
         </button>
         <span>{g.limsumdate}</span>
+        <span>
+          {p} of {goals.length}
+        </span>
         <button
           onClick={() => goNext?.()}
           className={`icon-button ${(!goNext && "detail__disabled") || ""}`}
@@ -41,7 +52,6 @@ export default function Detail({
           href={`https://beeminder.com/${USERNAME}/${g.slug}`}
           class="detail__headerText"
         >
-          <img src={g.thumb_url} width={200} height={132} />
           <div>
             <h1>{g.slug}</h1>
             <div class="detail__title">{g.title}</div>
@@ -57,6 +67,10 @@ export default function Detail({
       </div>
 
       <div className="detail_info">
+        <img src={g.svg_url} />
+
+        <h2>Recent Data</h2>
+
         <table>
           <thead>
             <tr>
@@ -76,9 +90,9 @@ export default function Detail({
           </tbody>
         </table>
 
-        <p>
-          <strong>Fineprint:</strong> {g.fineprint || "[empty]"}
-        </p>
+        <h2>Fineprint</h2>
+
+        <p>{g.fineprint || "[empty]"}</p>
       </div>
     </div>
   );

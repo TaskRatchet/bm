@@ -7,13 +7,6 @@
     cursor: not-allowed;
 }
 
-.detail img {
-    max-width: 100%;
-    height: 60px;
-    width: auto;
-    margin-right: var(--padding);
-}
-
 .detail__header {
     display: flex;
     align-items: center;
