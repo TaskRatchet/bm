@@ -71,7 +71,7 @@ export default function Detail({
 
         <ul class="pills">
           <li>
-            rate={g.rate}/{g.runits}
+            rate = {g.rate} / {g.runits}
           </li>
         </ul>
 
