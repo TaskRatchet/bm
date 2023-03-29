@@ -27,6 +27,12 @@ function getErrorMessage(error: unknown) {
   return JSON.stringify(error);
 }
 
+function getAutodata(g: Goal): boolean | string {
+  const match = g.fineprint?.match(/#bmAutodata=(\S+)/);
+
+  return match?.[1] || !!g.autodata;
+}
+
 export default function Controls({
   g,
   refreshOnly,
@@ -41,28 +47,33 @@ export default function Controls({
       onSuccess: () => setValue(""),
     }
   );
-  const r = useMutation(() => q(g.slug, () => refreshGraph(g.slug)));
+  const autodata = getAutodata(g);
+  const r = useMutation(() =>
+    q(g.slug, () =>
+      typeof autodata === "string" ? fetch(autodata) : refreshGraph(g.slug)
+    )
+  );
   const isLoading = c.isLoading || r.isLoading || g.queued;
   const isError = c.isError || r.isError;
-  const icon = isError ? "⚠️" : g.autodata ? "🔃" : "➕";
+  const icon = isError ? "⚠️" : autodata ? "🔃" : "➕";
   const tooltip = isError
     ? getErrorMessage(c.error || r.error)
-    : g.autodata
+    : autodata
     ? "Refresh"
     : "Add datapoint";
 
   const onClick = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    if (g.autodata) return r.mutate();
+    if (autodata) return r.mutate();
     const v = Number(value);
     if (Number.isFinite(v)) c.mutate(v);
   };
 
-  if (refreshOnly && !g.autodata) return null;
+  if (refreshOnly && !autodata) return null;
 
   return (
     <span class="controls">
-      {!g.autodata && (
+      {!autodata && (
         <input
           value={value}
           onChange={(e) => setValue(e.currentTarget.value)}
