@@ -11,7 +11,6 @@ import Footer from "./footer";
 import Header from "./header";
 import Center from "./center";
 import Tags from "./tags";
-import Modal from "./modal";
 
 function _App() {
   const [filter, setFilter] = useState("");

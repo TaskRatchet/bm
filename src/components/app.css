@@ -53,13 +53,6 @@ body {
   }
 }
 
-.footer {
-  padding: var(--padding);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 button {
   cursor: pointer;
 }
