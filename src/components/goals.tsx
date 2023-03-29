@@ -47,7 +47,7 @@ export function Goals({ goals }: { goals: Goal[] }) {
       </div>
       {
         <Modal open={!!slug} onClose={close}>
-          <Detail g={c} goPrev={goPrev} goNext={goNext} close={close} />
+          <Detail g={c} goPrev={goPrev} goNext={goNext} />
         </Modal>
       }
     </div>
