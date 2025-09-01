@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createDatapoint, deleteDatapoint } from "../services/beeminder";
 import cnx from "../cnx";
 import "./datapointRow.css";
+import { Copy, Trash } from "lucide-preact";
 
 export default function DatapointRow({
   goal,
@@ -19,7 +20,7 @@ export default function DatapointRow({
   const copy = useMutation(() => createDatapoint(goal, point.value));
 
   return (
-    <tr key={point.id} data-id={point.id}>
+    <tr key={point.id} data-id={point.id} class="datapoint-row">
       <td>{point.daystamp}</td>
       <td>{point.comment}</td>
       <td>{point.value}</td>
@@ -33,14 +34,14 @@ export default function DatapointRow({
             }
           }}
         >
-          🗑️
+          <Trash />
         </button>
         <button
           type="button"
-          class={cnx("icon-button", "invert", copy.isLoading && "spin")}
+          class={cnx("icon-button", copy.isLoading && "spin")}
           onClick={() => copy.mutate()}
         >
-          ➕
+          <Copy />
         </button>
       </td>
     </tr>

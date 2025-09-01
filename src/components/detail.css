@@ -13,6 +13,7 @@
 
 .detail__header {
     padding: var(--padding);
+    color: white;
 }
 
 .detail__header>div {

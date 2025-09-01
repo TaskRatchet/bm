@@ -23,6 +23,9 @@ importers:
       isomorphic-dompurify:
         specifier: ^1.8.0
         version: 1.13.0
+      lucide-preact:
+        specifier: ^0.542.0
+        version: 0.542.0(preact@10.27.1)
       marked:
         specifier: ^5.1.1
         version: 5.1.2
@@ -2086,6 +2089,11 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  lucide-preact@0.542.0:
+    resolution: {integrity: sha512-MR0imumRpU816lQnfxO16JDGqBzg9NCes1uZpajFzIPi0lmyeZQUHeqYgD4ZwI71oLwLTWMOfeaJ0yVxaq2/rQ==}
+    peerDependencies:
+      preact: ^10.5.13
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -5450,6 +5458,10 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  lucide-preact@0.542.0(preact@10.27.1):
+    dependencies:
+      preact: 10.27.1
 
   lz-string@1.5.0: {}
 
