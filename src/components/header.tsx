@@ -1,7 +1,5 @@
 import { useIsFetching } from "@tanstack/react-query";
 import { logout } from "../auth";
-import useGoals from "../useGoals";
-import Colors from "./colors";
 import queryClient from "../queryClient";
 import "./header.css";
 
@@ -76,13 +74,10 @@ export default function Header({
   search: string;
   setSearch: (s: string) => void;
 }) {
-  const { data = [] } = useGoals();
   const isFetching = useIsFetching();
 
   return (
     <div class="main-header">
-      <Colors goals={data} />
-
       <div class="global-controls">
         <span class="filter">
           <input
