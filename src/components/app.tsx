@@ -13,7 +13,6 @@ import Center from "./center";
 
 function _App() {
   const [filter, setFilter] = useState("");
-  const [tag, setTag] = useState("");
   const { data } = useGoals();
 
   if (!API_KEY) return <Login />;
@@ -21,7 +20,6 @@ function _App() {
 
   const r = new RegExp(filter, "i");
   const filtered = data.filter((g: Goal) => {
-    if (tag.length && !g.tags.includes(tag)) return false;
     if (filter && !r.test(g.slug)) return false;
     return true;
   });
