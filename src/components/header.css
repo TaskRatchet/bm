@@ -1,3 +1,13 @@
 .main-header {
     margin-bottom: 1rem;
 }
+
+.main-header input {
+    background-color: rgb(29, 29, 29);
+    color: white;
+}
+
+.main-header input::placeholder {
+    color: white;
+    opacity: 0.5;
+}
