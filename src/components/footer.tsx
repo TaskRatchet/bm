@@ -3,7 +3,7 @@ import "./footer.css";
 
 const LINKS = {
   na: "https://nathanarthur.com/",
-  bm: "https://github.com/TaskRatchet/clients/tree/main/apps/bm",
+  bm: "https://github.com/TaskRatchet/bm",
   tr: "https://taskratchet.com",
   pp: "https://pinepeakdigital.com",
 };
