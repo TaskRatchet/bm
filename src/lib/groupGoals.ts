@@ -9,8 +9,9 @@ export default function groupGoals(goals: Goal[]): {
 } {
   // Don’t mutate the original `goals`; copy and sort, breaking ties by `slug`
   const sortedGoals = [...goals].sort((a, b) => {
-    const diff = a.losedate - b.losedate;
-    return diff !== 0 ? diff : a.slug.localeCompare(b.slug);
+    if (a.losedate !== b.losedate) return a.losedate - b.losedate;
+    if (a.pledge !== b.pledge) return b.pledge - a.pledge;
+    return a.slug.localeCompare(b.slug);
   });
 
   const grouped = {

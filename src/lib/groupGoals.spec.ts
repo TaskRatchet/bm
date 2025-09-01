@@ -21,4 +21,17 @@ describe("groupGoals", () => {
 
     expect(grouped.next).toHaveLength(0);
   });
+
+  it("uses stakes to break ties when losedate is equal", () => {
+    const goals = [
+      { slug: "goal1", safebuf: 0, todayta: false, pledge: 100 },
+      { slug: "goal2", safebuf: 0, todayta: false, pledge: 200 },
+    ];
+
+    const grouped = groupGoals(goals as any);
+
+    expect(grouped.today).toHaveLength(2);
+    expect(grouped.today[0].slug).toBe("goal2");
+    expect(grouped.today[1].slug).toBe("goal1");
+  });
 });
