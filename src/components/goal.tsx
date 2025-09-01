@@ -2,6 +2,7 @@ import { Goal } from "../services/beeminder";
 import "./goal.css";
 import Controls from "./controls";
 import Countdown from "./countdown";
+import { getGroup } from "../lib/getGroup";
 
 export default function GoalComponent({
   g,
@@ -10,10 +11,9 @@ export default function GoalComponent({
   g: Goal;
   onClick: () => void;
 }) {
-  const section = g.safebuf === 0 ? "today" : !g.todayta ? "next" : "later";
   return (
     <div
-      class={`goal ${section}`}
+      class={`goal ${getGroup(g)}`}
       onClick={() => onClick()}
       style={{
         "--goal-color": `var(--${g.roadstatuscolor})`,

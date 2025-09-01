@@ -1,6 +1,6 @@
 import { USERNAME } from "../auth";
 import { Goal } from "../services/beeminder";
-import groupGoals from "../groupGoals";
+import groupGoals from "../lib/groupGoals";
 import useGoals from "../useGoals";
 import Controls from "./controls";
 import DatapointRow from "./datapointRow";
