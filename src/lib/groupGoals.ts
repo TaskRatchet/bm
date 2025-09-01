@@ -13,13 +13,6 @@ export default function groupGoals(goals: Goal[]): {
     return diff !== 0 ? diff : a.slug.localeCompare(b.slug);
   });
 
-  // Use the sorted array when grouping
-  for (const goal of sortedGoals) {
-    grouped[getGroup(goal)].push(goal);
-  }
-
-  // Ensure pinned goals are sorted by slug in a locale-aware way
-  grouped.pinned.sort((a, b) => a.slug.localeCompare(b.slug));
   const grouped = {
     pinned: [] as Goal[],
     today: [] as Goal[],
@@ -27,11 +20,13 @@ export default function groupGoals(goals: Goal[]): {
     later: [] as Goal[],
   };
 
-  for (const goal of goals) {
+  // Use the sorted array when grouping
+  for (const goal of sortedGoals) {
     grouped[getGroup(goal)].push(goal);
   }
 
-  grouped.pinned.sort((a, b) => (a.slug < b.slug ? -1 : 1));
+  // Ensure pinned goals are sorted by slug in a locale-aware way
+  grouped.pinned.sort((a, b) => a.slug.localeCompare(b.slug));
 
   return grouped;
 }
