@@ -7,8 +7,19 @@ export default function groupGoals(goals: Goal[]): {
   next: Goal[];
   later: Goal[];
 } {
-  goals.sort((a, b) => (a.losedate < b.losedate ? -1 : 1));
+  // Don’t mutate the original `goals`; copy and sort, breaking ties by `slug`
+  const sortedGoals = [...goals].sort((a, b) => {
+    const diff = a.losedate - b.losedate;
+    return diff !== 0 ? diff : a.slug.localeCompare(b.slug);
+  });
 
+  // Use the sorted array when grouping
+  for (const goal of sortedGoals) {
+    grouped[getGroup(goal)].push(goal);
+  }
+
+  // Ensure pinned goals are sorted by slug in a locale-aware way
+  grouped.pinned.sort((a, b) => a.slug.localeCompare(b.slug));
   const grouped = {
     pinned: [] as Goal[],
     today: [] as Goal[],
