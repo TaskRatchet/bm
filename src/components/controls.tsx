@@ -1,5 +1,5 @@
 import "./goal.css";
-import { createDatapoint, refreshGraph, Goal } from "../bm";
+import { createDatapoint, refreshGraph, Goal } from "../services/beeminder";
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "../queryClient";
 import cnx from "../cnx";
@@ -33,6 +33,14 @@ function getAutodata(g: Goal): boolean | string {
   return match?.[1] || !!g.autodata;
 }
 
+function parseValue(value: string): number {
+  if (value.includes(":")) {
+    const [hours, minutes] = value.split(":").map(Number);
+    return hours + minutes / 60;
+  }
+  return Number(value);
+}
+
 export default function Controls({
   g,
   refreshOnly,
@@ -55,37 +63,55 @@ export default function Controls({
   );
   const isLoading = c.isLoading || r.isLoading || g.queued;
   const isError = c.isError || r.isError;
-  const icon = isError ? "⚠️" : autodata ? "🔃" : "➕";
   const tooltip = isError
     ? getErrorMessage(c.error || r.error)
     : autodata
     ? "Refresh"
     : "Add datapoint";
 
-  const onClick = (e: { stopPropagation: () => void }) => {
+  const submit = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    if (autodata) return r.mutate();
-    const v = Number(value);
+    const v = parseValue(value);
     if (Number.isFinite(v)) c.mutate(v);
+  };
+
+  const refresh = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    r.mutate();
   };
 
   if (refreshOnly && !autodata) return null;
 
   return (
     <span class="controls">
-      {!autodata && (
-        <input
-          value={value}
-          onChange={(e) => setValue(e.currentTarget.value)}
-        />
+      {!refreshOnly && (
+        <>
+          <input
+            type="number"
+            value={value}
+            onChange={(e) => setValue(e.currentTarget.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") submit(e);
+            }}
+          />
+          <button
+            class={cnx("icon-button", isLoading && "spin")}
+            onClick={submit}
+            title={tooltip}
+          >
+            ✅
+          </button>
+        </>
       )}
-      <button
-        class={cnx("icon-button", isLoading && "spin")}
-        onClick={onClick}
-        title={tooltip}
-      >
-        {icon}
-      </button>
+      {autodata && (
+        <button
+          class={cnx("icon-button", isLoading && "spin")}
+          onClick={refresh}
+          title={tooltip}
+        >
+          🔃
+        </button>
+      )}
     </span>
   );
 }

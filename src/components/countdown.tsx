@@ -1,4 +1,4 @@
-import { Goal } from "../bm";
+import { Goal } from "../services/beeminder";
 import { useState, useEffect } from "preact/hooks";
 import "./countdown.css";
 import { ComponentChildren } from "preact";

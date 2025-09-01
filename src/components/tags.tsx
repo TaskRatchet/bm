@@ -1,5 +1,5 @@
 import { useState, useEffect } from "preact/hooks";
-import { Goal } from "../bm";
+import { Goal } from "../services/beeminder";
 import cnx from "../cnx";
 import useGoals from "../useGoals";
 import "./tags.css";

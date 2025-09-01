@@ -1,4 +1,4 @@
-import { Goal } from "../bm";
+import { Goal } from "../services/beeminder";
 import "./goal.css";
 import Controls from "./controls";
 import Countdown from "./countdown";
@@ -19,11 +19,12 @@ export default function GoalComponent({
         "--goal-color": `var(--${g.roadstatuscolor})`,
       }}
     >
-      <h3>{g.slug}</h3>
-      <p class="data">
-        <Countdown g={g} />
+      <span class="title">
+        <span className="slug">{g.slug}</span>
         <Controls g={g} refreshOnly />
-      </p>
+      </span>
+      <Countdown g={g} />
+      <span className="stakes">${g.pledge}</span>
     </div>
   );
 }

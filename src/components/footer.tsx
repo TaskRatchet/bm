@@ -1,16 +1,17 @@
 import { ComponentChildren } from "preact";
 import "./footer.css";
 
-function Link({
-  href,
-  children,
-}: {
-  href: string;
-  children: ComponentChildren;
-}) {
+const LINKS = {
+  na: "https://nathanarthur.com/",
+  bm: "https://github.com/TaskRatchet/clients/tree/main/apps/bm",
+  tr: "https://taskratchet.com",
+  pp: "https://pinepeakdigital.com",
+};
+
+function Link(p: { href: string; children: ComponentChildren }) {
   return (
-    <a href={href} target="_blank" rel="noreferrer">
-      {children}
+    <a href={p.href} target="_blank" rel="noreferrer">
+      {p.children}
     </a>
   );
 }
@@ -18,9 +19,10 @@ function Link({
 export default function Footer() {
   return (
     <small class="footer">
-      Made by <Link href="https://nathanarthur.com/">Narthur</Link>.{" "}
-      <Link href="https://github.com/TaskRatchet/bm">View source</Link>. See
-      also: <Link href="https://taskratchet.com">TaskRatchet</Link>
+      Made by <Link href={LINKS.na}>Narthur</Link> and{" "}
+      <Link href={LINKS.pp}>Pine Peak Digital</Link>.{" "}
+      <Link href={LINKS.bm}>View source</Link>. See also:{" "}
+      <Link href={LINKS.tr}>TaskRatchet</Link>
     </small>
   );
 }

@@ -1,47 +1,50 @@
 .goal {
-  padding: var(--padding);
   color: black;
   text-decoration: none;
   cursor: pointer;
   background-color: var(--goal-color);
+  padding: 0.5rem 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .goal.later {
-  border: 4px solid var(--goal-color);
   opacity: 0.4;
 }
 
-h3,
-p {
-  margin: 0.2rem;
-  opacity: 0.9;
-}
-
-h3 {
-  white-space: nowrap;
+.title {
+  display: block;
+  padding-bottom: calc(var(--padding) / 2);
+  flex: 0 0 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.data {
+  white-space: nowrap;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.data .countdown {
-  flex: 1 0 0;
-  padding-right: 0.25rem;
-  display: inline-block;
+.slug {
+  font-weight: bold;
+
+  flex: 1 0 1px;
+  padding-right: var(--padding);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .controls {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  flex: 0 0 auto;
 }
 
-.value-input {
-  width: 2rem;
-  margin-right: 0.25rem;
+.countdown {
+  flex: 1 0 1px;
+  color: hsla(0, 0%, 0%, 0.7);
+}
+
+.stakes {
+  flex: 0 0 auto;
+  padding-left: var(--padding);
+  color: hsla(0, 0%, 0%, 0.7);
 }

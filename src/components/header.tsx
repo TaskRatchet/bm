@@ -25,6 +25,7 @@ const items: (ItemLink | ItemButton)[] = [
     name: "Add goal",
     icon: "➕",
     url: "https://beeminder.com/new",
+    getClasses: () => "invert",
   },
   {
     name: "Add breaks",

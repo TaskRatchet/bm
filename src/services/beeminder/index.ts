@@ -1,6 +1,16 @@
-import { API_KEY } from "./auth";
+import { API_KEY } from "../../auth";
 
 const API_ROOT = "https://www.beeminder.com/api/v1";
+
+export type Datapoint = {
+  id: string;
+  timestamp: number;
+  daystamp: string;
+  value: number;
+  comment: string;
+  updated_at: number;
+  requestid: string;
+};
 
 export type Goal = {
   slug: string;
@@ -58,7 +68,7 @@ export type Goal = {
   roadstatuscolor: "red" | "orange" | "blue" | "green";
   lasttouch: string;
   coasting: boolean;
-  fineprint: string;
+  fineprint?: string;
   gunits: string;
   yaxis: string;
   maxflux: object;
@@ -90,7 +100,7 @@ export type Goal = {
   datapublic: boolean;
   graphsum: string;
   rah: number;
-  last_datapoint: object;
+  last_datapoint: Datapoint;
   callback_url: object;
   tags: string[];
   recent_data: {
@@ -108,6 +118,7 @@ export type Goal = {
     value: number;
   }[];
   dueby: object;
+  autoratchet: number | null;
 };
 
 export async function getGoals() {
@@ -136,6 +147,13 @@ export async function createDatapoint(goal: string, value: number) {
       value,
       comment: "via bm.taskratchet.com",
     },
+  });
+}
+
+export async function deleteDatapoint(goal: string, id: string) {
+  return api({
+    route: `/users/me/goals/${goal}/datapoints/${id}.json`,
+    method: "delete",
   });
 }
 

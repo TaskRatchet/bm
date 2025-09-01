@@ -1,10 +1,9 @@
-.detail {
-    border: 6px solid var(--border-color);
-}
-
 .detail img {
     width: 100%;
     height: auto;
+    background-color: white;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
 }
 
 .detail__disabled {
@@ -34,10 +33,11 @@
 
 .detail__limsumdate {
     padding: var(--padding);
-    border-bottom: 4px solid var(--border-color);
+    border-top: 4px solid var(--border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: black;
 }
 
 .detail__title {
@@ -56,6 +56,7 @@
 .detail_info .pills {
     margin: -0.25rem;
     padding: 0;
+    color: black;
 }
 
 .detail_info .pills li {
@@ -64,4 +65,12 @@
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     background-color: var(--border-color);
+}
+
+.detail table {
+    max-width: 100%;
+}
+
+.detail table td {
+    word-break: break-all;
 }

@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "preact/hooks";
-import { Goal } from "../bm";
+import { Goal } from "../services/beeminder";
 import groupGoals from "../groupGoals";
 import Detail from "./detail";
 import G from "./goal";
@@ -20,8 +20,8 @@ export function Goals({ goals }: { goals: Goal[] }) {
 
   useEffect(() => {
     const fn = (e: { key: string }) => {
-      if (e.key === "ArrowLeft") return goPrev?.();
-      if (e.key === "ArrowRight") return goNext?.();
+      if (e.key === "a") return goPrev?.();
+      if (e.key === "d") return goNext?.();
       if (e.key === "Escape") return close();
     };
     document.addEventListener("keydown", fn);
@@ -30,8 +30,8 @@ export function Goals({ goals }: { goals: Goal[] }) {
 
   return (
     <div class="goals">
-      <div class="goals__grid goals__limits">
-        {g.limits.map((g) => (
+      <div class="goals__grid goals__pinned">
+        {g.pinned.map((g) => (
           <G key={g.slug} g={g} onClick={() => setSlug(g.slug)} />
         ))}
       </div>

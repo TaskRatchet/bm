@@ -1,4 +1,4 @@
-import { Goal } from "../bm";
+import { Goal } from "../services/beeminder";
 import "./colors.css";
 
 export default function Colors({ goals }: { goals: Goal[] }) {

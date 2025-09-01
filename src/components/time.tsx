@@ -1,4 +1,4 @@
-import { Goal } from "../bm";
+import { Goal } from "../services/beeminder";
 import "./time.css";
 import { useState, useEffect } from "preact/hooks";
 

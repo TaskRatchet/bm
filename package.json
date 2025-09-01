@@ -11,17 +11,22 @@
     "lint:fix": "eslint --fix --ext .ts,tsx --ignore-path .gitignore .",
     "prettier:write": "prettier -u -w --ignore-path .gitignore \"*.{ts,tsx,css,html}\"",
     "test": "vitest",
-    "analyze": "pnpm build && vite-bundle-visualizer"
+    "analyze": "pnpm build && vite-bundle-visualizer",
+    "checkTs": "tsc --noEmit"
   },
   "dependencies": {
     "@tanstack/query-sync-storage-persister": "^4.24.4",
     "@tanstack/react-query": "^4.24.4",
     "@tanstack/react-query-persist-client": "^4.24.4",
+    "@tanstack/react-router": "0.0.1-beta.205",
+    "isomorphic-dompurify": "^1.8.0",
+    "marked": "^5.1.1",
     "preact": "^10.11.3"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
     "@testing-library/preact": "^3.2.3",
+    "@types/marked": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.50.0",
     "eslint": "^8.33.0",
@@ -33,7 +38,7 @@
     "vite": "^4.1.0",
     "vite-bundle-visualizer": "^0.6.0",
     "vite-plugin-pwa": "^0.14.2",
-    "vitest": "^0.29.8",
-    "vitest-dom": "^0.0.4"
+    "vitest": "^0.31.0",
+    "vitest-dom": "^0.1.0"
   }
 }
