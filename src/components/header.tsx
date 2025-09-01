@@ -2,10 +2,22 @@ import { useIsFetching } from "@tanstack/react-query";
 import { logout } from "../auth";
 import queryClient from "../queryClient";
 import "./header.css";
+import { JSX } from "preact/jsx-runtime";
+import {
+  CirclePlus,
+  Gem,
+  LifeBuoy,
+  LogOut,
+  Newspaper,
+  RefreshCw,
+  Settings,
+  TreePalm,
+  X,
+} from "lucide-preact";
 
 type Item = {
   name: string;
-  icon: string;
+  icon: string | JSX.Element;
   getClasses?: (isFetching: number) => string;
 };
 
@@ -20,13 +32,12 @@ type ItemButton = Item & {
 const items: (ItemLink | ItemButton)[] = [
   {
     name: "Add goal",
-    icon: "➕",
+    icon: <CirclePlus />,
     url: "https://beeminder.com/new",
-    getClasses: () => "invert",
   },
   {
     name: "Add breaks",
-    icon: "🏖️",
+    icon: <TreePalm />,
     onClick: () => {
       const start = window.prompt("Start date (YYYY-MM-DD)") || "";
       const finish = window.prompt("Finish date (YYYY-MM-DD)") || "";
@@ -36,32 +47,32 @@ const items: (ItemLink | ItemButton)[] = [
   },
   {
     name: "Account settings",
-    icon: "⚙️",
+    icon: <Settings />,
     url: "https://beeminder.com/settings/account",
   },
   {
     name: "Blog",
-    icon: "🗞️",
+    icon: <Newspaper />,
     url: "https://blog.beeminder.com/",
   },
   {
     name: "Docs",
-    icon: "❓",
+    icon: <LifeBuoy />,
     url: "https://help.beeminder.com/",
   },
   {
     name: "Premium",
-    icon: "💎",
+    icon: <Gem />,
     url: "https://www.beeminder.com/premium",
   },
   {
     name: "Logout",
-    icon: "🚪",
+    icon: <LogOut />,
     onClick: logout,
   },
   {
     name: "Refresh",
-    icon: "🔃",
+    icon: <RefreshCw />,
     onClick: () => void queryClient.refetchQueries(),
     getClasses: (isFetching) => (isFetching ? "spin" : ""),
   },
@@ -87,7 +98,7 @@ export default function Header({
             onChange={(e) => setSearch(e.currentTarget.value)}
           />
           <button class="icon-button" onClick={() => setSearch("")}>
-            ❌
+            <X />
           </button>
         </span>
 

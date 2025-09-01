@@ -5,6 +5,7 @@ import queryClient from "../queryClient";
 import cnx from "../cnx";
 import { useState } from "preact/hooks";
 import "./controls.css";
+import { Plus, RefreshCw } from "lucide-preact";
 
 async function q(slug: string, mutate: () => Promise<unknown>) {
   const cached = queryClient.getQueryData<Goal[]>(["goals"]);
@@ -99,7 +100,7 @@ export default function Controls({
             onClick={submit}
             title={tooltip}
           >
-            ✅
+            <Plus />
           </button>
         </>
       )}
@@ -109,7 +110,7 @@ export default function Controls({
           onClick={refresh}
           title={tooltip}
         >
-          🔃
+          <RefreshCw />
         </button>
       )}
     </span>

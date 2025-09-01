@@ -20,6 +20,7 @@
     "@tanstack/react-query-persist-client": "^4.24.4",
     "@tanstack/react-router": "0.0.1-beta.205",
     "isomorphic-dompurify": "^1.8.0",
+    "lucide-preact": "^0.542.0",
     "marked": "^5.1.1",
     "preact": "^10.11.3"
   },

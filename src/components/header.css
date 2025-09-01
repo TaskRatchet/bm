@@ -12,3 +12,7 @@
     color: var(--input-text-color);
     opacity: 0.5;
 }
+
+.main-header button {
+    color: var(--text);
+}

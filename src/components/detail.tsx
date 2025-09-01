@@ -8,6 +8,7 @@ import "./detail.css";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import convertDeadlineToTime from "../services/beeminder/convertDeadlineToTime";
+import { ArrowLeft, ArrowRight } from "lucide-preact";
 
 function parseFineprint(fineprint: string): string {
   if (!fineprint) return "[empty]";
@@ -53,7 +54,7 @@ export default function Detail({
           onClick={() => goPrev?.()}
           className={`icon-button ${(!goPrev && "detail__disabled") || ""}`}
         >
-          ◀
+          <ArrowLeft />
         </button>
         <span>{g.limsumdate}</span>
         <span>
@@ -63,7 +64,7 @@ export default function Detail({
           onClick={() => goNext?.()}
           className={`icon-button ${(!goNext && "detail__disabled") || ""}`}
         >
-          ▶
+          <ArrowRight />
         </button>
       </div>
 
