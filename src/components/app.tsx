@@ -33,7 +33,6 @@ function _App() {
     <div class={`app__base ${isDark ? "app__dark" : ""}`}>
       <div>
         <Header search={filter} setSearch={setFilter} />
-        <Tags onChange={(t) => setTag(t)} />
       </div>
       <div class="app__content">
         <Goals goals={filtered} />
