@@ -16,6 +16,11 @@ body {
   --padding: 0.5rem;
 }
 
+.lucide {
+  width: 1.2em;
+  height: 1.2em;
+}
+
 .app__base {
   height: 100vh;
   display: flex;
