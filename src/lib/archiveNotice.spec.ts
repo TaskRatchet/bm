@@ -23,5 +23,7 @@ describe("archiveNotice", () => {
     expect(archiveNotice(at("2026-01-01T00:00:00Z"), now)).toBe(
       "Archiving shortly"
     );
+    // 0 is a real timestamp, not "unscheduled" — pins the nullish guard.
+    expect(archiveNotice(0, now)).toBe("Archiving shortly");
   });
 });
