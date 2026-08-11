@@ -100,12 +100,6 @@ export default function Detail({
         "--border-color": `var(--${g.roadstatuscolor})`,
       }}
     >
-      {archiving && (
-        <div class="detail__archive" role="status">
-          {archiving}
-        </div>
-      )}
-
       <div class={`detail__limsumdate ${g.roadstatuscolor}`}>
         <PagerArrow href={prevHref} onActivate={goPrev} label="Previous goal">
           <ArrowLeft />
@@ -122,6 +116,12 @@ export default function Detail({
           <ArrowRight />
         </PagerArrow>
       </div>
+
+      {archiving && (
+        <div class="detail__archive" role="status">
+          {archiving}
+        </div>
+      )}
 
       <div class="detail__header">
         <div>

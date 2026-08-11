@@ -94,8 +94,9 @@
     word-break: break-all;
 }
 
-/* Scheduled-archive banner. Sits above the goal's status row so it reads
-   before anything else on the page. */
+/* Scheduled-archive banner. Sits below the status row rather than above it, so
+   paging between goals doesn't shift the pager and limsum up and down as the
+   banner comes and goes. */
 .detail__archive {
     padding: var(--padding);
     background-color: var(--orange);
