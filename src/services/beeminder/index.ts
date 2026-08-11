@@ -135,6 +135,10 @@ export type Goal = {
   }[];
   dueby: object;
   autoratchet: number | null;
+  // Unix time a scheduled archive takes effect; null when none is scheduled.
+  // Optional because goals cached in localStorage from before this field
+  // shipped (beeminder/beeminder#5698) won't carry it.
+  archivedate?: number | null;
 };
 
 export async function getGoals() {

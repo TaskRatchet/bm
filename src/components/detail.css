@@ -93,3 +93,14 @@
 .detail table td {
     word-break: break-all;
 }
+
+/* Scheduled-archive banner. Sits below the status row rather than above it, so
+   paging between goals doesn't shift the pager and limsum up and down as the
+   banner comes and goes. */
+.detail__archive {
+    padding: var(--padding);
+    background-color: var(--orange);
+    color: black;
+    font-size: 0.9rem;
+    text-align: center;
+}

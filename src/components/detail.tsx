@@ -12,6 +12,7 @@ import { clockifyLimsum } from "../lib/clocky";
 import { ArrowLeft, ArrowRight } from "lucide-preact";
 import { ComponentChildren } from "preact";
 import { isPlainLeftClick } from "../lib/viewTransition";
+import archiveNotice from "../lib/archiveNotice";
 
 // One pager arrow. When there's a neighbouring goal it's a real link to that
 // goal's page (so middle-click / open-in-new-tab work); a plain left click is
@@ -88,6 +89,7 @@ export default function Detail({
   // including new-tab opens from modifier-clicks (click) and middle-clicks
   // (auxclick), which the browser would otherwise send to the raw href.
   const goalUrl = `https://beeminder.com/${username}/${g.slug}`;
+  const archiving = archiveNotice(g.archivedate);
   const openGoalInNewTab = () =>
     window.open(beeminderAuthUrl(goalUrl), "_blank", "noopener,noreferrer");
 
@@ -103,7 +105,9 @@ export default function Detail({
           <ArrowLeft />
         </PagerArrow>
         <span>
-          {g.hhmmformat ? clockifyLimsum(g.limsumdate, g.baremin) : g.limsumdate}
+          {g.hhmmformat
+            ? clockifyLimsum(g.limsumdate, g.baremin)
+            : g.limsumdate}
         </span>
         <span>
           {position} of {count}
@@ -112,6 +116,12 @@ export default function Detail({
           <ArrowRight />
         </PagerArrow>
       </div>
+
+      {archiving && (
+        <div class="detail__archive" role="status">
+          {archiving}
+        </div>
+      )}
 
       <div class="detail__header">
         <div>
