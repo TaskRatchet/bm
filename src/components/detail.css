@@ -93,3 +93,13 @@
 .detail table td {
     word-break: break-all;
 }
+
+/* Scheduled-archive banner. Sits above the goal's status row so it reads
+   before anything else on the page. */
+.detail__archive {
+    padding: var(--padding);
+    background-color: var(--orange);
+    color: black;
+    font-size: 0.9rem;
+    text-align: center;
+}

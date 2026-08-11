@@ -135,6 +135,8 @@ export type Goal = {
   }[];
   dueby: object;
   autoratchet: number | null;
+  // Unix time a scheduled archive takes effect; null when none is scheduled.
+  archivedate: number | null;
 };
 
 export async function getGoals() {
