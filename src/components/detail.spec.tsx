@@ -21,8 +21,9 @@ import { Goal } from "../services/beeminder";
 
 const DATAPOINT_ID = "6a135ad0f0168a8b2d437020";
 
-function makeGoal(recentId: string): Goal {
+function makeGoal(recentId: string, archivedate: number | null = null): Goal {
   return {
+    archivedate,
     slug: "weight",
     limsumdate: "2026-05-24",
     roadstatuscolor: "green",
@@ -67,5 +68,28 @@ describe("Detail recent data", () => {
         value: 1,
       },
     });
+  });
+});
+
+describe("Detail archive banner", () => {
+  const renderGoal = (archivedate: number | null) =>
+    render(
+      <Detail g={makeGoal(DATAPOINT_ID, archivedate)} position={1} count={1} />
+    );
+
+  it("announces a scheduled archive", () => {
+    const { container } = renderGoal(
+      new Date("2099-03-04T05:00:00Z").getTime() / 1000
+    );
+
+    expect(container.querySelector(".detail__archive")?.textContent).toMatch(
+      /^Archiving .*\d/
+    );
+  });
+
+  it("stays out of the way when no archive is scheduled", () => {
+    const { container } = renderGoal(null);
+
+    expect(container.querySelector(".detail__archive")).toBeNull();
   });
 });

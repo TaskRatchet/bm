@@ -6,7 +6,7 @@ export default function archiveNotice(
   archivedate: number | null | undefined,
   now: Date = new Date()
 ): string | null {
-  if (!archivedate) return null;
+  if (archivedate == null) return null;
   const when = new Date(archivedate * 1000);
   if (when.getTime() <= now.getTime()) return "Archiving shortly";
   return `Archiving ${when.toLocaleDateString(undefined, {
