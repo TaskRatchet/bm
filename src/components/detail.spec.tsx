@@ -10,7 +10,7 @@ import { render } from "@testing-library/preact";
 // provider (react-query's hooks require the preact/compat React alias, which is
 // not wired up under vitest).
 const { datapointRowSpy } = vi.hoisted(() => ({
-  datapointRowSpy: vi.fn<[unknown], null>(() => null),
+  datapointRowSpy: vi.fn<(props: unknown) => null>(() => null),
 }));
 
 vi.mock("./datapointRow", () => ({ default: datapointRowSpy }));
