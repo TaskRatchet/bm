@@ -2,7 +2,7 @@ services:
   - type: web
     name: bm
     runtime: static
-    buildCommand: npm run build
+    buildCommand: pnpm install --frozen-lockfile && pnpm build
     staticPublishPath: ./dist
     # SPA fallback: client-side routes like /goal/:slug have no file on disk, so
     # serve index.html for any path and let the router resolve it. Without this,
